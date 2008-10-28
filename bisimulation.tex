@@ -16,6 +16,8 @@ $\props(w) = \{p \in \prop \mid w \in V(p)\}$. Given two models $\model= \diam{W
 states $w \in W$ and $w' \in W'$, we say that they {\em agree} if $\props(w)=\props(w')$ and $w\in S$ iff $w'
 \in S'$.
 
+\tb{better presented as a definition, do we need to include the game for erase also?}
+\tb{agreening states is not well defined.  And perhaps we should move it to the definition of semantics}
 \paragraph{Bisimulation Games for {\em $\ML(\remember,\known)$}} Let $S = \diam{\prop, \rel}$ be a standard modal signature. Let
 $\model_1=\diam{W_1,\relsu,V_1,S_1}$ and
 $\model_2=\diam{W_2,\relsd,V_2,S_2}$ be models and let $w_1 \in W_1$
@@ -47,6 +49,11 @@ In the case of an infinite game, Duplicator wins. Note
 that with this definition, exactly one of Spoiler or Duplicator wins
 each game.
 
+\tb{The best notation in my oppinion is using pointed model $\tup{\gM,w} \bisim_g \tup{\gM', w'}$ if there exists a game, and $\tup{\gM,w} \bisim_s \tup{\gM', w'}$
+if there exist a bisimulation relation.  In any case, if we will discuss also the
+case of bisimulation for $\erase$ we will need to indicate which bisimulation we
+are talking about.}
+
 %\begin{defn}[Game Bisimulation]
 Let $w_1 \in \model_1$ and $w_2 \in \model_2$. We say that $w_1$ and $w_2$ are {\em
 g-bisimilar} when they agree
@@ -70,10 +77,13 @@ w_2)$.
 %($\model_1, w_1 \bisim_n \model_2, w_2$).
 %\end{defn}
 
-CAMBIAR M Y N POR M1 Y M2 O AL REVES
+\tb{CAMBIAR M Y N POR M1 Y M2 O AL REVES}
 
 We now give an alternative definition of bisimulation, from an
-estructural point of view
+estructural point of view.
+
+\tb{change to definition.  Also $\bar{m}$ is used for a tuple of
+elements not for a set.  I would use just $M$.}
 
 \paragraph{Structural Bisimulation for {\em $\ML(\remember,\known)$}}
 Let $\model$ and $\nodel$ be two $\tl$ models in a signature $S =
@@ -175,6 +185,8 @@ we just introduced is adequate.  We will show that formulas
 of $\ML(\remember,\known)$ are preserved under bisimulation.
 
 
+\tb{We should perhaps change $\leftrightsquigarrow$ by $\equiv_\mathcal{L}$
+for a given logic $\mathcal{L}$}
 \begin{defn}[Logic equivalence]
 Given $\model_1,\model_2$ two models, $w_1 \in \model_1$, $w_2 \in
 \model_2$, we say that $w_1$ is {\em equivalent} (for some logic $\mathcal{L}$) to $w_2$ ($w_1
@@ -193,6 +205,8 @@ $\model_1,w_1\models\varphi$ iff $\model_2,w_2\models\varphi$.
 Let $\model_1,\model_2$ be two models, $w_1 \in \model_1, w_2 \in
 \model_2$. If $w_1 \bisim w_2$ then $w_1 \leftrightsquigarrow w_2$.
 \end{thm}
+
+\tb{The proof below is standard and can be dropeed}
 
 \begin{pf}
 We prove that if $w_1$ and $w_2$ agree and Duplicator has a winning
@@ -277,6 +291,8 @@ The converse of Theorem~\ref{bisim} holds for image-finite models
 of any state in the domain is finite). The proof is exactly the
 same as for $\mathcal{K}$, as $\remember$ and $\known$ do not
 interact with the accessibility relation~\cite{BRV01}.
+
+\tb{The result below could be joined with the previous theorem}
 
 \begin{thm}[Hennessy-Milner Theorem]\label{thm:hennesy} Let
 $\model_1$ and $\model_2$ be two image finite models. Then for every
