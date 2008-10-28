@@ -1,5 +1,21 @@
+
+Nowadays, the term \emph{modal logics} is loosely used to cover 
+an extremely wide variety of languages, which are in turn used 
+in very different applications~\cite{BRV01,handbook}.  Actually, 
+we can say that the fact
+that the number of members in this family keeps constantly increasing 
+is almost a defining characteristic.  While all modal logics have
+certain general aspects in common (e.g., they are interpreted in 
+terms of relational structures, they are usually well behaved 
+computationally, etc.), one of the general traits of the field is 
+to investigate languages specially tailored for a particular task. 
+
+\tb{I don't like the actual intro.  I want to tone down the `memory
+logics as a kind of hybrid logic' idea, and introduce more broadly 
+modal logics.}
+
 Hybrid languages have been extensively investigated in the past
-years. $\HL$, the simplest hybrid language, is usually presented as
+years~\cite{handbookarticle}. $\HL$, the simplest hybrid language, is usually presented as
 the basic modal language $\K$ extended with special symbols (called
 \emph{nominals}) to name individual states in a model. These new
 symbols are simply a new sort of atomic symbols
@@ -55,7 +71,8 @@ in the model.
 
 
 
-\paragraph{Models as Information Storage}
+\subsection{Models as Information Storage}
+
 Nominals and $\downarrow$ work nicely together.
 Whereas $\down i$ stores the current point of evaluation in the
 nominal $i$, nominals act as checkpoints enabling us to retrieve
@@ -74,6 +91,8 @@ $$
 \forms ::= p \mid i \mid \lnot \varphi \mid \varphi_1 \land
 \varphi_2 \mid \diam{r} \varphi \mid \down i. \varphi,
 $$
+
+\noindent
 where $p \in \prop$, $i \in \nom$,  $r \in \rel$  and $\varphi,
 \varphi_1, \varphi_2 \in \forms$. Formulas in which any nominal $i$
 appears in the scope of a binder $\down i$ are called
@@ -180,7 +199,8 @@ given graph and how we are going to store it.
 To close this section, we formally define the syntax and semantics
 of the logics we will investigate in the rest of the article.
 
-\subsection{Syntax and semantics for $\ML(\remember,\known)$}
+\subsection{Syntax and semantics for Memory Logics}
+
 Syntactically, we obtain $\ML(\remember,\known)$ by extending the
 basic modal language $\K$ with the $\remember$ and $\known$
 modalities.
@@ -198,30 +218,48 @@ where $p \in \prop$, $r \in \rel$  and $\varphi, \varphi_1,
 \varphi_2 \in \forms$.
 \end{defn}
 
-\tb{not true anymore}
+\tb{We should introduce properly the different languages in the paper.
+If we have a section with stack, it sounds strange that we introduce
+in the intro.}
+
 While the syntax of the logics that we will discuss in this article
 is the same, they differ subtly in their semantics.
 
 \tb{define Kripke model below}
 \begin{defn}[Semantics]\label{semantics}
-Given a signature $\sig=\diam{\prop,\rel}$, a model for {\em
-$\ML(\remember,\known)$} is a tuple $\diam{W, \rels, V, S}$, where
-$\diam{W,\rels,V}$ is a standard Kripke model and $S \subseteq W$.
-The semantics is defined as: {\em $$
+Given a signature $\sig=\diam{\prop,\rel}$, a model for 
+$\ML(\remember,\known)$ is a tuple $\gM = \diam{W, \rels, V, S}$, where
+$W$ is a nonempty set, $\rels$ are binary relations over $W$, $V:\prop \to 
+\wp{W}$ is a valuation function, and $S \subseteq W$.
+
+Given a model $\model = \diam{W, \rels, V, S}$
+and states $w_1,\dots,w_n$ in $W$, we define $\model[w_1,\dots,w_n] =
+\diam{W, \rels, V, S \cup \{ w_1,\dots,w_n\}}$.
+
+Let $\gM = \diam{W, \rels, V, S}$ be a model, and $w \in W$ then 
+the semantics for $\ML(\remember,\known)$ is defined as: 
+$$
 \begin{array}{rcl}
-\diam{W,\rels,V,S}, w \models p & \iff & w \in V(p) \\
-\diam{W,\rels,V,S}, w \models \neg \varphi & \iff & \diam{W,\rels,V,S}, w \not\models \varphi\\
-\diam{W,\rels,V,S}, w \models \varphi \wedge \psi & \iff &
-\diam{W,\rels,V,S}, w \models \varphi \\
-& & \mbox{ and }
-\diam{W,\rels,V,S}, w \models \psi \\
-\diam{W,\rels,V,S}, w \models \diam{r}\varphi & \iff &
-\mbox{there is $w'$ such that $R_r(w,w')$}\\
-& & \mbox{ and } \diam{W,\rels,V,S}, w' \models \varphi\\
-\diam{W,\rels,V,S}, w \models \remember \varphi & \iff & \diam{W,\rels,V, S \cup \{w\}}, w \models \varphi \label{remember}\\
-\diam{W,\rels,V,S}, w \models \known & \iff & w \in S \label{known}
+\gM, w \models p & \iff & w \in V(p) \\
+\gM, w \models \neg \varphi & \iff & \gM, w \not\models \varphi\\
+\gM, w \models \varphi \wedge \psi & \iff &
+\gM, w \models \varphi \mbox{ and }
+\gM, w \models \psi \\
+\gM, w \models \diam{r}\varphi & \iff &
+\mbox{there is $w'$ such that $R_r(w,w')$}
+ \mbox{ and } \gM, w' \models \varphi\\
+\gM, w \models \remember \varphi & \iff & \gM[w], w \models \varphi \label{remember}\\
+\gM, w \models \known & \iff & w \in S \label{known}
 \end{array}
-$$}
+$$
+
+The set of propositions that are true at a given state $w$ is defined as
+$\props(w) = \{p \in \prop \mid w \in V(p)\}$. Given two models $\model= \diam{W, \rels, V, S}$ and $\model'= \diam{W', \relsp, V', S'}$, and
+states $w \in W$ and $w' \in W'$, we say that they \emph{agreeing} when $\props(w)=\props(w')$ and $w\in S$ iff $w'
+\in S'$.
+
+Given a modal $\gM$ and $w$ in the domain of $\gM$, we call $\tup{\gM,w}$ a \emph{pointed 
+model}.
 \end{defn}
 
 %We say that $\varphi$ is \textit{valid} on a model $\model$ if for
