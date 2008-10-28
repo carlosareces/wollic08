@@ -1,0 +1,240 @@
+Hybrid languages have been extensively investigated in the past
+years. $\HL$, the simplest hybrid language, is usually presented as
+the basic modal language $\K$ extended with special symbols (called
+\emph{nominals}) to name individual states in a model. These new
+symbols are simply a new sort of atomic symbols
+$\cset{i,j,k,\ldots}$ disjoint from the set of standard
+propositional variables. While they behave syntactically exactly as
+propositional variables do, their semantic interpretation differ:
+nominals denote elements in the model, instead of sets of elements.
+This simple addition already results in increased expressive power.
+For example the formula $i \wedge \diam{r}i$ is true in a state $w$,
+only if $w$ is a reflexive point named by the nominal $i$. As the
+basic modal language is invariant under unraveling, there is no
+equivalent modal formula~\cite{BRV01}.
+
+But as we said above, $\HL$ is just the simplest hybrid language.
+Once nominals have been added to the language, other natural
+extensions arise.  Having names for states at our disposal we can
+introduce, for each nominal $i$, an operator $@_i$ that allows us to
+jump to the point named by $i$ obtaining the language $\HL(@)$. The
+formula $@_i\varphi$ (read `at $i$, $\varphi$') moves the point of
+evaluation to the state named by $i$ and evaluates $\varphi$ there.
+Intuitively, the $@_i$ operators internalize the satisfaction
+relation `$\models$' into the logical language: $\model, w \models
+\varphi \mbox{ ~iff~ } \model \models @_i\varphi$, where $i$ is a
+nominal naming $w$. For this reason, these operators are usually
+called \emph{satisfaction operators}.
+
+If nominals are names for individual states, why not introduce also
+binders.  We would then be able to write formulas like $\forall
+i.\diam{r} i$, which will be true at a state $w$ if it is related to
+all states in the domain.  The $\forall$ quantifier is very
+expressive: the satisfiability problem of $\HL(\forall)$  ($\HL$
+extended with the universal binder $\forall$) is
+undecidable~\cite{BS95}. Moreover, $\HL(@,\forall)$ is expressively
+equivalent to full first-order logic (over the appropriate
+signature).
+
+From a modal perspective, other binders besides $\forall$ are
+possible.  The $\down$ binder binds nominals to the \emph{current}
+point of evaluation. In essence, it enables us to create a name for
+the here-and-now, and refer to it later in the formula.  For
+example, the formula $\down i.\diam{r} i$ is true at a state $w$ if
+and only if it is related to itself.  The intuitive reading is quite
+straightforward: the formula says ``call the current state $i$ and
+check that $i$ is reachable''.  The logic $\HL(\down)$ is also very
+expressive but weaker than $\HL(\forall)$.  Sadly, its
+satisfiability problem is also undecidable.
+
+Different binders for hybrid logics have been investigated in detail
+(see~\cite{BS95}), but in this article we want to take a look at
+$\down$ from a slightly different perspective: we will consider
+nominals and $\down$ as ways for storing and retrieving information
+in the model.
+
+
+
+\paragraph{Models as Information Storage.}
+We should note that nominals and $\downarrow$ work nicely together.
+Whereas $\down i$ stores the current point of evaluation in the
+nominal $i$, nominals act as checkpoints enabling us to retrieve
+stored information by verifying if the current point is named by a
+given nominal $i$.  To make this point clear, let's define formally
+the semantics of $\HL(\down)$.
+
+\begin{defn} A hybrid signature $\sig$ is a tuple $\diam{\prop,\rel,\nom}$
+where $\prop$, $\rel$, $\nom$ are mutually disjoint infinite
+enumerable sets (the sets of propositional symbols, relational
+symbols and nominals, respectively).
+
+Formulas of $\hlogic$ are defined over a given $\sig$ by the
+following rules
+$$
+\forms ::= p \mid i \mid \lnot \varphi \mid \varphi_1 \land
+\varphi_2 \mid \diam{r} \varphi \mid \down i. \varphi,
+$$
+where $p \in \prop$, $i \in \nom$,  $r \in \rel$  and $\varphi,
+\varphi_1, \varphi_2 \in \forms$. Formulas in which any nominal $i$
+appears in the scope of a binder $\down i$ are called
+\emph{sentences}.
+
+A model for $\HL(\down)$ over a signature $\sig$ is a tuple
+$\diam{W,\rels,V,g}$ where $\diam{W,\rels,V}$ is a standard Kripke
+model (i.e., $W$ is a non empty set, each $R_r$ is a binary relation
+over $W$, and $V$ is a valuation), and $g$ is an assignment function
+from $\nom$ to $W$.
+
+Given a model $\model = \diam{W,\rels,V,g}$ the semantic conditions
+for the propositional and modal operators are defined as usual
+(see~\cite{BRV01}), and in addition:
+$$
+\begin{array}{rcl}
+\diam{W,\rels,V,g}, w \models  i & \mbox{iff} & g(i) = w\\
+\diam{W,\rels,V,g}, w \models \down i.\varphi & \mbox{iff} &
+  \diam{W,\rels,V,g^i_w}, w \models \varphi\\
+& & \mbox{where $g^i_w$ is the assignment identical to $g$}\\
+& & \mbox{except perhaps in that $g^i_w(i)=w$}.
+\end{array}
+$$
+\end{defn}
+
+We can think that $\down i$ is \emph{modifying} the model (by
+storing the current point of evaluation into $i$), and that $i$ is
+being evaluated in the modified model. We can see the assignment $g$
+as a particular type of `information storage' in our model, and
+consider $\down$ and $i$ as our way to access this information
+storage for reading and writing.
+
+But let us take a step back and consider the new picture. When we
+introduced the $\down$ binder, our main aim was to define a binder
+which was weaker than the first-order quantifier.  We thought of the
+semantics of $\down$ first, and we suitably adjusted the way we
+updated the assignment later.   But why do we need to restrict
+ourselves to binders and assignments?
+
+Let us start with a standard Kripke models $\diam{W,\rels,V}$, and
+let us consider a very simple addition: just a set $S \subseteq W$.
+We can, for example, think of $S$ as a set of states that are, for
+some reason, `known' to us. Already in this very simple set up we
+can define the following operators
+\begin{center}
+\begin{tabular}{rcl}
+$\diam{W,\rels,V,S},w \models \remember \varphi$ &
+ iff & $\diam{W,\rels,V,S\cup\cset{w}},w \models \varphi$ \\
+$\diam{W,\rels,V,S},w \models \known$ &
+ iff & $w \in S$.
+\end{tabular}
+\end{center}
+
+As it is clear from the semantic definition, the `remember' operator
+$\remember$ (a unary modality) just marks the current state as being
+`already visited', by storing it in our `memory' $S$. On the other
+hand, the zero-ary operator $\known$ (for `known') queries $S$ to
+check if the current state has already been visited.
+
+In this simple language we would have that
+$\diam{W,\rels,V,\emptyset},w \models \remember\diam{r} \known$ will
+be true only if $w$ is reflexive. Is this new logic equivalent to
+$\HL(\down)$? As we will prove in this article, the answer is
+negative: the new language is less expressive than $\HL(\down)$ but
+ more expressive than $\K$. Intuitively, in the new language we
+cannot discern between states stored in $S$, while an assignment $g$
+keeps a complete mapping between states and nominals.
+
+Naturally, we can include structures which are richer than a simple
+set, in our models. Let us consider one example. Let $S$ be now a
+stack of elements that we will represent as a list that `grows to
+the right' (we will denote the act of pushing $w$ in $S$ as $S \cdot
+w$). Let us define the operators:
+
+\begin{center}
+\begin{tabular}{rcl}
+$\diam{W,\rels,V,S},w \models \texttt{(push)} \varphi$ &
+ iff & $\diam{W,\rels,V,S\cdot w},w \models \varphi$ \\
+$\diam{W,\rels,V,S\cdot w'},w \models \texttt{(pop)} \varphi$ &
+ iff & $\diam{W,\rels,V,S},w \models \varphi$\\
+$\diam{W,\rels,V,[]},w \models \texttt{(pop)} \varphi$ &
+ never & \\
+$\diam{W,\rels,V,S\cdot w'},w \models \texttt{top}$ &
+ iff & $w = w'$\\
+$\diam{W,\rels,V,[]},w \models \texttt{top}$ &
+ never.&
+\end{tabular}
+\end{center}
+
+We will call this new family of logics \emph{memory logics} ($\ML$)
+and in this article we will focus on $\ML(\remember,\known)$, i.e.,
+the logic $\K$ extended with the operators $\remember$ and $\known$
+introduced above, and investigate two possible variations.
+
+More generally, our proposal is to take seriously the usual saying
+that `modal languages are languages to talk about labeled graphs'
+but give us the freedom to choose what we want to `remember' about a
+given graph and how we are going to store it.
+
+To close this section, we formally define the syntax and semantics
+of the logics we will investigate in the rest of the article.
+
+\paragraph{Syntax and semantics for {\em$\ML(\remember,\known)$.}}
+Syntactically, we obtain $\ML(\remember,\known)$ by extending the
+basic modal language $\K$ with the $\remember$ and $\known$
+modalities.
+
+\begin{defn}[Syntax]\label{syntax}
+Let $\prop=\{p_1, p_2, \dots\}$ (the \textit{propositional symbols})
+and $\rel=\{r_1, r_2, \dots\}$ (the \textit{relational symbols}) be
+pairwise disjoint, countable infinite sets of symbols. The set
+$\forms$ of formulas of {\em $\ML(\remember,\known)$} in the
+signature $\langle \prop,\rel\rangle$ is defined as: {\em $$ \forms
+::= p \mid \known \mid \lnot \varphi \mid \varphi_1 \land \varphi_2
+\mid \diam{r} \varphi \mid \remember \varphi,
+$$}
+where $p \in \prop$, $r \in \rel$  and $\varphi, \varphi_1,
+\varphi_2 \in \forms$.
+\end{defn}
+
+While the syntax of the logics that we will discuss in this article
+is the same, they differ subtly in their semantics.
+
+\begin{defn}[Semantics]\label{semantics}
+Given a signature $\sig=\diam{\prop,\rel}$, a model for {\em
+$\ML(\remember,\known)$} is a tuple $\diam{W, \rels, V, S}$, where
+$\diam{W,\rels,V}$ is a standard Kripke model and $S \subseteq W$.
+The semantics is defined as: {\em $$
+\begin{array}{rcl}
+\diam{W,\rels,V,S}, w \models p & \iff & w \in V(p) \\
+\diam{W,\rels,V,S}, w \models \neg \varphi & \iff & \diam{W,\rels,V,S}, w \not\models \varphi\\
+\diam{W,\rels,V,S}, w \models \varphi \wedge \psi & \iff &
+\diam{W,\rels,V,S}, w \models \varphi \\
+& & \mbox{ and }
+\diam{W,\rels,V,S}, w \models \psi \\
+\diam{W,\rels,V,S}, w \models \diam{r}\varphi & \iff &
+\mbox{there is $w'$ such that $R_r(w,w')$}\\
+& & \mbox{ and } \diam{W,\rels,V,S}, w' \models \varphi\\
+\diam{W,\rels,V,S}, w \models \remember \varphi & \iff & \diam{W,\rels,V, S \cup \{w\}}, w \models \varphi \label{remember}\\
+\diam{W,\rels,V,S}, w \models \known & \iff & w \in S \label{known}
+\end{array}
+$$}
+\end{defn}
+
+%We say that $\varphi$ is \textit{valid} on a model $\model$ if for
+%all states $w$, $\model, w \models \varphi$, and we write $\model
+%\models \varphi$. We say that a formula is valid on a frame
+%$\mathcal{F}= \diam{W, \rels}$ (written $\mathcal{F} \models
+%\varphi$) iff for all valuations $V$ and all sets $S$, $\varphi$ is
+%valid on $\diam{\mathcal{F}, V, S}$. Finally, we say that a formula
+%$\varphi$ is valid (written $\models \varphi$) if $\mathcal{F}
+%\models \varphi$ for all frames $\mathcal{F}$.
+
+In this paper, we will be especially interested in the case where
+formulas are evaluated in models with no previously `remembered'
+states, that is, the case where $S=\emptyset$. We will call $\tle$
+the logic that results from restricting the class of models to those
+with $S=\emptyset$.
+
+%
+% We define also the notion of a formula being $\emptyset$-valid. A
+% formula $\varphi$ is $\emptyset$-valid (written $\models_{\emptyset}
+% \varphi$) iff $\model \models \varphi$ for all models
+% $\model=\diam{M,\rels, V, S}$ such that $S = \emptyset$.
