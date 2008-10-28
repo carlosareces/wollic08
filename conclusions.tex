@@ -1,0 +1,52 @@
+In this paper we investigate two members of a family of logics that
+we called \emph{memory logics}.  These logics were inspired by the
+hybrid logic $\hlogic$: the $\down$ operator can be thought of as a
+storage command, and our aim is to carry this idea further
+investigating different ways in which information can be stored. We
+have proved that, in terms of  expressive power, the memory logics
+$\tl$ and $\tle$ lay between the basic modal logic $\K$ and the
+hybrid logic $\hlogic$.  Unluckily, the reduced expressive power is
+not sufficient to ensure good computational behavior: both $\tl$ and
+$\tle$ fail to have the finite model property and moreover their
+satisfiability problems are undecidable.
+
+Despite the negative result concerning decidability, we believe that
+the new perspective we pursue in this paper is appealing.  Clearly,
+it opens up the way to many new interesting modal languages (we
+discuss some examples in Sect.~\ref{twist}).  As in the case of
+modal and hybrid languages, all of them seem to share some common
+behavior, and the challenge is now to discover and understand it.
+
+Much work rest to be done. We are currently working on complete
+axiomatizations of $\tl$ and $\tle$, and on model theoretic
+characterizations. Extending the language with nominals is a natural
+step, and then adapting the internalized hybrid tableau
+method~\cite{backburn00:_inter} to the new languages is
+straightforward.  More interesting is to explore new languages of
+the family (like $\texttt{(push)}$, $\texttt{(pop)}$, or
+$\texttt{(forget)}$), and interaction between the memory operators
+and the modalities.
+%$\diam{r}$ and $[r]$ modalities.
+
+For example, if we restrict the class of models to those in which we
+are forced to memorize the current state each time we take a step
+via the accessibility relation, then the logic turns decidable (even
+though it is still strictly more expressive than $\K$).  More
+precisely, changing the semantic definition of $\diam{r}$ to be
+$$
+\begin{array}{rcl}
+\diam{W,\rels,V,S}, w \models \diam{r} \varphi & \iff & \exists w' \in W, R_r(w,w') \textrm{ and } \\
+& & \diam{W,\rels,V, S \cup \{w\}}, w' \models \varphi
+\end{array}
+$$
+and calling the resulting logic $\tlm$, then $\K < \tlm < \tl$.
+Moreover, $\tlm$ has the bounded tree model property: every
+satisfiable formula $\varphi$ of $\tlm$ is satisfied in a tree of
+size bounded by a computable funcion over the size of $\varphi$.
+Hence, the satisfiability problem of $\tlm$ is decidable.
+
+The work presented in this paper is somehow related in spirit with
+the work on Dynamic Epistemic Logic and other update
+logics~\cite{vanbenthem05,gerbrandy99}, but as we discuss in the
+introduction, our inspiration was rooted in a new interpretation of
+the $\down$ binder.

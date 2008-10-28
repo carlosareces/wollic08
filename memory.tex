@@ -1,0 +1,156 @@
+\documentclass{elsarticle}
+\usepackage{graphicx, xspace, amssymb}
+
+\newcommand{\prop}{\textsc{prop}}
+\newcommand{\rel}{\textsc{rel}}
+\newcommand{\nom}{\textsc{nom}}
+\newcommand{\noms}{\mbox{\begin{scriptsize}\nom\end{scriptsize}}}
+\newcommand{\fun}{\textsc{fun}}
+\newcommand{\funs}{\mbox{\begin{scriptsize}\fun\end{scriptsize}}}
+\newcommand{\var}{\textsc{var}}
+\newcommand{\ssym}{\textsc{ssym}}
+\newcommand{\forms}{\textsc{forms}}
+\newcommand{\terms}{\textsc{terms}}
+\newcommand{\down}{{\downarrow}}
+\newcommand{\valuation}[1]{[\hspace{-0.6mm}[#1]\hspace{-0.6mm}]}
+\newcommand{\mcs}{\textsc{mcs}}
+\newcommand{\con}{\textsc{con}}
+\renewcommand{\iff}{\mbox{iff}}
+\newcommand{\up}{{\uparrow}}
+\newcommand{\inter}{\mathcal{I}}
+\newcommand{\hlogic}{\mathcal{HL}(\down)}
+\newcommand{\hlogicone}{\mathcal{HL}_1(\down)}
+\newcommand{\hlogick}{\mathcal{HL}_k(\down)}
+\newcommand{\ho}{\mathcal{HO}}
+\newcommand{\nvar}{\nom'_{\textrm{\textit{var}}}}
+\newcommand{\nnom}{\nom'_{\textrm{\textit{nom}}}}
+\newcommand{\Tr}{{\sf Tr}}
+\newcommand{\props}{{\sf props}}
+\newcommand{\diam}[1]{\langle #1 \rangle}
+%\newcommand{\remember}{\mbox{$\bigcirc \hspace*{-.258cm} \texttt{r}\,$}}
+%\newcommand{\known}{\mbox{$\bigcirc \hspace*{-.258cm} \texttt{k}\,$}}
+\newcommand{\model}{\mathcal{M}}
+\newcommand{\nodel}{\mathcal{N}}
+\newcommand{\img}{\textrm{im\ }}
+\newcommand{\bisim}{\xspace \underline{\leftrightarrow} \xspace }
+\newcommand{\modelse}{\models_{\emptyset}}
+\newcommand{\tl}{\mathcal{M}(\remember,\known)\xspace}
+\newcommand{\tle}{\mathcal{M}_\emptyset(\remember,\known)\xspace}
+\newcommand{\tlem}{\mathcal{M}^-_\emptyset(\remember,\known)\xspace}
+\newcommand{\tm}{\mathcal{T\!L}^-\xspace}
+\newcommand{\tlme}{\mathcal{T\!L}^-_{\emptyset}\xspace}
+\newcommand{\tlm}{\mathcal{M}^-(\remember, \known)\xspace}
+\newcommand{\tlmi}{\mathcal{M}^-(\remember, \known)+i\xspace}
+\newcommand{\game}{E(\model_1, \model_2, w_1, w_2)}
+\newcommand{\bml}{\K}
+\newcommand{\cset}[1]{\{#1\}}
+\newcommand{\HL}{\mathcal{HL}}
+\newcommand{\HLe}{\mathcal{HL}_{\emptyset}}
+\newcommand{\K}{\mathcal{K}}
+\newcommand{\sig}{\mathcal{S}}
+\newcommand{\ML}{\mathcal{M}}
+\newcommand{\MLe}{\mathcal{M_{\emptyset}}}
+\newcommand{\rels}{(R_r)_{r \in \rel}}
+\newcommand{\relsp}{(R'_r)_{r \in \rel}}
+\newcommand{\relsu}{(R^1_r)_{r \in \rel}}
+\newcommand{\relsd}{(R^2_r)_{r \in \rel}}
+\newcommand{\gM}{\mathcal{M}}
+\newcommand{\atom}{\textsc{atom}}
+\newcommand{\MS}{\mathcal{M}(stack)}
+\newcommand{\push}{{\tt (push)}}
+\newcommand{\pop}{{\tt (pop)}}
+\newcommand{\tope}{{\tt (top)}}
+\newcommand{\len}[1]{|#1|}
+\newcommand{\MSpp}{\mathcal{M}^-(stack)}
+\newcommand{\MSbound}[1]{\mathcal{M}^{\leq #1}(stack)}
+
+\newlength{\ksize}
+\newcommand{\known}{\settowidth{\ksize}{\texttt{k}}\mbox{$\bigcirc
+    \hspace*{-1.4\ksize} \textnormal{\tt k}\,$}}
+\newlength{\rsize}
+\newcommand{\remember}{\settowidth{\rsize}{\texttt{r}}\mbox{$\bigcirc
+    \hspace*{-1.4\rsize} \textnormal{\tt r}\,$}}
+\newlength{\fsize}
+\newcommand{\forget}{\settowidth{\fsize}{\texttt{f}}\mbox{$\bigcirc
+    \hspace*{-1.45\fsize} \textnormal{\tt f}\,$}}
+\newlength{\esize}
+\newcommand{\erase}{\settowidth{\esize}{\texttt{e}}\mbox{$\bigcirc
+    \hspace*{-1.45\esize} \textnormal{\tt e}\,$}}
+
+
+\newtheorem{thm}{Theorem}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{pro}{Proposition}
+\newtheorem{cor}[thm]{Corollary}
+\newdefinition{defn}{Definition}
+\newproof{pf}{Proof}
+
+
+\begin{document}
+
+\begin{frontmatter}
+\title{Expressive Power and Decidability for Memory Logics}
+
+\author[LORIA]       {Carlos Areces}
+\ead                 {carlos.areces@loria.fr}
+\author[CACHAN]      {Diego Figueira}
+\ead                 {figueira@lsv.ens-cachan.fr}
+\author[UBA,CONICET]         {Santiago Figueira}
+\ead                 {santiago@dc.uba.ar}
+\author[UBA]         {Sergio Mera}
+\ead                 {smera@dc.uba.ar}
+\address[LORIA]      {INRIA Nancy Grand Est, France}
+\address[CACHAN]     {LSV, ENS Cachan, CNRS, INRIA, France}
+\address[UBA]        {Departamento de Computaci\'on, FCEyN\\Universidad de Buenos Aires, Argentina}
+\address[CONICET]        {CONICET, Argentina}
+
+
+\begin{abstract}
+Taking as inspiration the hybrid logic $\HL(\down)$, we introduce a
+new family of logics that we call \emph{memory logics}.  In this
+article we present in detail two interesting members of this family
+defining their formal syntax and semantics. We then introduce a
+proper notion of bisimulation and investigate their expressive power
+(in comparison with modal and hybrid logics). We will prove that in
+terms of expressive power, the memory logics we discuss in this
+paper are more expressive than orthodox modal logic, but less
+expressive than $\HL(\down)$. We also establish the undecidability
+of their satisfiability problems.
+\end{abstract}
+
+\begin{keyword}
+...
+\end{keyword}
+\end{frontmatter}
+
+
+\section{Memory Logics: Hybrid Logics with a Twist}\label{twist}
+\input{intro.tex}
+
+\section{Bisimulation}
+\input{bisimulation.tex}
+
+
+\section{Expressivity}
+\input{expresivity.tex}
+
+
+\section{Infinite Models and Undecidability}
+\input{infinite.tex}
+
+
+\section{A decidable fragment}
+\input{ml-.tex}
+
+
+\section{$\MS$}
+\input{stack.tex}
+
+
+\section{Conclusions and Further Work}
+\input{conclusions.tex}
+
+\bibliographystyle{elsarticle-num}
+\bibliography{memory}
+
+\end{document}
