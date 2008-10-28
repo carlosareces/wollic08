@@ -27,7 +27,7 @@ nominal naming $w$. For this reason, these operators are usually
 called \emph{satisfaction operators}.
 
 If nominals are names for individual states, why not introduce also
-binders.  We would then be able to write formulas like $\forall
+binders?  We would then be able to write formulas like $\forall
 i.\diam{r} i$, which will be true at a state $w$ if it is related to
 all states in the domain.  The $\forall$ quantifier is very
 expressive: the satisfiability problem of $\HL(\forall)$  ($\HL$
@@ -55,8 +55,8 @@ in the model.
 
 
 
-\paragraph{Models as Information Storage.}
-We should note that nominals and $\downarrow$ work nicely together.
+\paragraph{Models as Information Storage}
+Nominals and $\downarrow$ work nicely together.
 Whereas $\down i$ stores the current point of evaluation in the
 nominal $i$, nominals act as checkpoints enabling us to retrieve
 stored information by verifying if the current point is named by a
@@ -106,6 +106,7 @@ as a particular type of `information storage' in our model, and
 consider $\down$ and $i$ as our way to access this information
 storage for reading and writing.
 
+\td{rewrite paragraph below}
 But let us take a step back and consider the new picture. When we
 introduced the $\down$ binder, our main aim was to define a binder
 which was weaker than the first-order quantifier.  We thought of the
@@ -115,7 +116,7 @@ ourselves to binders and assignments?
 
 Let us start with a standard Kripke models $\diam{W,\rels,V}$, and
 let us consider a very simple addition: just a set $S \subseteq W$.
-We can, for example, think of $S$ as a set of states that are, for
+We can think of $S$ as a set of states that are, for
 some reason, `known' to us. Already in this very simple set up we
 can define the following operators
 \begin{center}
@@ -135,7 +136,7 @@ check if the current state has already been visited.
 
 In this simple language we would have that
 $\diam{W,\rels,V,\emptyset},w \models \remember\diam{r} \known$ will
-be true only if $w$ is reflexive. Is this new logic equivalent to
+be true only if $R_r(w,w)$. Is this new logic equivalent to
 $\HL(\down)$? As we will prove in this article, the answer is
 negative: the new language is less expressive than $\HL(\down)$ but
  more expressive than $\K$. Intuitively, in the new language we
@@ -145,8 +146,8 @@ keeps a complete mapping between states and nominals.
 Naturally, we can include structures which are richer than a simple
 set, in our models. Let us consider one example. Let $S$ be now a
 stack of elements that we will represent as a list that `grows to
-the right' (we will denote the act of pushing $w$ in $S$ as $S \cdot
-w$). Let us define the operators:
+the right' ($S \cdot w$ will be the stak $S$ with $w$ as top element).
+Let us define the operators:
 
 \begin{center}
 \begin{tabular}{rcl}
@@ -163,11 +164,14 @@ $\diam{W,\rels,V,[]},w \models \texttt{top}$ &
 \end{tabular}
 \end{center}
 
+\tb{there is a jump here}
+\tb{we should better introduce $\K$ below}
 We will call this new family of logics \emph{memory logics} ($\ML$)
 and in this article we will focus on $\ML(\remember,\known)$, i.e.,
 the logic $\K$ extended with the operators $\remember$ and $\known$
 introduced above, and investigate two possible variations.
 
+\tb{rewrite below}
 More generally, our proposal is to take seriously the usual saying
 that `modal languages are languages to talk about labeled graphs'
 but give us the freedom to choose what we want to `remember' about a
@@ -176,7 +180,7 @@ given graph and how we are going to store it.
 To close this section, we formally define the syntax and semantics
 of the logics we will investigate in the rest of the article.
 
-\paragraph{Syntax and semantics for {\em$\ML(\remember,\known)$.}}
+\subsection{Syntax and semantics for $\ML(\remember,\known)$}
 Syntactically, we obtain $\ML(\remember,\known)$ by extending the
 basic modal language $\K$ with the $\remember$ and $\known$
 modalities.
@@ -194,9 +198,11 @@ where $p \in \prop$, $r \in \rel$  and $\varphi, \varphi_1,
 \varphi_2 \in \forms$.
 \end{defn}
 
+\tb{not true anymore}
 While the syntax of the logics that we will discuss in this article
 is the same, they differ subtly in their semantics.
 
+\tb{define Kripke model below}
 \begin{defn}[Semantics]\label{semantics}
 Given a signature $\sig=\diam{\prop,\rel}$, a model for {\em
 $\ML(\remember,\known)$} is a tuple $\diam{W, \rels, V, S}$, where

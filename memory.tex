@@ -1,6 +1,14 @@
 \documentclass{elsarticle}
 \usepackage{graphicx, xspace, amssymb}
 
+\newcounter{tbsnr}
+\newenvironment{tbs}
+{\addtocounter{tbsnr}{1}\par\bigskip \noindent\fbox{\thetbsnr}
+\hspace*{\fill}\begin{minipage}{12cm}\tt}
+%\typein{OPPASSEN GEBLAZEN}}
+{\end{minipage}\hspace*{\fill}\bigskip}
+\newcommand{\tb}[1]{\begin{tbs}{\footnotesize #1}\end{tbs}}
+
 \newcommand{\prop}{\textsc{prop}}
 \newcommand{\rel}{\textsc{rel}}
 \newcommand{\nom}{\textsc{nom}}
@@ -95,7 +103,7 @@
 \ead                 {carlos.areces@loria.fr}
 \author[CACHAN]      {Diego Figueira}
 \ead                 {figueira@lsv.ens-cachan.fr}
-\author[UBA,CONICET]         {Santiago Figueira}
+\author[UBA,CONICET] {Santiago Figueira}
 \ead                 {santiago@dc.uba.ar}
 \author[UBA]         {Sergio Mera}
 \ead                 {smera@dc.uba.ar}
@@ -106,11 +114,12 @@
 
 
 \begin{abstract}
+\tb{needs to be rewritten}
 Taking as inspiration the hybrid logic $\HL(\down)$, we introduce a
 new family of logics that we call \emph{memory logics}.  In this
 article we present in detail two interesting members of this family
-defining their formal syntax and semantics. We then introduce a
-proper notion of bisimulation and investigate their expressive power
+defining their formal syntax and semantics. We then introduce
+proper notions of bisimulation and investigate their expressive power
 (in comparison with modal and hybrid logics). We will prove that in
 terms of expressive power, the memory logics we discuss in this
 paper are more expressive than orthodox modal logic, but less
@@ -119,7 +128,8 @@ of their satisfiability problems.
 \end{abstract}
 
 \begin{keyword}
-...
+Modal Logics, Hybrid Logics, Memory Logics, expressive power, bisimulation,
+decidability.
 \end{keyword}
 \end{frontmatter}
 
