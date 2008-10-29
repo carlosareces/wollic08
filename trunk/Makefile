@@ -1,3 +1,2 @@
 all:
-	latex memory
-	dvipdf memory
+	pdflatex memory

@@ -1,3 +1,5 @@
+\section{Expressivity}
+
 In this section we compare the expressive power of memory logics
 with respect to both the modal and hybrid logics.
 But comparing the expressive power of these logics poses a complication
@@ -32,7 +34,9 @@ We say that $\mathcal{L}$ is strictly less expressive than $\mathcal{L'}$
 not $\mathcal{L}' \le \mathcal{L}$.
 \end{defn}
 
-\paragraph{$\K$ is strictly less expressive than {\em $\tle$}} It is easy
+\paragraph{$\K$ is strictly less expressive than $\tle$}
+
+It is easy
 to see intuitively that $\remember$ and $\known$ do bring additional
 expressive power into the language: with their help we can detect cycles in
 a given model, while formulas of $\K$ are invariant under unraveling.
@@ -128,53 +132,54 @@ $\model_2=\diam{\omega,R_2,\emptyset,\emptyset}$, where $R_1=\{(n,m)
 accessibility relation is the non-reflexive transitive closure of the arrows shown
 in the picture).
 
-% \begin{tikzpicture}[>=latex]
-%
-%   \node (n11) at (0,0) [shape=circle,draw] {} edge [in=220, out=250,loop] ();
-%   \node (n22) at (1,1) [shape=circle,draw, label=right:$\dots$, label=above:$\vdots$] {};
-%   \node (n12) at (0,1) [shape=circle,draw] {} ;
-%   \node (n21) at (1,0) [shape=circle,draw] {};
-%   \node (n13) at (0,2) [shape=circle,draw, label=above:$\vdots$] {};
-%   \node (n31) at (2,0) [shape=circle,draw, label=right:$\dots$] {};
-%
-%   \draw [<->] (n11) -- (n12);
-%   \draw [<->] (n21) -- (n22);
-%   \draw [<->] (n12) -- (n22);
-%   \draw [<->] (n11) -- (n21);
-%   \draw [<->] (n21) -- (n31);
-%   \draw [<->] (n12) -- (n13);
-%
-%   \node at (1,-.7) {$\mathcal{M}_1$};
-%
-% \end{tikzpicture}
-% \hspace{10mm}
-% \begin{tikzpicture}[>=latex]
-%
-%   \node (n11) at (0,0) [shape=circle,draw] {}
-%                        edge [in=220, out=250,loop] ();
-%   \node (n22) at (1,1) [shape=circle,draw, label=right:$\dots$, label=above:$\vdots$] {}
-%                        edge [in=220, out=250,loop] ();
-%   \node (n12) at (0,1) [shape=circle,draw] {} ;
-%   \node (n21) at (1,0) [shape=circle,draw] {};
-%   \node (n13) at (0,2) [shape=circle,draw, label=above:$\vdots$] {};
-%   \node (n31) at (2,0) [shape=circle,draw, label=right:$\dots$] {};
-%
-%   \draw [<->] (n11) -- (n12);
-%   \draw [<->] (n21) -- (n22);
-%   \draw [<->] (n12) -- (n22);
-%   \draw [<->] (n11) -- (n21);
-%   \draw [<->] (n21) -- (n31);
-%   \draw [<->] (n12) -- (n13);
-%
-%   \node at (1,-.7) {$\mathcal{M}_2$};
-% \end{tikzpicture}
-
 \begin{figure}
 \begin{center}
-\includegraphics[scale=0.8]{figure1.eps}
-\medskip
-\caption{Two $\tle$-bisimilar models}\label{fig}
+\begin{tikzpicture}[>=latex]
+
+  \node (n11) at (0,0) [shape=circle,draw] {} edge [in=220, out=250,loop] ();
+  \node (n22) at (1,1) [shape=circle,draw, label=right:$\dots$, label=above:$\vdots$] {};
+  \node (n12) at (0,1) [shape=circle,draw] {} ;
+  \node (n21) at (1,0) [shape=circle,draw] {};
+  \node (n13) at (0,2) [shape=circle,draw, label=above:$\vdots$] {};
+  \node (n31) at (2,0) [shape=circle,draw, label=right:$\dots$] {};
+
+  \draw [<->] (n11) -- (n12);
+  \draw [<->] (n21) -- (n22);
+  \draw [<->] (n12) -- (n22);
+  \draw [<->] (n11) -- (n21);
+  \draw [<->] (n21) -- (n31);
+  \draw [<->] (n12) -- (n13);
+
+  \node at (1,-.7) {$\mathcal{M}_1$};
+
+\end{tikzpicture}
+\hspace{10mm}
+\begin{tikzpicture}[>=latex]
+
+  \node (n11) at (0,0) [shape=circle,draw] {}
+                       edge [in=220, out=250,loop] ();
+  \node (n22) at (1,1) [shape=circle,draw, label=right:$\dots$, label=above:$\vdots$] {}
+                       edge [in=220, out=250,loop] ();
+  \node (n12) at (0,1) [shape=circle,draw] {} ;
+  \node (n21) at (1,0) [shape=circle,draw] {};
+  \node (n13) at (0,2) [shape=circle,draw, label=above:$\vdots$] {};
+  \node (n31) at (2,0) [shape=circle,draw, label=right:$\dots$] {};
+
+  \draw [<->] (n11) -- (n12);
+  \draw [<->] (n21) -- (n22);
+  \draw [<->] (n12) -- (n22);
+  \draw [<->] (n11) -- (n21);
+  \draw [<->] (n21) -- (n31);
+  \draw [<->] (n12) -- (n13);
+
+  \node at (1,-.7) {$\mathcal{M}_2$};
+\end{tikzpicture}
 \end{center}
+
+%\begin{center}
+%\includegraphics[scale=0.8]{figure1.eps}
+%\medskip
+\caption{Two \tle-bisimilar models}\label{fig}
 \end{figure}
 
 We prove that $\model_1,0\bisim\model_2,0$
@@ -239,6 +244,7 @@ occurrences of the $\remember$ operator is at most $n$. Then
 $\model^1_{n+2}, w_0 \models \varphi$ iff $\model^2_{n+2}, w_0
 \models \varphi$.
 \end{lem}
+
 \begin{pf}
 We prove that Duplicator has a winning strategy in the game
 $E(\model^1_{n+2},\model^2_{n+2}, w_0, w_0)$ in the case Spoiler
@@ -312,8 +318,9 @@ i,j \leq 3\},\emptyset,\emptyset}$ (a clique of size 3) and
 $\model_2=\diam{\{1,2\},\{(i,j) \mid 1 \leq i,j \leq
 2\},\emptyset,\emptyset}$ (a clique of size 2). It is easy to check
 that $\model_1,1 \bisim_{\hlogicone} \model_2,1$. However, the
-formula $\varphi = \remember \diam{r} (\lnot\known \land \remember
-\diam{r} (\lnot\known \land \remember \diam{r} \lnot\known))$
+formula
+$\varphi = \remember \diam{r} (\neg \known \land \remember
+\diam{r} (\neg\known \land \remember \diam{r} \neg\known))$
 distinguishes the models: $\model_1,1 \models \varphi$ but
 $\model_2,1 \not\models \varphi$.
 \end{pf}

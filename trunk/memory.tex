@@ -1,5 +1,8 @@
 \documentclass{elsarticle}
+
 \usepackage{graphicx, xspace, amssymb}
+\usepackage{tikz}
+\usepackage{arydshln}
 
 \newcounter{tbsnr}
 \newenvironment{tbs}
@@ -36,16 +39,27 @@
 \newcommand{\props}{{\sf props}}
 \newcommand{\diam}[1]{\langle #1 \rangle}
 \newcommand{\tup}[1]{\langle #1 \rangle}
+
 %\newcommand{\remember}{\mbox{$\bigcirc \hspace*{-.258cm} \texttt{r}\,$}}
 %\newcommand{\known}{\mbox{$\bigcirc \hspace*{-.258cm} \texttt{k}\,$}}
+\newlength{\ksize}\settowidth{\ksize}{\texttt{k}}
+\newcommand{\known}{{\bigcirc\hspace*{-1.45\ksize}\textnormal{\tt k}}\,}
+\newlength{\rsize}\settowidth{\rsize}{\texttt{r}}
+\newcommand{\remember}{{\bigcirc\hspace*{-1.4\rsize} \textnormal{\tt r}}\,}
+\newlength{\fsize}\settowidth{\fsize}{\texttt{f}}
+\newcommand{\forget}{{\bigcirc\hspace*{-1.45\fsize} \textnormal{\tt f}}\,}
+\newlength{\esize}\settowidth{\esize}{\texttt{e}}
+\newcommand{\erase}{{\bigcirc\hspace*{-1.45\esize} \textnormal{\tt e}}\,}
+
+
 \newcommand{\model}{\mathcal{M}}
 \newcommand{\nodel}{\mathcal{N}}
 \newcommand{\img}{\textrm{im\ }}
 \newcommand{\bisim}{\mathrel{\,\raisebox{.3ex}{$\underline{\makebox[.7em]{$\leftrightarrow$}}$}\,}}
 %\newcommand{\bisim}{\underline{\leftrightarrow}}
 \newcommand{\modelse}{\models_{\emptyset}}
-\newcommand{\tl}{\mathcal{M}(\remember,\known)\xspace}
-\newcommand{\tle}{\mathcal{M}_\emptyset(\remember,\known)\xspace}
+\newcommand{\tl}{\mathcal{M}(\remember,\known)}
+\newcommand{\tle}{\ensuremath{\mathcal{M}_\emptyset(\remember,\known)}}
 \newcommand{\tlem}{\mathcal{M}^-_\emptyset(\remember,\known)\xspace}
 \newcommand{\tm}{\mathcal{T\!L}^-\xspace}
 \newcommand{\tlme}{\mathcal{T\!L}^-_{\emptyset}\xspace}
@@ -73,19 +87,6 @@
 \newcommand{\len}[1]{|#1|}
 \newcommand{\MSpp}{\mathcal{M}^-(stack)}
 \newcommand{\MSbound}[1]{\mathcal{M}^{\leq #1}(stack)}
-
-\newlength{\ksize}
-\newcommand{\known}{\settowidth{\ksize}{\texttt{k}}\mbox{$\bigcirc
-    \hspace*{-1.4\ksize} \textnormal{\tt k}\,$}}
-\newlength{\rsize}
-\newcommand{\remember}{\settowidth{\rsize}{\texttt{r}}\mbox{$\bigcirc
-    \hspace*{-1.4\rsize} \textnormal{\tt r}\,$}}
-\newlength{\fsize}
-\newcommand{\forget}{\settowidth{\fsize}{\texttt{f}}\mbox{$\bigcirc
-    \hspace*{-1.45\fsize} \textnormal{\tt f}\,$}}
-\newlength{\esize}
-\newcommand{\erase}{\settowidth{\esize}{\texttt{e}}\mbox{$\bigcirc
-    \hspace*{-1.45\esize} \textnormal{\tt e}\,$}}
 
 
 \newtheorem{thm}{Theorem}
@@ -136,30 +137,13 @@ decidability.
 \end{frontmatter}
 
 
-\section{Memory Logics: Hybrid Logics with a Twist}\label{twist}
 \input{intro.tex}
-
-\section{Bisimulation}
+\input{syntaxsemantics.tex}
 \input{bisimulation.tex}
-
-
-\section{Expressivity}
 \input{expresivity.tex}
-
-
-\section{Infinite Models and Undecidability}
 \input{infinite.tex}
-
-
-\section{A decidable fragment}
 \input{ml-.tex}
-
-
-\section{$\MS$}
 \input{stack.tex}
-
-
-\section{Conclusions and Further Work}
 \input{conclusions.tex}
 
 \bibliographystyle{elsarticle-num}

@@ -1,17 +1,18 @@
+\section{Memory Logics: Hybrid Logics with a Twist}\label{twist}
 
-Nowadays, the term \emph{modal logics} is loosely used to cover 
-an extremely wide variety of languages, which are in turn used 
-in very different applications~\cite{BRV01,handbook}.  Actually, 
+Nowadays, the term \emph{modal logics} is loosely used to cover
+an extremely wide variety of languages, which are in turn used
+in very different applications~\cite{BRV01,handbook}.  Actually,
 we can say that the fact
-that the number of members in this family keeps constantly increasing 
+that the number of members in this family keeps constantly increasing
 is almost a defining characteristic.  While all modal logics have
-certain general aspects in common (e.g., they are interpreted in 
-terms of relational structures, they are usually well behaved 
-computationally, etc.), one of the general traits of the field is 
-to investigate languages specially tailored for a particular task. 
+certain general aspects in common (e.g., they are interpreted in
+terms of relational structures, they are usually well behaved
+computationally, etc.), one of the general traits of the field is
+to investigate languages specially tailored for a particular task.
 
 \tb{I don't like the actual intro.  I want to tone down the `memory
-logics as a kind of hybrid logic' idea, and introduce more broadly 
+logics as a kind of hybrid logic' idea, and introduce more broadly
 modal logics.}
 
 Hybrid languages have been extensively investigated in the past
@@ -163,122 +164,14 @@ cannot discern between states stored in $S$, while an assignment $g$
 keeps a complete mapping between states and nominals.
 
 Naturally, we can include structures which are richer than a simple
-set, in our models. Let us consider one example. Let $S$ be now a
-stack of elements that we will represent as a list that `grows to
-the right' ($S \cdot w$ will be the stak $S$ with $w$ as top element).
-Let us define the operators:
+set, in our models. For example,  $S$ could be an ordered list of
+elements, and we could then consider operators that add or delete
+particular elements in the list.
 
-\begin{center}
-\begin{tabular}{rcl}
-$\diam{W,\rels,V,S},w \models \texttt{(push)} \varphi$ &
- iff & $\diam{W,\rels,V,S\cdot w},w \models \varphi$ \\
-$\diam{W,\rels,V,S\cdot w'},w \models \texttt{(pop)} \varphi$ &
- iff & $\diam{W,\rels,V,S},w \models \varphi$\\
-$\diam{W,\rels,V,[]},w \models \texttt{(pop)} \varphi$ &
- never & \\
-$\diam{W,\rels,V,S\cdot w'},w \models \texttt{top}$ &
- iff & $w = w'$\\
-$\diam{W,\rels,V,[]},w \models \texttt{top}$ &
- never.&
-\end{tabular}
-\end{center}
-
-\tb{there is a jump here}
-\tb{we should better introduce $\K$ below}
-We will call this new family of logics \emph{memory logics} ($\ML$)
-and in this article we will focus on $\ML(\remember,\known)$, i.e.,
-the logic $\K$ extended with the operators $\remember$ and $\known$
-introduced above, and investigate two possible variations.
-
-\tb{rewrite below}
-More generally, our proposal is to take seriously the usual saying
+We will call this new family of logics \emph{Memory Logics}
+and in this article we will focus on the $\remember$ and $\known$
+operators. But, more generally, our proposal is to take seriously the usual saying
 that `modal languages are languages to talk about labeled graphs'
 but give us the freedom to choose what we want to `remember' about a
 given graph and how we are going to store it.
 
-To close this section, we formally define the syntax and semantics
-of the logics we will investigate in the rest of the article.
-
-\subsection{Syntax and semantics for Memory Logics}
-
-Syntactically, we obtain $\ML(\remember,\known)$ by extending the
-basic modal language $\K$ with the $\remember$ and $\known$
-modalities.
-
-\begin{defn}[Syntax]\label{syntax}
-Let $\prop=\{p_1, p_2, \dots\}$ (the \textit{propositional symbols})
-and $\rel=\{r_1, r_2, \dots\}$ (the \textit{relational symbols}) be
-pairwise disjoint, countable infinite sets of symbols. The set
-$\forms$ of formulas of {\em $\ML(\remember,\known)$} in the
-signature $\langle \prop,\rel\rangle$ is defined as: {\em $$ \forms
-::= p \mid \known \mid \lnot \varphi \mid \varphi_1 \land \varphi_2
-\mid \diam{r} \varphi \mid \remember \varphi,
-$$}
-where $p \in \prop$, $r \in \rel$  and $\varphi, \varphi_1,
-\varphi_2 \in \forms$.
-\end{defn}
-
-\tb{We should introduce properly the different languages in the paper.
-If we have a section with stack, it sounds strange that we introduce
-in the intro.}
-
-While the syntax of the logics that we will discuss in this article
-is the same, they differ subtly in their semantics.
-
-\tb{define Kripke model below}
-\begin{defn}[Semantics]\label{semantics}
-Given a signature $\sig=\diam{\prop,\rel}$, a model for 
-$\ML(\remember,\known)$ is a tuple $\gM = \diam{W, \rels, V, S}$, where
-$W$ is a nonempty set, $\rels$ are binary relations over $W$, $V:\prop \to 
-\wp{W}$ is a valuation function, and $S \subseteq W$.
-
-Given a model $\model = \diam{W, \rels, V, S}$
-and states $w_1,\dots,w_n$ in $W$, we define $\model[w_1,\dots,w_n] =
-\diam{W, \rels, V, S \cup \{ w_1,\dots,w_n\}}$.
-
-Let $\gM = \diam{W, \rels, V, S}$ be a model, and $w \in W$ then 
-the semantics for $\ML(\remember,\known)$ is defined as: 
-$$
-\begin{array}{rcl}
-\gM, w \models p & \iff & w \in V(p) \\
-\gM, w \models \neg \varphi & \iff & \gM, w \not\models \varphi\\
-\gM, w \models \varphi \wedge \psi & \iff &
-\gM, w \models \varphi \mbox{ and }
-\gM, w \models \psi \\
-\gM, w \models \diam{r}\varphi & \iff &
-\mbox{there is $w'$ such that $R_r(w,w')$}
- \mbox{ and } \gM, w' \models \varphi\\
-\gM, w \models \remember \varphi & \iff & \gM[w], w \models \varphi \label{remember}\\
-\gM, w \models \known & \iff & w \in S \label{known}
-\end{array}
-$$
-
-The set of propositions that are true at a given state $w$ is defined as
-$\props(w) = \{p \in \prop \mid w \in V(p)\}$. Given two models $\model= \diam{W, \rels, V, S}$ and $\model'= \diam{W', \relsp, V', S'}$, and
-states $w \in W$ and $w' \in W'$, we say that they \emph{agreeing} when $\props(w)=\props(w')$ and $w\in S$ iff $w'
-\in S'$.
-
-Given a modal $\gM$ and $w$ in the domain of $\gM$, we call $\tup{\gM,w}$ a \emph{pointed 
-model}.
-\end{defn}
-
-%We say that $\varphi$ is \textit{valid} on a model $\model$ if for
-%all states $w$, $\model, w \models \varphi$, and we write $\model
-%\models \varphi$. We say that a formula is valid on a frame
-%$\mathcal{F}= \diam{W, \rels}$ (written $\mathcal{F} \models
-%\varphi$) iff for all valuations $V$ and all sets $S$, $\varphi$ is
-%valid on $\diam{\mathcal{F}, V, S}$. Finally, we say that a formula
-%$\varphi$ is valid (written $\models \varphi$) if $\mathcal{F}
-%\models \varphi$ for all frames $\mathcal{F}$.
-
-In this paper, we will be especially interested in the case where
-formulas are evaluated in models with no previously `remembered'
-states, that is, the case where $S=\emptyset$. We will call $\tle$
-the logic that results from restricting the class of models to those
-with $S=\emptyset$.
-
-%
-% We define also the notion of a formula being $\emptyset$-valid. A
-% formula $\varphi$ is $\emptyset$-valid (written $\models_{\emptyset}
-% \varphi$) iff $\model \models \varphi$ for all models
-% $\model=\diam{M,\rels, V, S}$ such that $S = \emptyset$.
