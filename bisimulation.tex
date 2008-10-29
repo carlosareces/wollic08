@@ -1,48 +1,66 @@
-\section{Bisimulation}
+\section{Model Equivalence}
 
-In this section we will define a proper notion of bisimulation for
-$\ML(\remember,\known)$ and
-$\ML_\emptyset(\remember,\known)$, and use it to investigate their
-expressive power.  We will first give a presentation in terms of
-Ehrenfeucht-Fra\"iss\'e games~\cite{ebbi:math84} and then an alternative,
-but equivalent, presentation in terms of bisimulations.
+In this section we will investigate the notion of
+model equivalence for some of the memory logics that we introduced.
+Our goal if to define tools that will help us investigate their
+expressive power.  In particular, we will define a notion
+of model equivalence in terms of
+Ehrenfeucht-Fra\"iss\'e games~\cite{ebbi:math84} and then introduce
+an alternative, but equivalent, notion in terms of bisimulations.
 
-\begin{defn}[Ehrenfeucht-Fra\"iss\'e Games for $\ML(\remember,\known)$]
+We will focus on the languages including $\remember$, $\known$ and
+$\ttup{r}$, and hence cover the logics $\cMLRK$, $\cMLRKE$, $\cMLRKM$
+and $\cMLRKME$.  We will show in Section~\ref{expressivity} that
+$\cMLS$ has the same expressive power than $\HL(\down)$ and hence we
+don't need to introduce a new notion of model equivalence for this
+language, we can use hybrid bisimulations as introduced in~\cite{???}.
+
+\newcommand{\EF}{\mathit{EF}}
+
+\begin{defn}[Ehrenfeucht-Fra\"iss\'e Games]
 Let
-$\model_1$ = $\langle W_1$, $\relsu,V_1,S_1 \rangle$ and
-$\model_2=\diam{W_2,\relsd,V_2,S_2}$ be models and let $w_1 \in W_1$
+$\model_1$ and $\model_2$ be two models and let $w_1 \in W_1$
 and $w_2 \in W_2$.
-% be agreeing states.
-We define the
-\emph{Ehrenfeucht-Fra\"iss\'e game for $\ML(\remember,\known)$} $EF(\model_1, \model_2, w_1, w_2)$ as follows. There are two players called \emph{Spoiler} and
+
+An \emph{Ehrenfeucht-Fra\"iss\'e game} $\EF(\model_1, \model_2, w_1, w_2)$ is defined as follows. There are two players called \emph{Spoiler} and
 \emph{Duplicator}. Duplicator immediately looses if $w_1$ and $w_2$ do not agree.
 Otherwise, the game starts, with the players moving
-alternatively. Spoiler always makes the first move in a turn of the game, starting by choosing in which model he will make a move.
-Let us set $s=1$ and $d=2$ in case he chooses
-$\model_1$; otherwise, let $s=2$ and $d=1$. He can then
-either:
+alternatively. Spoiler always makes the first move in a turn of the game, starting by choosing in which model he will make a move. Let us set $s=1$ and $d=2$ in case he chooses
+$\model_1$; otherwise, let $s=2$ and $d=1$.
+
+For the languages including the operators $\{\tup{r},\remember,\known\}$ the
+possible moves are as follows:
 
 \begin{enumerate}
 \item Make a \emph{memorizing step}. I.e.,
 he extends $S_s$ to $S_s \cup \{w_s\}$. The next turn then starts
-with  $EF(\model_1[w_1], \model_2[w_2],
+with  $\EF(\model_1[w_1], \model_2[w_2],
 w_1, w_2)$ (Duplicator does nothing in this case).
 
 \item Make a \emph{move step}. I.e., he chooses $r \in \rel$, and $v_s$, an $R^s_r$-successor of $w_s$. If $w_s$ has no $R^s_r$-successors, then Duplicator wins. Duplicator has to chose $v_d$, an
 $R^d_r$-successor of $w_d$, such that $v_s$ and $v_d$ agree. If there is
 no such successor, Spoiler wins. Otherwise the game continues with
-$EF(\model_1, \model_2,
+$\EF(\model_1, \model_2,
 v_1, v_2)$.
 \end{enumerate}
+
+The moves for languages with the operators $\{\ttup{r},\remember,\known\}$ are
+similar, except that during a \emph{move step},
+Spoiler always remembers the current world, i.e., the game goes on
+with $\EF(\model_1[w_1], \model_2[w_2], v_1, v_2)$ after Duplicator
+response.
+
 
 In the case of an infinite game, Duplicator wins. Note
 that with this definition, exactly one of Spoiler or Duplicator wins
 each game.
 
-Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{gM_2,w_2}$ we will write
-$\tup{\gM_1,w_1}$ $\equiv_{EF}\tup{\gM_2,w_2}$ when Duplicator has a winning strategy
-for $EF(\gM_1, \gM_2,
-w_1, w_2)$.
+Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{\gM_2,w_2}$ we will write
+$\tup{\gM_1,w_1}$ $\equiv^{\EF}\tup{\gM_2,w_2}$ when Duplicator has a winning strategy
+for $\EF(\gM_1, \gM_2, w_1, w_2)$ (the exact type of game involved will usually be
+clear by context, and we will write
+$\equiv^{\EF}_\gL$ when we need to specify to bisimulation asociated to
+the language of the logic $\gL$).
 \end{defn}
 
 %An $n$\textit{-round} \textit{Ehrenfeucht game} (with $n \geq 0$) is
@@ -62,48 +80,64 @@ w_1, w_2)$.
 %($\model_1, w_1 \bisim_n \model_2, w_2$).
 %\end{defn}
 
-\tb{CAMBIAR M Y N POR M1 Y M2 O AL REVES}
-
 We now give an alternative definition of bisimulation, from an
 estructural point of view.
 
 \begin{defn}[Bisimulation for {\em $\ML(\remember,\known)$}]
-Let $\model$ and $\nodel$ be two $\tl$ models in a signature $S =
-\diam{\prop, \rel}$. Let $\sim$ be a binary relation between $\wp(M)
-\times M$ and $\wp(N) \times N$. So $\sim$ relates tuples
+Let $\gM_1$ and $\gM_2$ be two models. Let $\sim$ be a binary relation between $\wp(W_1)
+\times W_1$ and $\wp(W_2) \times W_2$. So $\sim$ relates tuples
 $\diam{\{m_1, m_2, \dots\}, m}$ with $\diam{\{n_1, n_2, \dots\},
-n}$. We write these tuples as $\diam{M, m}$. A non-empty
-relation $\sim$ is called an \textit{$\ML(\remember,\known)$-bisimulation}
-if it satisfies the following properties:
+n}$. We write these tuples as $\diam{M, m}$.
+
+For the languages including the operators $\{\tup{r},\remember,\known\}$ the
+a \emph{bisimulation} should satisfy the following properties:
 \begin{center}
 \begin{tabular}{rl}
-(\emph{prop}) & If $\diam{M, m} \sim \diam{N, n}$ , then $m \in V^\model(a)$
-iff $n \in V^\nodel(a)$, for $a \in \prop$ \\
-
-(\emph{known}) & If $\diam{M, m} \sim \diam{N, n}$, then $m \in M$  iff $n \in N$\\
+(\emph{nontriv}) & $\sim$ is not empty.\\
+(\emph{agree}) & If $\diam{M, m} \sim \diam{N, n}$ , then $m$ and $n$ agree. \\
 
 (\emph{forth}) & If $\diam{M, m} \sim \diam{N, n}$  and
-$R^\model(m,m')$, then there exists $n' \in N$  such\\
-& that $R^\nodel(n,n')$  and $\diam{M, m'} \sim \diam{N, n'}$\\
+$R_r^1(m,m')$, then there exists $n' \in W_2$\\
+&  such that $R_r^2(n,n')$  and $\diam{M, m'} \sim \diam{N, n'}$.\\
 
-(\emph{back}) & A similar condition from $\nodel$  to $\model$\\
+(\emph{back}) & If $\diam{M, m} \sim \diam{N, n}$  and
+$R_r^2(n,n')$, then there exists $m' \in W_1$ \\
+&  such that $R_r^1(m,m')$  and $\diam{M, m'} \sim \diam{N, n'}$.\\
 
-(\emph{remember}) & If $\diam{M, m} \sim \diam{N, n}$, then  $\diam{M \cup \{m\}, m} \sim \diam{N \cup \{n\}, n}$\\
+(\emph{remember}) & If $\diam{M, m} \sim \diam{N, n}$, then  $\diam{M \cup \{m\}, m} \sim \diam{N \cup \{n\}, n}$.
+\end{tabular}
+\end{center}
+
+For languages with the operators $\{\ttup{r},\remember,\known\}$ we slightly
+change \emph{back} and \emph{forth} to:
+\begin{center}
+\begin{tabular}{rl}
+(\emph{mforth}) & If $\diam{M, m} \sim \diam{N, n}$  and
+$R_r^1(m,m')$, then there exists $n' \in W_2$  such\\
+& that $R_r^2(n,n')$  and $\diam{M \cup \{m\}, m'} \sim \diam{N \cup \{n\}, n'}$.\\
+
+(\emph{mback}) & If $\diam{M, m} \sim \diam{N, n}$  and
+$R_r^2(n,n')$, then there exists $m' \in W_1$  such\\
+& that $R_r^1(m,m')$  and $\diam{M \cup \{m\}, m'} \sim \diam{N \cup \{n\}, n'}$.
 \end{tabular}
 \end{center}
 
 Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{\gM_2,w_2}$ we write
 $\tup{\gM_1,w_1} \bisim \tup{\gM_2,w_2}$ if
-there is an ${\ML(\remember,\known)}$-bisimulation linking $w_1$ and $w_2$.
+there is a bisimulation linking $\tup{S_1,w_1}$ and $\tup{S_2,w_2}$
+(again, the exact type of
+bisimulation involved will usually be clear by context, and we will write
+$\bisim_\gL$ when we need to specify to bisimulation asociated to
+the language of the logic $\gL$).
 \end{defn}
 
-It is not difficult to prove that the notions of Ehrenfeucht-Fra\"iss\'e games for $\ML(\remember,\known)$ and $\ML(\remember,\known)$-bisimulations coincide as
+It is not difficult to prove that the notions of Ehrenfeucht-Fra\"iss\'e games and bisimulations for $\mathcal{L}_i, i \in \{1,2,3,4\}$ coincide, as
 indicated in the following theorem.
 
 \begin{thm}\label{thm:equiv-g-s}
-Given two pointed models $\tup{\model_1,w1}$ and
-$\tup{\model_2,w2}$ then $\tup{\model_1,w1}$ $\equiv_{EF}^{\ML(\remember,\known)} \tup{\model_2,w2}$
-if and only if $\tup{\model_1,w1} \bisim^{\ML(\remember,\known)} \tup{\model_2,w2}$
+Given two pointed models $\tup{\model_1,w_1}$ and
+$\tup{\model_2,w_2}$ then $\tup{\model_1,w_1}$ $\equiv^{EF} \tup{\model_2,w_2}$
+if and only if $\tup{\model_1,w_1} \bisim \tup{\model_2,w_2}$.
 \end{thm}
 
 % \begin{pf}
@@ -172,31 +206,24 @@ if and only if $\tup{\model_1,w1} \bisim^{\ML(\remember,\known)} \tup{\model_2,w
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-We are now ready to prove that the notion of bisimulation
-we just introduced is adequate.  We will show that formulas
-of $\ML(\remember,\known)$ are preserved under bisimulation.
-
-
-\tb{We should perhaps change $\leftrightsquigarrow$ by $\equiv_\mathcal{L}$
-for a given logic $\mathcal{L}$}
-
-\begin{defn}[Logic equivalence]
-Given $\model_1,\model_2$ two models, $w_1 \in \model_1$, $w_2 \in
-\model_2$, we say that $w_1$ is {\em equivalent} (for some logic $\mathcal{L}$) to $w_2$ ($w_1
-\leftrightsquigarrow w_2$) if for all $\varphi$ (in $\mathcal{L}$) we have
-$\model_1,w_1\models\varphi$ iff $\model_2,w_2\models\varphi$.
-% We
-% say that $w_1$ is {\em $n$-equivalent} to $w_2$ ($w_1
-% \leftrightsquigarrow_n w_2$) if for all $\varphi$ such that
-% $\deg(\varphi)\leq n$ we have $\model_1,w_1\models\varphi$ iff
-% $\model_2,w_2\models\varphi$.
-\end{defn}
-
+Moreover, the notions of model equivalence we introduced preserve
+the truth value of formulas. Given two pointed models $\tup{\model_1,w_1}$
+and $\tup{\model_2,w_2}$, we write $\tup{\model_1,w_1} \equiv_\mathcal{L} \tup{\model_2,w_2}$ if for any formulas $\varphi$ in the language of the logic
+$\mathcal{L}_i$ we have that $\gM_1,w_i \models \varphi$ iff and only if
+$\gM_2,w_2 \models \varphi$.
 
 
 \begin{thm}\label{bisim}
-Let $\model_1,\model_2$ be two models, $w_1 \in \model_1, w_2 \in
-\model_2$. If $w_1 \bisim w_2$ then $w_1 \leftrightsquigarrow w_2$.
+Let $\tup{\model_1, w_1}$ and $\tup{\model_2,w_2}$ be two pointed
+models. Then $\tup{\gM_1,w_1}$ $\bisim_\gL \tup{\gM_2,w_2}$ implies
+$\tup{\gM_1,w_1} \equiv_\gL \tup{\gM_2,w_2}$.
+
+If
+$\model_1$ and $\model_2$ are image finite (i.e., each element of the
+domain has only a finite number of successors by each accessibility
+relation). Then
+$\tup{\gM_1, w_1} \equiv_\gL \tup{\gM_2, w_2}$ implies
+$\tup{\gM_1, w_1} \bisim_\gL \tup{\gM_2, w_2}$.
 \end{thm}
 
 % \tb{The proof below is standard and can be dropeed}
@@ -279,19 +306,15 @@ Let $\model_1,\model_2$ be two models, $w_1 \in \model_1, w_2 \in
 % Therefore Duplicator can always copy Spoiler's move.
 % \end{pf}
 
-The converse of Theorem~\ref{bisim} holds for image-finite models
-(i.e., models in which the set of successors
-of any state in the domain is finite). The proof is exactly the
-same as for $\mathcal{K}$, as $\remember$ and $\known$ do not
-interact with the accessibility relation~\cite{BRV01}.
+% The converse of Theorem~\ref{bisim} holds for image-finite models
+% (i.e., models in which the set of successors
+% of any state in the domain is finite). The proof is exactly the
+% same as for $\mathcal{K}$, as $\remember$ and $\known$ do not
+% interact with the accessibility relation~\cite{BRV01}.
 
-\tb{The result below could be joined with the previous theorem}
 
-\begin{thm}[Hennessy-Milner Theorem]\label{thm:hennesy} Let
-$\model_1$ and $\model_2$ be two image finite models. Then for every
-$w_1 \in \model_1$ and $w_2 \in \model_2$, $w_1 \leftrightsquigarrow
-w_2$ then $w_1 \bisim w_2$.
-\end{thm}
+%\begin{thm}[Hennessy-Milner Theorem]\label{thm:hennesy}
+%\end{thm}
 
 %\begin{pf}
 %We prove that the relation
@@ -324,5 +347,100 @@ w_2$ then $w_1 \bisim w_2$.
 %This concludes the proof.
 %\end{pf}
 
-Clearly, as Theorems~\ref{bisim} and~\ref{thm:hennesy} hold for
-arbitrary models, the results hold also for $\ML_\emptyset(\remember,\known)$.
+%\begin{defn}[Syntax]\label{syntax}
+%Let $\prop=\{p_1, p_2, \dots\}$ (the \textit{propositional symbols})
+%and $\rel=\{r_1, r_2, \dots\}$ (the \textit{relational symbols}) be
+%pairwise disjoint, countable infinite sets of symbols. The set
+%$\forms$ of formulas of $\tlm$ in the signature $\langle
+%\prop,\rel\rangle$ is defined as:
+%$$
+%\forms ::= p \mid \known \mid \lnot \varphi \mid \varphi_1 \land
+%\varphi_2 \mid \diam{R} \varphi \mid \remember \varphi,
+%$$
+%where $p \in \prop$, $R \in \rel$  and $\varphi, \varphi_1,
+%\varphi_2 \in \forms$.
+%\end{defn}
+
+
+
+
+
+%We define bisimulation and $n$-bisimulation between models
+%($\model_1 \bisim \model_2$ and $\model_1 \bisim_n \model_2$) in the
+%same way as before. In particular, note that Theorem~\ref{bisim} and
+%\ref{thm:hennesy} hold for $\tlm$.
+%
+%SACAR LOS TEOREMAS Y SOLO HACER REFERENCIA A LOS QUE YA TENEMOS
+%
+%\begin{thm}
+%Let $\model_1, \model_2$ be two models, $w_1 \in \model_1, w_2 \in
+%\model_2$. If $w_1 \bisim w_2$ then $w_1 \leftrightsquigarrow w_2$.
+%\end{thm}
+%
+%\begin{thm}
+%Let $\model_1, \model_2$ be two image finite models. Then for every
+%$w_1 \in \model_1$ and $w_2 \in \model_2$,  $w_1 \bisim w_2$ iff
+%$w_1 \leftrightsquigarrow w_2$.
+%\end{thm}
+
+
+%\begin{defn}[$n$-Bisimulation]
+%We say that two models $\model_1$ and $\model_2$ are $n$-bisimilar
+%($\model_1 \bisim_n \model_2$) when there exists $w_1 \in \model_1$
+%and $w_2 \in \model_2$ such that they agree in the same
+%propositional symbols and Duplicator has a winning strategy on
+%$E_n(\model_1, \model_2, w_1, w_2)$. In this case we will also say
+%that $w_1$  and $w_2$ are $n$-bisimilar ($\model_1, w_1 \bisim_n
+%\model_2, w_2$).
+%\end{defn}
+%
+%FALTA DEFINIR $E_n$ Y $EQUIV_n$
+%
+%\begin{thm}\label{thm:bisim-n-to-modal-n}
+%Let $\model_1,\model_2$ be two models, $w_1 \in \model_1, w_2 \in
+%\model_2$. If $w_1 \bisim_n w_2$ then $w_1 \leftrightsquigarrow_n
+%w_2$.
+%\end{thm}
+%
+%\begin{pf}
+%The proof can be done by induction on $n$.
+%\end{pf}
+%
+%For a natural number $k$, the restriction of a model $\model$ to $k$
+%(notation: $\model \upharpoonright k$) is defined as the submodel
+%containing only states whose height is at most $k$.
+%
+%
+%\begin{thm}\label{thm:bisim-n-to-prune}
+%Let $\model$ be a model and $w \in \model$. For every $n \geq 0$,
+%$\model, w \bisim_n (\model \upharpoonright n), w$.
+%\end{thm}
+%
+%\begin{pf}
+%It is easy to see that in an $n$-round game the players only visit
+%states with height at most $n$ and thus, as far as the players are
+%concerned, $\model$ and $\model\upharpoonright n$ are the same.
+%Therefore Duplicator can always copy Spoiler's moves.
+%\end{pf}
+%
+%
+%% \begin{pf}
+%% We follow the same idea as in Theorem~\ref{bisim}. The only non
+%% trivial case is $\varphi = \diam{R} \psi$. We prove that
+%% $\model_1,w_1 \models \diam{R} \psi$ implies $\model_2,w_2 \models
+%% \diam{R} \psi$. Suppose $\model_1,w_1 \models \diam{R} \psi$. Then
+%% there is $v_1\in \model_1$ such that $w_1R_1v_1$ and
+%% $\model_1[w_1],v_1\models\psi$. Suppose that Spoiler chooses model
+%% $\model_1$ at step 1 and $v_1$ as an $R_1$-successor. By
+%% Lemma~\ref{lem:strategy}, Duplicator has a winning winning strategy
+%% on $E(\model_1[w_1], \model_2[w_2], w_1, w_2)$, and following that
+%% strategy, he finds $v_2$ such that $\props(v_1)=\props(v_2)$,
+%% $w_2R_2v_2$, and keeps a winning strategy on $E(\model_1[w_1],
+%% \model_2[w_2], v_1, v_2)$. By inductive hypothesis and the fact that
+%% $\model_1[w_1],v_1\models\psi$, we conclude
+%% $\model_2[w_2],v_2\models\psi$ and therefore
+%% $\model_2,w_2\models\diam{R} \psi$. The other direction is
+%% identical.
+%% \end{pf}
+
+

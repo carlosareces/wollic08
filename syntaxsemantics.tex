@@ -23,7 +23,7 @@ described in Figure~\ref{logics}
 \begin{figure}
 \begin{center} \small
 \begin{tabular}{|c|l|c|}\hline
-Logic & Operators & Class of Models \\ \hline
+Logic & Operators (in addition to the Boolean operators) & Class of Models \\ \hline
 & & \\[-8pt]
 \cMLRK & The basic modal operators $\tup{r}$ and $[r]$, & all\\
 & plus the memory operators $\remember$ and $\known$ & \\ \hdashline[1pt/1pt]
@@ -79,11 +79,12 @@ each language are the ones indicated in Figure~\ref{logics}.
 \newcommand{\gL}{\mathcal{L}}
 
 \begin{defn}[Semantics]\label{semantics}
-Given a signature $\sig=\diam{\prop,\rel}$, a model for
-$\gL_i, i\in \cset{1,2,3,4}$ is a tuple $\gM = \diam{W, \rels, V, S}$, where
+Given a signature $\sig=\diam{\prop,\rel}$, a model a tuple
+$\gM = \diam{W, \rels, V, S}$ where
 $W$ is a nonempty set, $\rels$ are binary relations over $W$, $V:\prop \to
-\wp{W}$ is a valuation function, and $S \subseteq W$.  For $\cMLS$, a model
-is also a tuple $\gM = \diam{W, \rels, V, S}$ but we take $S$ to be a \emph{list}
+\wp(W)$ is a valuation function. $S$ will be called the \emph{memory}
+of the model, and for $\gL_i, i\in \cset{1,2,3,4}$ we will take $S \subseteq W$,
+while for $\cMLS$ we will take $S$ to be a list
 of elements in $W$.
 
 Given a model $\model = \diam{W, \rels, V, S}$
@@ -94,7 +95,11 @@ $\gL_i, i\in \cset{1,2,3,4}$, $\model[w_1,\dots,w_n] =
 \diam{W, \rels, V, S \cdot [w_1,\dots,w_n]}$, where $\cdot$ is the concatenation operation
 on lists.
 
-Let $\gM = \diam{W, \rels, V, S}$ be a model, and $w \in W$ then
+For notational convenience, let us assume fixed for the rest of the article
+the models $\gM = \diam{W, \rels, V, S}$, $\gM_2 = \diam{W_1, \relsu, V_1, S_1}$
+and $\gM_1 = \diam{W_2, \relsd, V_2, S_2}$.
+
+Let $\gM$ be a model, and $w \in W$ then
 the semantics for the different operators is defined as:
 $$
 \begin{array}{rcl}
@@ -106,23 +111,25 @@ $$
 \gM, w \models \diam{r}\varphi & \iff &
 \mbox{there is $w'$ such that $R_r(w,w')$}
  \mbox{ and } \gM, w' \models \varphi\\
+\gM, w \models \ttup{r}\varphi & \iff &
+\mbox{there is $w'$ such that $R_r(w,w')$}
+ \mbox{ and } \gM[w], w' \models \varphi\\
 \gM, w \models \remember \varphi & \iff & \gM[w], w \models \varphi \label{remember}\\
 \gM, w \models \known & \iff & w \in S \label{known}\\
 \gM,w \models \push \varphi &
  \iff & \gM[w],w \models \varphi \\
 \gM,w \models \texttt{(pop)} \varphi &
- \iff & S\not=\emptyset \mbox{ and } \tup{W,\rels,V,S'},w \models \varphi\\
+ \iff & \tup{W,\rels,V,S'},w \models \varphi\\
  & &  \mbox{ for some } S', w' \mbox{ such that } S = S'\cdot [w']\\
 \gM,w \models \texttt{top} &
  \iff & S=S'\cdot[w] \mbox{ for some } S'\\
 \end{array}
 $$
 
-
 The set of propositions that are true at a given state $w$ is defined as
-$\props(w) = \{p \in \prop \mid w \in V(p)\}$. Given two models $\model= \diam{W, \rels, V, S}$ and $\model'= \diam{W', \relsp, V', S'}$, and
-states $w \in W$ and $w' \in W'$, we say that they \emph{agreeing} when $\props(w)=\props(w')$ and $w\in S$ iff $w'
-\in S'$.
+$\props(w) = \{p \in \prop \mid w \in V(p)\}$. Given two models $\model_1$ and $\model_2$, and
+states $w_1 \in W_1$ and $w_2 \in W_2$, we say that they \emph{agree} when $\props(w_1)=\props(w_2)$ and $w_1\in S_1$ iff $w_2
+\in S_2$.
 
 Given a modal $\gM$ and $w$ in the domain of $\gM$, we call $\tup{\gM,w}$ a \emph{pointed
 model}.
@@ -137,11 +144,16 @@ model}.
 %$\varphi$ is valid (written $\models \varphi$) if $\mathcal{F}
 %\models \varphi$ for all frames $\mathcal{F}$.
 
-In this paper, we will be especially interested in the case where
-formulas are evaluated in models with no previously `remembered'
-states, that is, the case where $S=\emptyset$. We will call $\tle$
-the logic that results from restricting the class of models to those
-with $S=\emptyset$.
+\newcommand{\gCE}{\mathcal{C}_\emptyset}
+
+As we mentioned before, a particularly interesting class of models
+to investigate is the class $\gCE = \{\gM \mid \gM = \tup{W,\rels,V,\emptyset}\}$,
+i.e., the class of models where the memory is empty.  It is over
+$\gCE$ that the operators $\known$ and $\remember$ have the most
+natural interpretation, and as we will see in the next section,
+the restriction to these class have important effects on expressivity
+and decidability.
+
 
 %
 % We define also the notion of a formula being $\emptyset$-valid. A

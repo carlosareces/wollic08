@@ -158,3 +158,545 @@ The satisfiability problem for {\em $\tl$} is undecidable.
 \begin{pf}
 Using Lemma~\ref{lem:boxes} and the formula $\varphi^T$ in Theorem~\ref{thm:tle_undecidable}, we obtain a formula $\psi$ such that if $\model,w\models\psi$ then $\model$ is a tiling of $\omega \times \omega$. For the converse, we can build exactly the same model as in the above proof.
 \end{pf}
+
+We now establish an equivalence result between $\bml$ and $\tlm$ for
+the class of tree-like models. We first define, given a formula
+$\varphi$, a new formula $\varphi^\sharp$, as the result of
+replacing all the ocurrences of $\known$ that are in $\varphi$ at
+modal depth zero by $\top$. More formally:
+
+\begin{displaymath}\label{sharp}
+\begin{array}{rcl}
+p^\sharp & = & p \quad p \in \prop\\
+\known^\sharp & = & \top \\
+(\lnot \varphi)^\sharp & = & \lnot \varphi^\sharp \\
+(\varphi_1 \land \varphi_2)^\sharp & = & \varphi_1^\sharp \land \varphi_2^\sharp \\
+(\remember \varphi)^\sharp & = & \remember \varphi^\sharp\\
+(\diam{R} \varphi)^\sharp & = & \diam{R} \varphi
+\end{array}
+\end{displaymath}
+
+
+\begin{lem}\label{lem:replace}
+$\model, w \models \remember \varphi$ iff $\model, w \models
+\varphi^\sharp$.
+\end{lem}
+
+\begin{pf}
+We proceed by induction. The case for $\known$, the propositional
+symbols and booleans are straightforward. We analyze the other
+cases:
+\begin{itemize}
+ \item $\varphi = \remember \psi$. $\model, w \models \remember\remember\psi$ iff $\model, w \models \remember \psi$ iff (by inductive hypothesis) $\model, w \models \psi^\sharp$ iff $\model, w \models (\psi^\sharp)^\sharp$ iff (by inductive hypothesis) $\model, w \models \remember (\psi^\sharp)$ iff $\model, w \models (\remember\psi)^\sharp$
+\item $\varphi = \diam{R} \psi$. $\model, w \models \remember \diam{R} \psi$ iff (by definition) $\model[w], w \models \diam{R} \psi$ iff (by inductive hypothesis) $\model[w], w \models (\diam{R} \psi)^\sharp$ iff (by definition) $\model, w \models (\diam{R} \psi)^\sharp$
+\end{itemize}
+\end{pf}
+
+We are now ready to define an equivalence preserving translation for
+the tree-like models.
+
+\begin{defn}[Translation]\label{def:tr-tlm-k}
+Let $known$ be a new proposition symbol not in $\prop$. The
+translation $\Tr$, taking $\tlm$ formulas over the signature
+$\diam{\prop, \rel}$ to $\bml$-formulas over the signature
+$\diam{\prop \cup \{known\}, \rel}$ is defined as:
+
+\begin{displaymath}
+\begin{array}{rcl}
+\Tr(p) & = & p \quad p \in \prop\\
+\Tr(\known) & = & known \\
+\Tr(\lnot \varphi) & = & \lnot \Tr(\varphi) \\
+\Tr(\varphi_1 \land \varphi_2) & = & \Tr(\varphi_1) \land \Tr(\varphi_2) \\
+\Tr(\diam{R} \varphi) & = & \diam{R} \Tr(\varphi) \\
+\Tr(\remember \varphi) & = & \Tr(\varphi^\sharp)
+\end{array}
+\end{displaymath}
+
+\end{defn}
+
+Taking the same model equivalence used to compare $\bml$ with $\tl$,
+the following result can be established:
+
+\begin{pro}[Satisfiability preserving]\label{prop:sat-preserv-tree}
+Let $\model$ be a a tree-like model. Then
+$\model,w\models_{\tlm}\varphi$ iff $\model,w\models_{\bml}
+\Tr(\varphi)$.
+\end{pro}
+
+\begin{pf}
+We proceed by induction on $\varphi$. The propositional and boolean
+cases are trivial. The $\known$ case is also easy given the
+definitions. For the diamond case. Given that $\model$ is tree-like,
+the remember operator has no effect beyond modal operators, so
+$\model, w \models_{\tlm} \diam{R}\psi$ iff exists $v$ such that
+$wRv$ and $\model,v\models_{\tlm} \psi$. By inductive hypothesis,
+$\model,v\models_{\tlm} \psi$ iff $\model, v \models_{\bml}
+\Tr(\psi)$, and by definition $\model, w \models_{\bml} \diam{R}
+\Tr(\psi)$. Finally, let's see the case for remember. By
+Lemma~\ref{lem:replace}, $\model, w \models_{\tlm} \remember \psi$
+iff $\model, w \models_{\tlm} \psi^\sharp$. By inductive hypothesis,
+$\model, w \models_{\bml} \Tr(\psi^\sharp)$.
+\end{pf}
+
+
+
+%\subsection{Finite model property}
+
+% \begin{lem}\label{lem:frontera-k}
+% Let $\model$ be a model and $w \in \model$. Then $(\model
+% \upharpoonright n),w \bisim_n \model, w$.
+% \end{lem}
+%
+% \begin{pf}
+% In the game $E_n(\model, \model \upharpoonright n, w, w)$ the
+% winning strategy for Duplicator consists in copying Spoiler moves.
+% This can always be done because Spoiler cannot go beyond $n$ steps
+% from $w$.
+% \end{pf}
+
+% \begin{thm}
+% Let $\model$ be a model and $w \in \model$. For every $n \geq 0$,
+% $\model, w \leftrightsquigarrow_n (\model \upharpoonright n), w$.
+% \end{thm}
+%
+% \begin{pf}
+% This result follows from Theorem~\ref{thm:bisim-n-to-prune} and
+% Theorem~\ref{thm:bisim-tlm-n-to-modal-n}.
+% \end{pf}
+
+
+
+\begin{pro}[Tree model
+property]\label{prop:tree-model-property} For every $\tlm$-model
+$\model$ and $w\in\model$ there is a tree-like model $\model'$ where
+$w\in\model'$ and $\model,w\bisim\model',w$.
+\end{pro}
+
+\begin{pf}
+Let $\model=\diam{W,R,V,S}$.  We prove the result for the unimodal
+case, the generalization to the multimodal case is straightforward.
+We define the model $\model'=\diam{W',R',V',S'}$ as follows. Its
+domain $W'$ consists on all finite sequences $(u_0,\dots,u_n)$ such
+that $u_0=w$, $n\geq 0$ and there is a path $u_0Ru_1\dots Ru_n$ in
+$\model$. Define $(u_0,\dots,u_n)R(v_0,\dots,v_m)$ to hold if
+$m=n+1$, $u_i=v_1$ for $i=0,\dots,n$ and $u_nRv_m$ holds in
+$\model$. The valuation $V'$ is defined by setting
+$(u_0,\dots,u_n)\in V'(p)$ iff $u_n\in V(p)$. Finally,
+$(u_0,\dots,u_{n-1},u_n)\in S'$ iff $u_n\in\{u_0,\dots,u_{n-1}\}$ or
+$u_n\in S$.
+
+We call $s_i$ the sequence $(v_0,\dots,v_i)$ for every
+$i=0,\dots,n$. Let us see that Duplicator has a winning strategy in
+the game $E(\model,\model',w,w)$. It is sufficient to see that in
+the game
+$E(\model[v_0,\dots,v_n],\model'[s_0,\dots,s_n],v_{n+1},s_{n+1})$,
+Duplicator can always answer successfully to Spoiler's move.
+\begin{itemize}
+\item
+If Spoiler chooses $\model[v_0,\dots,v_n]$ and some $v_{n+1}$, a
+successor of $v_n$, Duplicator chooses the sequence
+$s_{n+1}=s_nv_{n+1}$.
+
+\item
+If Spoiler chooses $\model'[s_0,\dots,s_n]$ and $s_{n+1}=s_nv_{n+1}$
+(for some $v_{n+1}$), a successor of $s_n$, Duplicator chooses the
+state $v_{n+1}$.
+\end{itemize}
+By definition, it is easy to see that $s_{n+1}$ and $v_{n+1}$ agree.
+Observe that at this stage of the game the current ``memory" of
+$\model[v_0,\dots,v_n]$ is $S \cup \{v_0,\dots,v_n\}$ and the
+current ``memory" of $\model'[s_0,\dots,s_n]$ is $S' \cup
+\{s_0,\dots,s_n\}$. Then it is also clear that $v_{n+1}$ was
+remembered at this stage of the game, if and only if $s_{n+1}$ also
+was. More formally, on the one hand, $v_{n+1}\in S \cup
+\{v_0,\dots,v_n\}$ implies $s_{n+1} \in S'$ by definition. On the
+other hand if $s_{n+1}\in S' \cup \{s_0,\dots,s_n\}$, we have
+$s_{n+1}\in S'$ (since there are no cycles in $\model'$) and by
+definition $v_{n+1}\in S \cup \{v_0,\dots,v_n\}$.
+\end{pf}
+
+If $\model$ is a $\tlm$-model, we denote with $\model_T$ the
+tree-like model constructed in the above proposition.
+
+%\begin{lem}\label{lem:bisim_bml_then_bisim_tlm}
+%Let $\model,\nodel$ be two $\tlm$ tree-like models. For any $n$, if
+%the equivalent $\bml$-models satisfy
+%$\model,w\bisim_n^{\bml}\nodel,v$ then
+%$\model,w\bisim_n^{\tlm}\nodel,v$.
+%\end{lem}
+%
+%\begin{pf}
+%Let $\model=\diam{W_1,R_1,V_1,S_1}$ and
+%$\nodel=\diam{W_2,R_2,V_2,S_2}$.
+%%
+%Recall the definition of $n$-bisimulation for $\bml$
+%\cite[Definition 2.30]{BRV01}, involving the relations
+%$Z_0\supseteq\dots\supseteq Z_{n}$. We define a winning strategy for
+%Duplicator in terms of $Z_0,\dots,Z_{n}$.
+%
+%We start in the game $E(\model,\nodel,w,v)$. We show that if
+%$E(\model',\nodel',w',v')$ is some $i$th stage of that game ($i\leq
+%n$) and $w'Z_{n-i}v'$, then for any choice $u$ of Spoiler,
+%Duplicator can always answer with $t$ such that $uZ_{n-i-1}t$.
+%Suppose Spoiler chooses $u\in\model'$ such that $w'Ru$. By
+%definition of $Z_{n-i}$, there exists $t\in\nodel'$ such that $v'Rt$
+%and $vZ_{n-i-1}t$. It follows from the definition of $Z_0$ that $u$
+%and $t$ agree. Observe that the game $E(\model',\nodel',w',v')$ is
+%just equivalent to $E(\model,\nodel,w',v')$, since both $\model$ and
+%$\nodel$ are acyclic. Therefore $u\in S_1$ iff $t\in S_2$. The case
+%Spoiler chooses to play in $\nodel'$ is similar and this completes
+%the proof.
+%\end{pf}
+
+%\begin{thm}\label{thm:fmp-tlm}
+%Let $\model$ be a model. For every $n$ there is a finite tree-like
+%model $\nodel$ such that $\model\bisim_n\nodel$.
+%\end{thm}
+
+%\begin{pf}
+%By Proposition~\ref{prop:tree-model-property},
+%$\model\bisim^{\tlm}\model_T$. By
+%Theorem~\ref{thm:bisim-n-to-prune},
+%$\model_T\bisim_n^{\tlm}\model_T\upharpoonright n$. Applying the
+%selection process in \cite[Theorem 2.34]{BRV01} on the equivalent
+%$\bml$-model for $\model_T\upharpoonright n$ we obtain  a finite
+%tree-like model $\nodel$ such that $\model_T\upharpoonright
+%n\bisim_n^{\bml}\nodel$. Applying
+%Lemma~\ref{lem:bisim_bml_then_bisim_tlm}, we know that
+%$\model_T\upharpoonright n\bisim_n^{\tlm}\nodel$ and therefore
+%$\model \bisim_n^{\tlm}\nodel$.
+%\end{pf}
+
+\begin{thm}
+If $\varphi\in\tlm$ is satisfiable then it is satisfiable on a
+finite model.
+\end{thm}
+
+\begin{pf}
+Let $\varphi$ be a $\tlm$ formula, and suppose $\model,w \models
+\varphi$. By Proposition~\ref{prop:tree-model-property}, there is a
+tree-like model $\model'$ such that $\model',w \models \varphi$.
+Using Proposition~\ref{prop:sat-preserv-tree}, we can turn to basic
+modal logic $\bml$, and assert that $\model',w \models_{\bml}
+Tr(\varphi)$. Now we can use the finite tree model property for
+basic modal logic \cite{??}, so there must be a finite tree-like
+model $\model''$ such that $\model'',w \models_{\bml} Tr(\varphi)$.
+Finally, we can use Proposition~\ref{prop:sat-preserv-tree} again,
+and conclude $\model'',w \models \varphi$.
+\end{pf}
+
+
+%\begin{cor}[Finite model property]
+%If $\varphi\in\tlm$ is satisfiable then it is satisfiable on a
+%finite model.
+%\end{cor}
+
+%\begin{thm}[Alternative proof for the finite model property] (without using Lemma~\ref{lem:bisim_bml_then_bisim_tlm})
+%If $\varphi\in\tlm$ is satisfiable then it is satisfiable on a
+%finite model.
+%\end{thm}
+%\begin{pf}
+%Let $\varphi$ be a $\tlm$ formula, and suppose $\model,w \models
+%\varphi$. By Proposition~\ref{prop:tree-model-property}, there is a
+%tree-like model $\model'$ such that $\model',w \models \varphi$.
+%Using Proposition~\ref{prop:sat-preserv-tree}, we can turn to basic
+%modal logic $\bml$, and assert that $\model',w \models_{\bml}
+%Tr(\varphi)$. Now we can use the finite tree model property for
+%basic modal logic \cite{??}, so there must be a finite tree-like
+%model $\model''$ such that $\model'',w \models_{\bml} Tr(\varphi)$.
+%Finally, we can use Proposition~\ref{prop:sat-preserv-tree} again,
+%and conclude $\model'',w \models \varphi$.
+%\end{pf}
+
+
+\begin{cor}[Decidability]\label{cor:tlm-decidability}
+$\tlm$ is decidable.
+\end{cor}
+
+\begin{pf}
+Given $\varphi$ with modal degree $k$, it suffices to observe that
+in the selection process (in the proof of
+Theorem~\ref{thm:fmp-tlm}), one can bound the number of elements of
+the constructed model by $n^k$, where $n$ is the number of
+non-equivalent formulas of degree at most $k$, containing the same
+propositional symbols of $\varphi$. Therefore, to decide the
+satisfiability of $\varphi$ one can check if $\model\models\varphi$
+for all models $\model$ with size at most $n^k$.
+\end{pf}
+
+\begin{thm}[\mbox{\rm\textsc{pspace}}-complete]
+The satisfaction problem for $\tlm$ is \textsc{pspace}-complete.
+\end{thm}
+\begin{pf}
+The lower \textsc{pspace}-hard bound for $\tlm$ follows from the
+lower bound for the basic modal logic~\cite{BRV01}. We show a
+matching upper bound by reducing the problem to the satisfiability
+problem for basic modal logic. Given a $\tlm$-formula $\varphi$, we
+compute $\Tr(\varphi)$ using Definition~\ref{def:tr-tlm-k}. Note
+that the size of the translated formula $\Tr(\varphi)$ is actually
+smaller than $\varphi$. Let suppose that $\Tr(\varphi)$ has a model,
+that is $\model, w \models_{\bml} \Tr(\varphi)$. This happens iff
+there exists a tree-like model $\model'$ such that $\model', w
+\models_{\bml} \Tr(\varphi)$ (by the tree model property of $\bml$)
+iff $\model', w \models_{\tlm} \varphi$ (by
+Proposition~\ref{prop:sat-preserv-tree}) iff there exists a model
+$\nodel$ such that $\nodel,w \models_{\tlm} \varphi$ (by the tree
+model property for $\tlm$, stated in
+Proposition~\ref{prop:tree-model-property}). Therefore, given
+$\varphi$, determining the $\bml$-satisfiability of $\Tr(\varphi)$
+(and we can do this with a \textsc{pspace} algorithm~\cite{BRV01})
+is enough to decide the $\tlm$-satisfiability of $\varphi$.
+\end{pf}
+
+
+%\subsection{Undecidable again}
+
+No we want to analyze the case of $\tlem$ with respect to
+decidability. We first prove that $\tlem$ lack the finite model
+property.
+
+\begin{thm}\label{thm:infinite_model}
+There is a formula $\textit{Inf} \in \tlem$ such that $\mathcal{M},w
+\models \textit{Inf}$ implies that the domain of $\mathcal{M}$ is an
+infinite set.
+\end{thm}
+
+\begin{pf}
+Consider the following formulas:
+$$
+\begin{array}{rl}
+(\textit{Back}) & p \land [R] \lnot p  \land \diam{R} \top \land [R]\diam{R} (\known \land p) \\
+&$``The root is irreflexive, and in symmetric relation with all its (nontempty) successors.''$\\
+(\textit{Spy}) & [R][R]( \lnot p \to \diam{R} (\known \land p \land \diam{R} ( \known \land \lnot \diam{R} ( \known \land \lnot p))))\\
+&$``A 2-step successor is a 1-step successor, with a non-symmetric relation between them.''$\\
+(\textit{Irr}) & \lnot \diam{R} ( \lnot p \land \diam{R} ( \lnot p \land \known)))\\
+&$``All successors are irreflexive.''$\\
+(\textit{Succ}) & [R]\diam{R} \lnot p \\
+&$``All successors have a successor different from the root.''$\\
+(\textit{3cyc}) & \lnot \diam{R}   \diam{R} ( \lnot \known \land \diam{R} ( \lnot \known \land \diam{R} ( \known \land \lnot p)))\\
+&$``There are no cycles of 3 elements between successors of the root.''$\\
+(\textit{Tran}) & [R] ( \lnot p \to \diam{R} ( \known \land p \land [R] ( \lnot p \land \lnot \known \to \diam{R}( \known \land p \land \diam{R} ( \known \land \lnot p \land  \diam{R}(\known \land \lnot p) )))))\\
+&$``Every pair of successors $u$ and $v$ are related (either $uRv$ or $vRu$).''$\\
+\end{array}
+$$
+
+Let $\textit{Inf}$ be $\textit{Back} \land \textit{Spy} \land
+\textit{Irr} \land \textit{Succ} \land \textit{3cyc} \land
+\textit{Tran}$. Let $\model=\diam{W, R, V, \emptyset}$. One can
+follow the idea used in the proof of
+Theorem~\ref{thm:infinite_model} to show that if $\model, w \models
+\textit{Inf}$, then $W$ is infinite.
+%
+%Suppose $\model, w \models \textit{Inf}$. Let $B = \{b \in W \mid
+%wRb\}$. Because $\textit{Back}$ is satisfied, $w \not \in B$, $B
+%\not= \emptyset$ and for all $b \in B$, $bRw$. Because
+%$\textit{Spy}$ is satisfied, if $a \not= w$ and $a$ is a successor
+%of an element of $B$ then $a$ is also an element of $B$. As
+%$\textit{Irr}$ is satisfied at $w$, every state in $B$ is
+%irreflexive. As $\textit{Succ}$ is satisfied at $w$, every point in
+%$B$ has a successor distinct from $w$. As $\textit{3cyc}$ is
+%satisfied, there cannot be $3$ different elements in $B$ forming a
+%cycle, and this sentence together with $\textit{Tran}$ force $R$ to
+%transitively order $B$.
+%
+%It follows that $B$ is an unbounded strict partial order, hence
+%infinite, and so is $W$.
+\end{pf}
+
+We now show that the satisfiability problem for $\tlem$ is
+undecidable, by encoding the $\omega \times \omega$ tiling problem.
+
+\begin{thm}
+The satisfiability problem for $\tlem$ is undecidable.
+\end{thm}
+\begin{pf}
+Let $T=\{T_1,\dots,T_n\}$ be a set of tile types. Given a tile type
+$T_i$, $u(T_i)$, $r(T_i)$, $d(T_i)$, $l(T_i)$ will represent the
+colors of the up, right, down and left edges of $T_i$ respectively.
+Define:
+
+\begin{displaymath}
+\begin{array}{rl}
+(\textit{Back}) & p \land [S]\lnot p \land \diam{S} \top \land [S]\diam{S}(\known \land p) \land [S][S](\known \land p)\\
+(\textit{Spy}) & [S][\dag](\lnot p \land \diam{S}(\known \land p \land \diam{S}(\known \land \lnot\diam{\dag}\known))) \quad \dag \in \{R,U\}\\
+(\textit{Grid}) & [S]\diam{\dag} \top \quad \dag \in \{R,U\}\\
+(\textit{Func}) & [S][\dag]\diam{S}\diam{S}(\known \land \diam{\dag}\known \land [\dag]\known) \quad \dag \in \{R,U\}\\
+(\textit{Conf}) & [S]\diam{U}\diam{R}\diam{S}\diam{S}(\known \land
+\lnot \diam{R}\known \land \diam{U}\known \land
+\diam{R}\diam{U}(\known \land \lnot \diam{R}\known))\\
+(\textit{UR-Irr}) & [S][U][R]\lnot \known \land [S][R][U]\lnot \known\\
+(\textit{URU-noCycle}) & [S][U][R][U]\lnot \known\\
+(\textit{Unique}) & [S] \left( \bigvee_{1\leq i\leq n} t_i \wedge \bigwedge_{1\leq i < j \leq n } (t_i\to \lnot t_j)\right) \\
+(\textit{Vert}) & [S] \bigwedge_{1\leq i\leq n} \left( t_i \to \diam{U} \bigvee_{1\leq j\leq n,u(T_i)=d(T_j)}  t_j\right) \\
+(\textit{Horiz}) & [S] \bigwedge_{1\leq i\leq n} \left( t_i \to
+\diam{r} \bigvee_{1\leq j\leq n,r(T_i)=l(T_j)}  t_j\right)
+\end{array}
+\end{displaymath}
+Let the formula $\varphi^T$ be the conjunction of all the above
+formulas. One can show that $T$ tiles $\omega\times\omega$ iff
+$\varphi^T$ is satisfiable, following the ideas used in the proof of
+Theorem~\ref{thm:tle_undecidable}.
+
+%Suppose $\model,w\models\varphi^T$. Observe that (\textit{Back}) and
+%(\textit{Spy}) impose $w$ to be a spy point over all its
+%$S$-accessible states of $\model$ (and also force $U$ and $R$ to be
+%irreflexive and asymmetric). These $S$-accessible states will be the
+%tiles. From this it follows that $[S]\psi$ holds at $w$ iff $\psi$
+%is true at every tile. Additionally, $\diam{S}\diam{S}\psi$ holds at
+%tile $v$ iff $\psi$ is true at some tile (maybe the same one).
+%
+%Taking the above points into account, one can establish the
+%following. (\textit{Grid}) states that from every tile there is
+%another tile moving up (that is, following the $U$-relation). The
+%same holds for the right direction (following the $R$-relation).
+%(\textit{Func}) forces that $U$ and $R$ are both functionals, given
+%that (\textit{Back}) and (\textit{Spy}) guarantee irreflexivity and
+%asymmetry of $U$ and $R$ respectively. (\textit{Conf}) imposes that
+%the tiles are arranged in a grid pattern. To make its job,
+%(\textit{Conf}) needs the composed relation $U\circ R$ to be
+%irreflexive, and to avoid a cycle with the $URU$ pattern. This job
+%is done by (\textit{UR-Irr}) and (\textit{URU-noCycle})
+%respectively.
+%
+%All the formulas we discuss up to now configure the grid. The last
+%three ensure that every tile has a unique type $t_i$, and that the
+%colors of the tiles match properly. From this, it easily follows
+%that $\model$ is a tiling of $\omega\times\omega$.
+%
+%For the converse, suppose $f:\omega\times\omega\to T$ is a tiling of
+%$\omega\times\omega$. We define the model
+%$\model=\diam{W,\{S,U,R\},V,\emptyset}$ as follows:
+%\begin{itemize}
+%\item $W=\omega\times\omega \cup \{w\}$
+%\item $S=\{(w,v),(v,w)\mid v\in\omega\times\omega\}$  (hence $w$ will act as the spy
+%point)
+%\item $U=\{((x,y),(x,y+1))\mid x,y\in\omega\}$
+%\item $R=\{((x,y),(x+1,y))\mid x,y\in\omega\}$
+%\item $V(p)=\{w\}$; $V(t_i)=\{x\mid x\in\omega\times\omega, f(x)=T_i\}$
+%\end{itemize}
+%The reader may verify that, by construction,
+%$\model,w\models\varphi^T$.
+%
+\end{pf}
+
+We close this section showing that only one nominal is enough to
+turn $\tlm$ undecidable. We call this language $\tlmi$.
+
+\begin{thm}
+There is a formula $\textit{Inf} \in \tlmi$ such that $\mathcal{M},w
+\models \textit{Inf}$ implies that the domain of $\mathcal{M}$ is an
+infinite set.
+\end{thm}
+
+\begin{pf}
+Consider the following formulas:
+$$
+\begin{array}{rl}
+(\textit{Back}) & i \land [R] \lnot i  \land \diam{R} \top \land [R]\diam{R} i \\
+(\textit{Empty}) & [R]\lnot \known \land [R][R](\lnot i \to \lnot \known)\\
+(\textit{Spy}) & [R][R]( \lnot i \to \diam{R} (i \land \diam{R} ( \known \land \lnot \diam{R} ( \known \land \lnot i))))\\
+%(\textit{Irr}) & \lnot \diam{R} \diam{R} ( \lnot i \land \known))\\
+(\textit{Succ}) & [R]\diam{R} \lnot i \\
+(\textit{no-3cyc}) & \lnot \diam{R} \diam{R} ( \lnot \known \land \diam{R} ( \lnot \known \land \diam{R} ( \known \land \lnot i)))\\
+(\textit{Tran}) & [R] \diam{R} ( i \land [R] ( \lnot \known \to \diam{R}( i \land \diam{R} ( \known \land  \diam{R}(\known \land \lnot i) ))))\\
+\end{array}
+$$
+
+Let $\textit{Inf}$ be $\textit{Back} \land \textit{Spy} \land
+\textit{Irr} \land \textit{Succ} \land \textit{3cyc} \land
+\textit{Tran}$. Let $\model=\diam{W, R, V, \emptyset}$. One can
+follow the idea used in the proof of
+Theorem~\ref{thm:infinite_model} to show that if $\model, w \models
+\textit{Inf}$, then $W$ is infinite.
+%
+%Suppose $\model, w \models \textit{Inf}$. Let $B = \{b \in W \mid
+%wRb\}$. Because $\textit{Back}$ is satisfied, $w \not \in B$, $B
+%\not= \emptyset$ and for all $b \in B$, $bRw$. Note that
+%\textit{Empty} sais that the one and two-step horizon is not known,
+%and also this implies that every state in $B$ is irreflexive.
+%Because $\textit{Spy}$ is satisfied, if $a \not= w$ and $a$ is a
+%successor of an element of $B$ then $a$ is also an element of $B$.
+%As $\textit{Succ}$ is satisfied at $w$, every point in $B$ has a
+%successor distinct from $w$. As $\textit{3cyc}$ is satisfied, there
+%cannot be $3$ different elements in $B$ forming a cycle, and this
+%sentence together with $\textit{Tran}$ force $R$ to transitively
+%order $B$.
+%
+%It follows that $B$ is an unbounded strict partial order, hence
+%infinite, and so is $W$.
+\end{pf}
+
+
+We show that this logic is undecidable.
+
+\begin{thm}
+The satisfiability problem for $\tlmi$ is undecidable.
+\end{thm}
+\begin{pf}
+Let $T=\{T_1,\dots,T_n\}$ be a set of tile types. Given a tile type
+$T_i$, $u(T_i)$, $r(T_i)$, $d(T_i)$, $l(T_i)$ will represent the
+colors of the up, right, down and left edges of $T_i$ respectively.
+Define:
+
+\begin{displaymath}
+\begin{array}{rl}
+(\textit{Back}) & i \land [S]\lnot i \land \diam{S} \top \land [S]\diam{S}i \land [S][S]i\\
+(\textit{Empty}) & [S]\lnot \known \land [S][S](\lnot i \to \lnot \known) \land [S][\dag]\lnot \known \quad \dag \in \{R,U\}\\
+(\textit{Spy}) & [S][\dag]\diam{S}(i \land \diam{S}(\known \land \lnot\diam{\dag}\known)) \quad \dag \in \{R,U\}\\
+(\textit{Grid}) & [S]\diam{\dag} \top \quad \dag \in \{R,U\}\\
+(\textit{Func}) & [S][\dag]\diam{S}\diam{S}(\known \land \diam{\dag}\known \land [\dag]\known) \quad \dag \in \{R,U\}\\
+(\textit{Conf}) & [S]\diam{U}\diam{R}\diam{S}\diam{S}(\known \land \lnot \diam{R}\known \land \diam{U}\known \land \diam{R}( \lnot \known \land (\diam{U}(\known \land \lnot \diam{R}\known)))\\
+(\textit{UR-noCycle}) & [S][U][R]\lnot \known \land [S][R][U]\lnot \known\\
+(\textit{URU-noCycle}) & [S][U][R][U]\lnot \known\\
+(\textit{Unique}) & [S] \left( \bigvee_{1\leq i\leq n} t_i \wedge \bigwedge_{1\leq i < j \leq n } (t_i\to \lnot t_j)\right) \\
+(\textit{Vert}) & [S] \bigwedge_{1\leq i\leq n} \left( t_i \to \diam{U} \bigvee_{1\leq j\leq n,u(T_i)=d(T_j)}  t_j\right) \\
+(\textit{Horiz}) & [S] \bigwedge_{1\leq i\leq n} \left( t_i \to \diam{r} \bigvee_{1\leq j\leq n,r(T_i)=l(T_j)}  t_j\right) \\
+\end{array}
+\end{displaymath}
+Let the formula $\varphi^T$ be the conjunction of all the above
+formulas. One can verify that $T$ tiles $\omega\times\omega$ iff
+$\varphi^T$ is satisfiable, following the ideas used in the proof of
+Theorem~\ref{thm:tle_undecidable}.
+%
+%Suppose $\model,w\models\varphi^T$. Observe that (\textit{Back}) and
+%(\textit{Spy}), together with (\textit{Empty}) impose $w$ to be a
+%spy point over all its $S$-accessible states of $\model$ (and also
+%force $U$ and $R$ to be irreflexive and asymmetric). These
+%$S$-accessible states will be the tiles. From this it follows that
+%$[S]\psi$ holds at $w$ iff $\psi$ is true at every tile.
+%Additionally, $\diam{S}\diam{S}\psi$ holds at tile $v$ iff $\psi$ is
+%true at some tile (maybe the same one).
+%
+%Taking the above points into account, one can establish the
+%following. (\textit{Grid}) states that from every tile there is
+%another tile moving up (that is, following the $U$-relation). The
+%same holds for the right direction (following the $R$-relation).
+%(\textit{Func}) forces that $U$ and $R$ are both functionals, given
+%that (\textit{Back}) and (\textit{Spy}) guarantee irreflexivity and
+%asymmetry of $U$ and $R$ respectively. (\textit{Conf}) imposes that
+%the tiles are arranged in a grid pattern. To make its job,
+%(\textit{Conf}) needs the composed relation $U\circ R$ to be
+%irreflexive, and to avoid a cycle with the $URU$ pattern. This job
+%is done by (\textit{UR-Irr}) and (\textit{URU-noCycle})
+%respectively.
+%
+%All the formulas we discuss up to now configure the grid. The last
+%three ensure that every tile has a unique type $t_i$, and that the
+%colors of the tiles match properly. From this, it easily follows
+%that $\model$ is a tiling of $\omega\times\omega$.
+%
+%For the converse, suppose $f:\omega\times\omega\to T$ is a tiling of
+%$\omega\times\omega$. We define the model
+%$\model=\diam{W,\{S,U,R\},V,\emptyset}$ as follows:
+%\begin{itemize}
+%\item $W=\omega\times\omega \cup \{w\}$
+%\item $S=\{(w,v),(v,w)\mid v\in\omega\times\omega\}$  (hence $w$ will act as the spy
+%point)
+%\item $U=\{((x,y),(x,y+1))\mid x,y\in\omega\}$
+%\item $R=\{((x,y),(x+1,y))\mid x,y\in\omega\}$
+%\item $V(p)=\{w\}$; $V(t_i)=\{x\mid x\in\omega\times\omega, f(x)=T_i\}$
+%\end{itemize}
+%The reader may verify that, by construction,
+%$\model,w\models\varphi^T$.
+%
+\end{pf}

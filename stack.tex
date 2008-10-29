@@ -1,106 +1,49 @@
 \section{$\MS$}
 
-\begin{pro}\label{prop:stack_leq_hl}
-$\MS$ is not more expressive than $\hlogic$.
-\end{pro}
 
-\begin{pf}
-We show that every property captured by a $\MS$-formula can be
-captured by a $\hlogic$-formula. We do this by defining the
-following translation transforming an $\MS$-formula and a list of
-nominals $N$ into an $\hlogic$-formula.
-\begin{eqnarray*}
-\Tr_N(p) & = & p \quad p \in \prop\\
-\Tr_N(\lnot \varphi) & = & \lnot \Tr_N(\varphi) \\
-\Tr_N(\diam{r} \varphi) & = & \diam{r} \Tr_N(\varphi) \\
-\Tr_N(\varphi_1 \land \varphi_2) & = & \Tr_N(\varphi_1) \land \Tr_N(\varphi_2)\\
-\Tr_N(\push \varphi) & = & \down i. \Tr_{N\cdot i}(\varphi) \quad
-\textrm{where $i \notin N$.}\\
-\Tr_{N\cdot i}(\pop \varphi) & = & \Tr_{N}(\varphi)\\
-\Tr_{[\ ]}(\pop \varphi) & = & \lnot\top\\
-\Tr_{N\cdot i}(\tope) & = & i\\
-\Tr_{[\ ]}(\tope) & = & \lnot\top
-\end{eqnarray*}
-(Here $q$ is a fixed propositional symbol in \prop.)
 
-It can be shown by induction in $\varphi$ that $\model, w \models
-\varphi$ iff $\model, g, w \models \Tr_{[\ ]}(\varphi)$, for any $g$
-\end{pf}
-
-\begin{pro} \label{prop:hl_leq_stack}
-$\hlogic$ is not more expressive than $\MS$.
-\end{pro}
-
-\begin{pf}
-As in the previous proof, we define a translation transforming an
-$\hlogic$-formula and a list of nominals $N$ into an $\MS$-formula.
-The idea is that in a formula of the form $\down i.\down j.\varphi$
-we can stack first $i$ and then $j$. Now if $i$ and $j$ appear in
-$\varphi$, then $j$ must be translated as $\tope$ and  $i$ must be
-translated as $\pop\tope$. We define the translation which coincides
-with the one defined in the proof of
-Proposition~\ref{prop:stack_leq_hl} for the propositional, negation,
-conjunction and modality, plus:
-\begin{eqnarray*}
-\Tr_N(\down i.\varphi) & = & \push\Tr_{N\cdot i}(\varphi)\\
-\Tr_N(i) & = & \pop^{\len{N}-x}\tope \quad i \in \nom, N[x]=i,
-\forall y>x:\, N[y]\not=i
-\end{eqnarray*}
-(Here $\len{N}$ represents the length of $N$; for convenience the
-lists are numbered from $1$ and $N[x]$ represents the $x$-th element
-of $N$.)
-
-It can be shown by induction in $\varphi$ that if $\varphi$ is an
-$\hlogic$-formula with no free nominals, $\model, g, w \models
-\varphi$ iff $\model, w \models \Tr_{[\ ]}(\varphi)$ for any $g$.
-\end{pf}
-
-\begin{cor}
-$\MS$ and $\hlogic$ have the same expressive power.
-\end{cor}
-
-We will denote by $\MSpp$ to the fragment of $\MS$ that does not
-make use of $\pop$, only $\push$ and $\tope$ are allowed.
-
-The fragment $\MSbound{k}$ restricts the logic to a bounded stack
-not bigger than $k$. Any attempt to push more than $k$ elements will
-lead to a false valuation. Hence the rule of $\push$ is now:
-\begin{center}
-\begin{tabular}{rcl}
-$\diam{W,\rels,V,S},w \models \push \varphi$ &
- iff & $|S|<k$ and $\diam{W,\rels,V,S\cdot w},w \models \varphi$
-\end{tabular}
-\end{center}
-
-\begin{pro}
-$\hlogicone$, $\MSpp$ and $\MSbound{1}$ have the same expressive
-power.
-\end{pro}
-\begin{pf}
-The fact that $\hlogicone$ is not more expressive than $\MSpp$ can
-be shown using the same translation as in
-Proposition~\ref{prop:hl_leq_stack}, we just have to note that no
-$\pop$ will result from the translation of $\hlogicone$ formulas.
-
-For the converse we can use almost the same translation as in
-Proposition~\ref{prop:stack_leq_hl} with a slight change in the
-rule:
-\begin{eqnarray*}
-\Tr_N(\push \varphi) & = & \down x. \Tr_{N\cdot x}(\varphi)
-\end{eqnarray*}
-Where $x$ is the only variable of $\hlogicone$.
-
-\smallskip
-
-Equivalently, to show that $\hlogicone$ is not more expressive than
-$\MSbound{1}$:
-\begin{eqnarray*}
-\Tr_N(\down x.\varphi) & = & \pop\push\Tr_{x}(\varphi) \quad \textrm{if } |N|=1\\
-\Tr_N(\down x.\varphi) & = & \push\Tr_{x}(\varphi) \quad \textrm{otherwise}\\
-\Tr_N(x) & = & \tope
-\end{eqnarray*}
-And for the converse, we can use the same translation as in
-Proposition~\ref{prop:stack_leq_hl}. We just have to realize that
-$N$ will have at most length 1 at all times, making possible the use
-of just one variable $x$.
-\end{pf}
+% We will denote by $\MSpp$ to the fragment of $\MS$ that does not
+% make use of $\pop$, only $\push$ and $\tope$ are allowed.
+%
+% The fragment $\MSbound{k}$ restricts the logic to a bounded stack
+% not bigger than $k$. Any attempt to push more than $k$ elements will
+% lead to a false valuation. Hence the rule of $\push$ is now:
+% \begin{center}
+% \begin{tabular}{rcl}
+% $\diam{W,\rels,V,S},w \models \push \varphi$ &
+%  iff & $|S|<k$ and $\diam{W,\rels,V,S\cdot w},w \models \varphi$
+% \end{tabular}
+% \end{center}
+%
+% \begin{pro}
+% $\hlogicone$, $\MSpp$ and $\MSbound{1}$ have the same expressive
+% power.
+% \end{pro}
+% \begin{pf}
+% The fact that $\hlogicone$ is not more expressive than $\MSpp$ can
+% be shown using the same translation as in
+% Proposition~\ref{prop:hl_leq_stack}, we just have to note that no
+% $\pop$ will result from the translation of $\hlogicone$ formulas.
+%
+% For the converse we can use almost the same translation as in
+% Proposition~\ref{prop:stack_leq_hl} with a slight change in the
+% rule:
+% \begin{eqnarray*}
+% \Tr_N(\push \varphi) & = & \down x. \Tr_{N\cdot x}(\varphi)
+% \end{eqnarray*}
+% Where $x$ is the only variable of $\hlogicone$.
+%
+% \smallskip
+%
+% Equivalently, to show that $\hlogicone$ is not more expressive than
+% $\MSbound{1}$:
+% \begin{eqnarray*}
+% \Tr_N(\down x.\varphi) & = & \pop\push\Tr_{x}(\varphi) \quad \textrm{if } |N|=1\\
+% \Tr_N(\down x.\varphi) & = & \push\Tr_{x}(\varphi) \quad \textrm{otherwise}\\
+% \Tr_N(x) & = & \tope
+% \end{eqnarray*}
+% And for the converse, we can use the same translation as in
+% Proposition~\ref{prop:stack_leq_hl}. We just have to realize that
+% $N$ will have at most length 1 at all times, making possible the use
+% of just one variable $x$.
+% \end{pf}

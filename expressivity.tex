@@ -1,4 +1,4 @@
-\section{Expressivity}
+\section{Expressivity}\label{expressivity}
 
 In this section we compare the expressive power of memory logics
 with respect to both the modal and hybrid logics.
@@ -33,6 +33,82 @@ We say that $\mathcal{L}$ is strictly less expressive than $\mathcal{L'}$
 (notation $\mathcal{L} < \mathcal{L'}$) if $\mathcal{L} \le \mathcal{L'}$ but
 not $\mathcal{L}' \le \mathcal{L}$.
 \end{defn}
+
+\tb{It would be good to give a figure, where we show all the results in
+terms of expressivity in a picture. I.e., given a graph where we draw
+an arrow between $\gL_1$ and $\gL_2$ when $\gL_1 < \gL_2$.}
+
+We now give some results related to the expressive power of $\tlm$.
+
+\begin{thm}
+$\bml$ over the signature $\diam{\prop \cup \{known\}, \rel}$ is
+strictly less expressive than $\tlm$ over the signature
+$\diam{\prop, \rel}$.
+\end{thm}
+
+\begin{pf}
+Exactly the same proof used to prove that $\bml < \tl$.
+\end{pf}
+
+\begin{thm}
+$\tlm < \tl$.
+\end{thm}
+
+\begin{pf}
+It is easy to see that there is a translation from $\tlm$ to $\tl$
+which maps $\diam{R}\varphi$  to  $\remember\diam{R}\varphi$. To see
+that the inclusion is strict, let $\model_1=\diam{\{w,v,r\}, R_1,
+V_1, \emptyset}$ and $\model_2=\diam{\{w,v,r\}, R_2, V_2,
+\emptyset}$ such that $R_1=\{(w,v),(v,r),(r,w)\}$,
+$R_2=\{(w,v),(v,r),(r,v)\}$ and $V_1(p) = V_2(p) = \emptyset$ for
+all $p \in \prop$.
+% \begin{center}
+% \begin{pgfpicture}{0cm}{0cm}{4cm}{1cm}
+%     \pgfnodecircle{nodo1}[stroke]{\pgfxy(0.5,0.5)}{0.25cm}
+%     \pgfnodecircle{nodo2}[stroke]{\pgfxy(2.0,0.5)}{0.25cm}
+%     \pgfnodecircle{nodo3}[stroke]{\pgfxy(3.5,0.5)}{0.25cm}
+%
+%     \pgfsetlinewidth{0.4pt}
+%     \pgfnodesetsepstart{1.5pt}
+%     \pgfnodesetsepend{3pt}
+%     \pgfsetendarrow{\pgfarrowtriangle{4pt}}
+%     \pgfnodeconnline{nodo1}{nodo2}
+%     \pgfnodeconnline{nodo2}{nodo3}
+% %    \pgfnodeconncurve{nodo3}{nodo1}{225}{315}{1cm}{1cm}
+%
+%     \pgfnodelabel{nodo1}{nodo1}[-17][0pt]{\pgfbox[center,base]{$w$}}
+%     \pgfnodelabel{nodo3}{nodo3}[-30][1.5cm]{\pgfbox[center,base]{$\model_1$}}
+% \end{pgfpicture}
+% \hspace{20mm}
+% \begin{pgfpicture}{0cm}{0cm}{4cm}{1cm}
+%     \pgfnodecircle{nodo1}[stroke]{\pgfxy(0.5,0.5)}{0.25cm}
+%     \pgfnodecircle{nodo2}[stroke]{\pgfxy(2.0,0.5)}{0.25cm}
+%     \pgfnodecircle{nodo3}[stroke]{\pgfxy(3.5,0.5)}{0.25cm}
+%
+%     \pgfsetlinewidth{0.4pt}
+%     \pgfnodesetsepstart{1.5pt}
+%     \pgfnodesetsepend{3pt}
+%     \pgfsetendarrow{\pgfarrowtriangle{4pt}}
+%     \pgfnodeconnline{nodo1}{nodo2}
+%     \pgfnodeconnline{nodo2}{nodo3}
+% %    \pgfnodeconncurve{nodo3}{nodo2}{225}{315}{0.2cm}{1cm}
+%
+%     \pgfnodelabel{nodo1}{nodo1}[-17][0pt]{\pgfbox[center,base]{$w$}}
+%     \pgfnodelabel{nodo3}{nodo3}[-30][1.5cm]{\pgfbox[center,base]{$\model_2$}}
+% \end{pgfpicture}
+% \vspace{8mm}
+% \end{center}
+We prove that $\model_1$ and $\model_2$ are $\tlm$-bisimilar. As
+every state in both models has a unique successor, Duplicator has
+only one way of playing, and this only way is indeed a winning
+strategy. From this follows that no formula in $\tlm$ can
+distinguish $\model_1$ and $\model_2$. On the other hand, let
+$\varphi = \diam{R}\remember\diam{R}\diam{R}\known$ be a
+$\tl$-formula. It is easy to see that $\model_1,w \not \models
+\varphi$, but $\model_2, w \models \varphi$.
+\end{pf}
+
+
 
 \paragraph{$\K$ is strictly less expressive than $\tle$}
 
@@ -375,6 +451,65 @@ $\model'_1,w\models_{\hlogic}\down i.\diam{r}i$ but
 $\model'_2,u\not\models_{\hlogic}\down i.\diam{r}i$, for $\model'_1,
 \model'_2$ the  models corresponding to $\model_1$ and $\model_2$.
 \end{pf}
+
+\begin{pro}\label{prop:stack_leq_hl}
+$\MS$ is not more expressive than $\hlogic$.
+\end{pro}
+
+\begin{pf}
+We show that every property captured by a $\MS$-formula can be
+captured by a $\hlogic$-formula. We do this by defining the
+following translation transforming an $\MS$-formula and a list of
+nominals $N$ into an $\hlogic$-formula.
+\begin{eqnarray*}
+\Tr_N(p) & = & p \quad p \in \prop\\
+\Tr_N(\lnot \varphi) & = & \lnot \Tr_N(\varphi) \\
+\Tr_N(\diam{r} \varphi) & = & \diam{r} \Tr_N(\varphi) \\
+\Tr_N(\varphi_1 \land \varphi_2) & = & \Tr_N(\varphi_1) \land \Tr_N(\varphi_2)\\
+\Tr_N(\push \varphi) & = & \down i. \Tr_{N\cdot i}(\varphi) \quad
+\textrm{where $i \notin N$.}\\
+\Tr_{N\cdot i}(\pop \varphi) & = & \Tr_{N}(\varphi)\\
+\Tr_{[\ ]}(\pop \varphi) & = & \lnot\top\\
+\Tr_{N\cdot i}(\tope) & = & i\\
+\Tr_{[\ ]}(\tope) & = & \lnot\top
+\end{eqnarray*}
+(Here $q$ is a fixed propositional symbol in \prop.)
+
+It can be shown by induction in $\varphi$ that $\model, w \models
+\varphi$ iff $\model, g, w \models \Tr_{[\ ]}(\varphi)$, for any $g$
+\end{pf}
+
+\begin{pro} \label{prop:hl_leq_stack}
+$\hlogic$ is not more expressive than $\MS$.
+\end{pro}
+
+\begin{pf}
+As in the previous proof, we define a translation transforming an
+$\hlogic$-formula and a list of nominals $N$ into an $\MS$-formula.
+The idea is that in a formula of the form $\down i.\down j.\varphi$
+we can stack first $i$ and then $j$. Now if $i$ and $j$ appear in
+$\varphi$, then $j$ must be translated as $\tope$ and  $i$ must be
+translated as $\pop\tope$. We define the translation which coincides
+with the one defined in the proof of
+Proposition~\ref{prop:stack_leq_hl} for the propositional, negation,
+conjunction and modality, plus:
+\begin{eqnarray*}
+\Tr_N(\down i.\varphi) & = & \push\Tr_{N\cdot i}(\varphi)\\
+\Tr_N(i) & = & \pop^{\len{N}-x}\tope \quad i \in \nom, N[x]=i,
+\forall y>x:\, N[y]\not=i
+\end{eqnarray*}
+(Here $\len{N}$ represents the length of $N$; for convenience the
+lists are numbered from $1$ and $N[x]$ represents the $x$-th element
+of $N$.)
+
+It can be shown by induction in $\varphi$ that if $\varphi$ is an
+$\hlogic$-formula with no free nominals, $\model, g, w \models
+\varphi$ iff $\model, w \models \Tr_{[\ ]}(\varphi)$ for any $g$.
+\end{pf}
+
+\begin{cor}
+$\MS$ and $\hlogic$ have the same expressive power.
+\end{cor}
 
 To close this section, we mention that the satisfaction preserving translations defined in
 the proof can actually be used to transfer known results, for example, from  $\hlogic$ to $\tl$ and $\tle$.  For
