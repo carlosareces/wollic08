@@ -1,12 +1,13 @@
+\section{Bisimulation}
 
 In this section we will define a proper notion of bisimulation for
 $\ML(\remember,\known)$ and
 $\ML_\emptyset(\remember,\known)$, and use it to investigate their
 expressive power.  We will first give a presentation in terms of
-Ehrenfeucht-Fra\"iss\'e games~\cite{ebbi:math84} and then an alternative, 
+Ehrenfeucht-Fra\"iss\'e games~\cite{ebbi:math84} and then an alternative,
 but equivalent, presentation in terms of bisimulations.
 
-\begin{defn}[Ehrenfeucht-Fra\"iss\'e Games for $\ML(\remember,\known)$] 
+\begin{defn}[Ehrenfeucht-Fra\"iss\'e Games for $\ML(\remember,\known)$]
 Let
 $\model_1$ = $\langle W_1$, $\relsu,V_1,S_1 \rangle$ and
 $\model_2=\diam{W_2,\relsd,V_2,S_2}$ be models and let $w_1 \in W_1$
@@ -14,19 +15,18 @@ and $w_2 \in W_2$.
 % be agreeing states.
 We define the
 \emph{Ehrenfeucht-Fra\"iss\'e game for $\ML(\remember,\known)$} $EF(\model_1, \model_2, w_1, w_2)$ as follows. There are two players called \emph{Spoiler} and
-\emph{Duplicator}. Duplicator immediately looses if $w_1$ and $w_2$ do not agree. 
+\emph{Duplicator}. Duplicator immediately looses if $w_1$ and $w_2$ do not agree.
 Otherwise, the game starts, with the players moving
-alternatively. Spoiler always makes the first move. At every move,
-Spoiler starts by choosing in which model he will make a move.
+alternatively. Spoiler always makes the first move in a turn of the game, starting by choosing in which model he will make a move.
 Let us set $s=1$ and $d=2$ in case he chooses
 $\model_1$; otherwise, let $s=2$ and $d=1$. He can then
 either:
 
 \begin{enumerate}
 \item Make a \emph{memorizing step}. I.e.,
-he extends $S_s$ to $S_s \cup \{w_s\}$. The game then continues
+he extends $S_s$ to $S_s \cup \{w_s\}$. The next turn then starts
 with  $EF(\model_1[w_1], \model_2[w_2],
-w_1, w_2)$.
+w_1, w_2)$ (Duplicator does nothing in this case).
 
 \item Make a \emph{move step}. I.e., he chooses $r \in \rel$, and $v_s$, an $R^s_r$-successor of $w_s$. If $w_s$ has no $R^s_r$-successors, then Duplicator wins. Duplicator has to chose $v_d$, an
 $R^d_r$-successor of $w_d$, such that $v_s$ and $v_d$ agree. If there is
@@ -39,8 +39,8 @@ In the case of an infinite game, Duplicator wins. Note
 that with this definition, exactly one of Spoiler or Duplicator wins
 each game.
 
-Given two pointed models $\tup{\gM_1,w}$ and $\tup{gM_2,w'}$ we will write 
-$\tup{\gM,w} \equiv_{EF}^{\ML(\remember,\known)}\tup{gM',w'}$ when Duplicator has a winning strategy 
+Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{gM_2,w_2}$ we will write
+$\tup{\gM_1,w_1}$ $\equiv_{EF}\tup{\gM_2,w_2}$ when Duplicator has a winning strategy
 for $EF(\gM_1, \gM_2,
 w_1, w_2)$.
 \end{defn}
@@ -73,31 +73,31 @@ Let $\model$ and $\nodel$ be two $\tl$ models in a signature $S =
 \times M$ and $\wp(N) \times N$. So $\sim$ relates tuples
 $\diam{\{m_1, m_2, \dots\}, m}$ with $\diam{\{n_1, n_2, \dots\},
 n}$. We write these tuples as $\diam{M, m}$. A non-empty
-relation $\sim$ is called an \textit{$\ML(\remember,\known)$-bisimulation} 
+relation $\sim$ is called an \textit{$\ML(\remember,\known)$-bisimulation}
 if it satisfies the following properties:
 \begin{center}
 \begin{tabular}{rl}
-(\emph{prop}) & If $\diam{M, m} \sim \diam{N, n}$ , then $m \in V^\model(a)$  
+(\emph{prop}) & If $\diam{M, m} \sim \diam{N, n}$ , then $m \in V^\model(a)$
 iff $n \in V^\nodel(a)$, for $a \in \prop$ \\
 
 (\emph{known}) & If $\diam{M, m} \sim \diam{N, n}$, then $m \in M$  iff $n \in N$\\
 
-(\emph{forth}) & If $\diam{M, m} \sim \diam{N, n}$  and  
-$R^\model(m,m')$, then there exists $n' \in N$  such\\ 
+(\emph{forth}) & If $\diam{M, m} \sim \diam{N, n}$  and
+$R^\model(m,m')$, then there exists $n' \in N$  such\\
 & that $R^\nodel(n,n')$  and $\diam{M, m'} \sim \diam{N, n'}$\\
 
 (\emph{back}) & A similar condition from $\nodel$  to $\model$\\
 
 (\emph{remember}) & If $\diam{M, m} \sim \diam{N, n}$, then  $\diam{M \cup \{m\}, m} \sim \diam{N \cup \{n\}, n}$\\
 \end{tabular}
-
-Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{\gM_2,w_2}$ we write 
-$\tup{\gM_1,w_1} \bisim^{\ML(\remember,\known)} \tup{\gM_2,w_2}$ if 
-there is an ${\ML(\remember,\known)}$-bisimulation linking $w_1$ and $w_2$.
 \end{center}
+
+Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{\gM_2,w_2}$ we write
+$\tup{\gM_1,w_1} \bisim \tup{\gM_2,w_2}$ if
+there is an ${\ML(\remember,\known)}$-bisimulation linking $w_1$ and $w_2$.
 \end{defn}
 
-It is not difficult to prove that the notions of Ehrenfeucht-Fra\"iss\'e games for $\ML(\remember,\known)$ and $\ML(\remember,\known)$-bisimulations coincide as 
+It is not difficult to prove that the notions of Ehrenfeucht-Fra\"iss\'e games for $\ML(\remember,\known)$ and $\ML(\remember,\known)$-bisimulations coincide as
 indicated in the following theorem.
 
 \begin{thm}\label{thm:equiv-g-s}
@@ -129,7 +129,7 @@ if and only if $\tup{\model_1,w1} \bisim^{\ML(\remember,\known)} \tup{\model_2,w
 % \item Spoiler chooses to make a move step, so he chooses an $R$-succesor $w'$ of $w$. By the \textit{(forth)} condition (we should use \textit{(back)} here if we would have supposed that Duplicator chooses $\model_2$ to make his move), there is an $R$-succesor $v'$ of $v$ such that $\diam{S,w'} \sim \diam{Q,v'}$. Using \textit{(prop)} and \textit{(known)}, we know that $w'$ and $v'$ agree, so $v'$ is a good choice for Duplicator, the next step of the game is $E(\model_1[S], \model_2[Q], w', v')$ and $\diam{S,w'} \sim \diam{Q,v'}$.
 % %\item Spoiler chooses to make a jump step, so he chooses any named state $w'$ of $\model_1$. Because $w'$ is named, there is a nominal $i$ that names $w'$. Because the signature is the same for both models, we know there is a $v'$ in $\model_2$ such that $i$ names $v'$. By the $(@)$ condition, we know that $\diam{S,w'} \sim \diam{Q,v'}$, so $v'$ is a good choice for Duplicator, because by \textit{(prop)} and \textit{(known)} $w'$ and $v'$ agree. The next step of the game is $E(\model_1[S], \model_2[Q], w', v')$ and $\diam{S,w'} \sim \diam{Q,v'}$.
 % \end{itemize}
-% 
+%
 % For the other direction, let's suppose that Duplicator has a winning
 % strategy $\mathcal{S}$ on the game $\game$, where
 % $\model_1=\diam{W_1,R_1,S_1,V_1}$ and
@@ -138,7 +138,7 @@ if and only if $\tup{\model_1,w1} \bisim^{\ML(\remember,\known)} \tup{\model_2,w
 % \diam{Q,v}$ iff $E(\model_1[S], \model_2[Q],w,v)$ is some stage of
 % the game $\game$ reached by the players when Duplicator follows the
 % strategy $\mathcal{S}$.
-% 
+%
 % So now we have to see that the relation $\sim$ we defined is
 % actually an s-bisimulation. Suppose that $\diam{S,w} \sim \diam{Q,v}$.
 % Using the definition of $\sim$, that means that $E(\model_1[S],
@@ -158,7 +158,7 @@ if and only if $\tup{\model_1,w1} \bisim^{\ML(\remember,\known)} \tup{\model_2,w
 
 % We now define what bisimulation between two models is. Of course, given Theorem~\ref{thm:equiv-g-s},
 % we can equivalently use the game or structural notions.
-% 
+%
 % \begin{defn}[Bisimulation]
 % We say that two models $\model_1$ and $\model_2$ are {\em
 % bisimilar} (and we write $\model_1 \bisim \model_2$) iff
@@ -166,7 +166,7 @@ if and only if $\tup{\model_1,w1} \bisim^{\ML(\remember,\known)} \tup{\model_2,w
 % In this case we also say that $w_1$  and $w_2$ are {\em
 % bisimilar} ($\model_1, w_1 \bisim \model_2, w_2$).
 % \end{defn}
-% 
+%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -200,19 +200,19 @@ Let $\model_1,\model_2$ be two models, $w_1 \in \model_1, w_2 \in
 \end{thm}
 
 % \tb{The proof below is standard and can be dropeed}
-% 
+%
 % \begin{pf}
 % We prove that if $w_1$ and $w_2$ agree and Duplicator has a winning
 % strategy on $E(\model_1, \model_2, w_1, w_2)$ then $\forall \varphi
 % \in \tl, \, \model_1, w_1 \models \varphi \; \iff \; \model_2, w_2
 % \models \varphi$. We proceed by induction on $\varphi$.
-% 
+%
 % \begin{itemize}
 % \item The propositional and boolean cases are trivial.
-% 
+%
 % \item $\varphi = \known$. This case follows from Definition~\ref{semantics}
 % and because $w_1$ and $w_2$ agree.
-% 
+%
 % \item $\varphi = \diam{r} \psi$. This is the standard modal case.
 % Preservation is ensured thanks to the \emph{move steps} in the
 % definition of the game.
@@ -229,23 +229,23 @@ Let $\model_1,\model_2$ be two models, $w_1 \in \model_1, w_2 \in
 % %$\model_1,v_1\models\psi$, we conclude $\model_2,v_2\models\psi$ and
 % %therefore $\model_2,w_2\models\diam{R} \psi$. The other direction is
 % %identical.
-% 
+%
 % \item $\varphi = \remember \psi$. We prove that
 % $\model_1,w_1 \models \remember \psi$ implies $\model_2,w_2 \models
 % \remember \psi$. Suppose $\model_1,w_1 \models \remember \psi$ then
 % $\model_1[w_1],w_1 \models \psi$. The following claim is clear.
-% 
+%
 % \bigskip
-% 
+%
 % \noindent
 % \textbf{Claim.} Let $\model_1,\model_2$ be two models, $w_1 \in \model_1,w_2
 % \in \model_2$. If Duplicator has a winning
 % strategy on $\game$ then he has a winning strategy on
 % $E(\model_1[w_1], \model_2[w_2], w_1, w_2)$.
-% 
+%
 % \bigskip
-% 
-% 
+%
+%
 % By this claim,
 % Duplicator has a winning strategy on $E(\model_1[w_1],
 % \model_2[w_2], w_1,$ $w_2)$. Applying inductive hypothesis and the
