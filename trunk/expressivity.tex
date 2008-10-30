@@ -8,15 +8,21 @@ We would like to be able to define a natural mapping between models
 of each logic, similar to the natural mapping that exists between
 Kripke models and first-order models~\cite{BRV01}.
 
-Such a mapping is easy to define in the case of $\tle$: each
-Kripke model $\diam{W,\rels,V}$ can be identified with the
-$\tle$ model $\diam{W,\rels,$ $V,$ $\emptyset}$.  Similarly, for
-formulas which are sentences, the $\tle$ model $\diam{W,$ \linebreak $\rels,$ $V,\emptyset}$ can be identified
-with the hybrid model $\diam{W,\rels,V,g}$ (for $g$ arbitrary).
-As we will discuss below, it is harder to find such a natural
-way to transform models for the case of $\tl$: the most natural
-way seems to involve a shift in the signature
-of the language.
+Such a mapping is easy to define in the case of $\cMLRKE$: each
+Kripke model $\diam{W,\rels,V}$ can be identified with the $\cMLRKE$
+model $\diam{W,\rels,$ $V,$ $\emptyset}$. Similarly, for formulas
+which are sentences, the $\cMLRKE$ model $\diam{W,$ \linebreak
+$\rels,$ $V,\emptyset}$ can be identified with the hybrid model
+$\diam{W,\rels,V,g}$ (for $g$ arbitrary).
+%
+Since models for the $\cMLRKE$ logic coincide with those of
+$\cMLRKME$, the same applies for the mapping between Kripke models
+and $\cMLRKME$ models.
+%
+As we will discuss below, it is harder to find such a natural way to
+transform models for the case of $\cMLRK$ and $\cMLRKM$: the most
+natural way seems to involve a shift in the signature of the
+language.
 
 \begin{defn}[$\mathcal{L} \le \mathcal{L'}$]
 We say that
@@ -38,7 +44,8 @@ not $\mathcal{L}' \le \mathcal{L}$.
 terms of expressivity in a picture. I.e., given a graph where we draw
 an arrow between $\gL_1$ and $\gL_2$ when $\gL_1 < \gL_2$.}
 
-We now give some results related to the expressive power of $\tlm$.
+We now give some results related to the expressive power of
+$\cMLRKE$.
 
 \begin{thm}
 $\bml$ over the signature $\diam{\prop \cup \{known\}, \rel}$ is

@@ -5,12 +5,12 @@ different memory logics that we will discuss in the article, and
 fix some terminology.
 
 All the languages we will introduce are obtained by extending (in
-one case, also slighly modifying) the syntax and semantics of the
+one case, also slightly modifying) the syntax and semantics of the
 basic modal logic. We are mainly interested in investigating the
-behavior of the $\remember$ and $\known$ operators introduced in
-the previos section, but to put them in the appropriate context
-we will actually investigate five different logics which are
-described in Figure~\ref{logics}
+behavior of the $\remember$ and $\known$ operators introduced in the
+previos section, but to put them in the appropriate context we will
+actually investigate five different logics which are described in
+Figure~\ref{logics}
 
 \newcommand{\cMLRK}{\ensuremath{\mathcal{L}_1}}
 \newcommand{\cMLRKE}{\ensuremath{\mathcal{L}_2}}
@@ -34,7 +34,7 @@ Logic & Operators (in addition to the Boolean operators) & Class of Models \\ \h
 \cMLRKM & A variant of the modal operators  $\ttup{r}$ and $\bbox{r}$ & all\\
 & plus the memory operators $\remember$ and $\known$ & \\ \hdashline[1pt/1pt]
 & & \\[-8pt]
-\cMLRKM & A variant of the modal operators  $\ttup{r}$ and $\bbox{r}$ & $S=\emptyset$\\
+\cMLRKME & A variant of the modal operators  $\ttup{r}$ and $\bbox{r}$ & $S=\emptyset$\\
 & plus the memory operators $\remember$ and $\known$ & \\ \hdashline[1pt/1pt]
 & & \\[-8pt]
 \cMLS & The basic modal operators $\tup{r}$ and $[r]$, & all\\
@@ -147,12 +147,12 @@ model}.
 \newcommand{\gCE}{\mathcal{C}_\emptyset}
 
 As we mentioned before, a particularly interesting class of models
-to investigate is the class $\gCE = \{\gM \mid \gM = \tup{W,\rels,V,\emptyset}\}$,
-i.e., the class of models where the memory is empty.  It is over
-$\gCE$ that the operators $\known$ and $\remember$ have the most
-natural interpretation, and as we will see in the next section,
-the restriction to these class have important effects on expressivity
-and decidability.
+to investigate is the class $\gCE = \{\gM \mid \gM =
+\tup{W,\rels,V,\emptyset}\}$, i.e., the class of models where the
+memory is empty.  It is over $\gCE$ that the operators $\known$ and
+$\remember$ have the most natural interpretation, and as we will see
+in the next section, the restriction to this class has important
+effects on expressivity and decidability.
 
 
 %
