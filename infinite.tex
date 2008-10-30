@@ -48,8 +48,8 @@ infinite, and so is $W$.
 
 To prove failure of the finite model property for the case $\cMLRK$
 we first notice that the following lemma is easy to establish (we only
-state it for the monomodal case; a similar result is true in the
-multimodal case).
+state it for the mono-modal case; a similar result is true in the
+multi-modal case).
 Failure of the finite model property is then a direct consequence.
 
 \begin{lem}\label{lem:boxes}
@@ -87,7 +87,7 @@ The satisfiability problem for {\em $\cMLRKE$} is undecidable.
 \begin{pf}
 Let $T=\{T_1,\dots,T_n\}$ be a set of tile types. Given a tile type
 $T_i$, $u(T_i)$, $r(T_i)$, $d(T_i)$, $l(T_i)$ will represent the
-colors of the up, right, down and left edges of $T_i$ r espectively.
+colors of the up, right, down and left edges of $T_i$ respectively.
 Define
 $$
 \begin{array}{rl}
@@ -188,7 +188,7 @@ symbols and booleans are straightforward. We analyze the other
 cases:
 \begin{itemize}
  \item $\varphi = \remember \psi$. $\model, w \models \remember\remember\psi$ iff $\model, w \models \remember \psi$ iff (by inductive hypothesis) $\model, w \models \psi^\sharp$ iff $\model, w \models (\psi^\sharp)^\sharp$ iff (by inductive hypothesis) $\model, w \models \remember (\psi^\sharp)$ iff $\model, w \models (\remember\psi)^\sharp$
-\item $\varphi = \ttup{r} \psi$. $\model, w \models \remember \ttup{r} \psi$ iff (by definition) $\model[w], w \models \ttup{r} \psi$ iff (by inductive hypothesis) $\model[w], w \models (\ttup{r} \psi)^\sharp$ iff (by definition) $\model, w \models (\ttup{r} \psi)^\sharp$
+\item $\varphi = \ttup{r} \psi$. $\model, w \models \remember \ttup{r} \psi$ iff (by definition) $\model[w], w \models \ttup{r} \psi$ iff (by definition of $\sharp$) $\model[w], w \models (\ttup{r} \psi)^\sharp$ iff (by definition) $\model, w \models (\ttup{r} \psi)^\sharp$
 \end{itemize}
 \end{pf}
 
@@ -466,7 +466,7 @@ Consider the following formulas:
 $$
 \begin{array}{rl}
 (\textit{Back}) & p \land [R] \lnot p  \land \diam{R} \top \land [R]\diam{R} (\known \land p) \\
-&$``The root is irreflexive, and in symmetric relation with all its (nontempty) successors.''$\\
+&$``The root is irreflexive, and in symmetric relation with all its (nonempty) successors.''$\\
 (\textit{Spy}) & [R][R]( \lnot p \to \diam{R} (\known \land p \land \diam{R} ( \known \land \lnot \diam{R} ( \known \land \lnot p))))\\
 &$``A 2-step successor is a 1-step successor, with a non-symmetric relation between them.''$\\
 (\textit{Irr}) & \lnot \diam{R} ( \lnot p \land \diam{R} ( \lnot p \land \known)))\\

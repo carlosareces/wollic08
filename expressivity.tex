@@ -8,11 +8,10 @@ We would like to be able to define a natural mapping between models
 of each logic, similar to the natural mapping that exists between
 Kripke models and first-order models~\cite{BRV01}.
 
-Such a mapping is easy to define in the case of $\cMLRKE$: each
+Such a mapping is easy to define in the case of $\cMLRKE$ where the model is interpreted with $S=\emptyset$: each
 Kripke model $\diam{W,\rels,V}$ can be identified with the $\cMLRKE$
-model $\diam{W,\rels,$ $V,$ $\emptyset}$. Similarly, for formulas
-which are sentences, the $\cMLRKE$ model $\diam{W,$ \linebreak
-$\rels,$ $V,\emptyset}$ can be identified with the hybrid model
+model $\diam{W,\rels, V, \emptyset}$. Similarly, for formulas
+which are sentences, the $\cMLRKE$ model $\diam{W,\rels,V,\emptyset}$ can be identified with the hybrid model
 $\diam{W,\rels,V,g}$ (for $g$ arbitrary).
 %
 Since models for the $\cMLRKE$ logic coincide with those of
@@ -35,7 +34,7 @@ we have that
 \model \models_\mathcal{L} \varphi \mbox{ iff } \model \models_{\mathcal{L}'} \Tr(\varphi).
 \]
 
-We say that $\mathcal{L}$ is strictly less expressive than $\mathcal{L'}$
+We say that $\mathcal{L}$ is \emph{strictly less expressive} than $\mathcal{L'}$
 (notation $\mathcal{L} < \mathcal{L'}$) if $\mathcal{L} \le \mathcal{L'}$ but
 not $\mathcal{L}' \le \mathcal{L}$.
 \end{defn}
@@ -130,7 +129,7 @@ $\bml<\cMLRKE$.
 
 \begin{pf}
 Showing that $\bml\leq\cMLRKE$ is straightforward as $\bml$ is a
-sublanguage of $\cMLRKE$.  Hence, we can take $\Tr$ to be the
+sub-language of $\cMLRKE$.  Hence, we can take $\Tr$ to be the
 identity function.
 
 To see that $\cMLRKE\not\leq\bml$, let
@@ -302,7 +301,7 @@ $\cMLRKE<\hlogic$.
 \end{cor}
 
 \begin{pf}
-Straightforward from theorems~\ref{thm:tle_leq_hlogic}
+Straightforward from Theorems~\ref{thm:tle_leq_hlogic}
 and~\ref{thm:tle_not_equal_hlogic}.
 \end{pf}
 
@@ -370,7 +369,7 @@ $\model^1_{n+2}, w_0 \models \psi$ iff $\model^2_{n+2}, w_0 \models
 
 \begin{pf}
 We prove that Duplicator has a winning strategy in the game
-$EF(\model^1_{n+2},\model^2_{n+2}, w_0, w_0)$ in the case Spoiler
+$EF(\model^1_{n+2},$ $\model^2_{n+2},$ $w_0,$ $w_0)$ in the case Spoiler
 makes at most $n$ memorizing steps. The strategy for Duplicator is
 the following. While Spoiler does not remember any reflexive state,
 Duplicator plays with the following strategy: if Spoiler chooses
@@ -414,14 +413,18 @@ restricted to only one nominal.  But actually, it is also the case
 that $\cMLRKE \not\le\hlogicone$.
 
 \tb{Give the general claim for an arbitrary $k$ as a theorem. Then
-say that we just prove the case for $k=1$ and that the rest are similar.}
-\begin{pro}\label{prop:hlogicone_incomparable_tle}
-The logics $\hlogicone$ and {\em $\tle$} are incomparable in terms of expressive power.
-\end{pro}
+say that we just prove the case for $k=1$ and that the rest are similar. \\DIEGO SAYS: DONE}
 
+\begin{thm}
+For any fixed $k$, the logics $\hlogick$ and {\em $\cMLRKE$} are incomparable in terms of expressive power.
+\end{thm}
+%\begin{pro}\label{prop:hlogicone_incomparable_tle}
+%The logics $\hlogicone$ and {\em $\tle$} are incomparable in terms of expressive power.
+%\end{pro}
 \begin{pf}
-As we said, $\hlogicone\not\leq\tle$ is a direct consequence of the
-proof of Theorem~\ref{thm:tle_not_equal_hlogic}. To prove $\tle \not
+We will show the proof for $k=1$, the general case being similar.
+As we said, $\hlogicone\not\leq\cMLRKE$ is a direct consequence of the
+proof of Theorem~\ref{thm:tle_not_equal_hlogic}. To prove $\cMLRKE \not
 \le \hlogicone$, let $\model_1=\diam{\{1,2,3\},\{(i,j) \mid 1 \leq
 i,j \leq 3\},\emptyset,\emptyset}$ (a clique of size 3) and
 $\model_2=\diam{\{1,2\},\{(i,j) \mid 1 \leq i,j \leq
@@ -432,41 +435,39 @@ $\varphi = \remember \diam{r} (\neg \known \land \remember
 \diam{r} (\neg\known \land \remember \diam{r} \neg\known))$
 distinguishes the models: $\model_1,1 \models \varphi$ but
 $\model_2,1 \not\models \varphi$.
+
+This result can be extended to $\hlogic$ restricted to any fixed number of nominals, by taking cliques of the appropriate size.
 \end{pf}
 
-Actually, this incomparability result can be extended to $\hlogic$ restricted to any fixed number of nominals, by taking cliques of the appropriate size.
 
-\begin{thm}
-For any fixed $k$, the logics $\hlogick$ and {\em $\tle$} are incomparable in terms of expressive power.
-\end{thm}
 \medskip
 
 \noindent
-We will now briefly discuss the case of $\tl$.  As we already mentioned at the beginning
+We will now briefly discuss the case of $\cMLRK$.  As we already mentioned at the beginning
 of this section, the first required step to compare expressivity is to be able to define
 a natural mapping between models of the different logics involved.  Consider a model
-$\diam{W,\rels,V,S}$ for $\tl$; if we want to associate a Kripke model we have to decide
+$\diam{W,\rels,V,S}$ for $\cMLRK$; if we want to associate a Kripke model we have to decide
 how to deal with the set $S$.  The only natural choice seems to be to extend the signature
 with a special propositional variable \emph{known}, and let $V'$ be identical to
 $V$ excepts that $V'(\mathit{known}) = S$.  And  the same can be done to obtain a hybrid model
-from a $\tl$ model.
+from a $\cMLRK$ model.
 
 
 \begin{thm}\label{thm:expr_power}
 The following results concerning expressive power can be established
 \begin{enumerate}
 \item $\bml$ over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel}$ is strictly
-less expressive than {\em $\tl$} over the signature $\diam{\prop, \rel}$.
-\item {\em $\tl$} over the signature $\diam{\prop, \rel}$ is strictly less expressive
+less expressive than {\em $\cMLRK$} over the signature $\diam{\prop, \rel}$.
+\item {\em $\cMLRK$} over the signature $\diam{\prop, \rel}$ is strictly less expressive
 than $\hlogic$ over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel,\nom}$.
-\item {\em $\tle$} over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel}$ is equivalent to \linebreak
-{\em $\tl$} over the signature $\diam{\prop, \rel}$
+\item {\em $\cMLRKE$} over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel}$ is equivalent to \linebreak
+{\em $\cMLRK$} over the signature $\diam{\prop, \rel}$
 \end{enumerate}
 \end{thm}
 
 \begin{pf}
 All proofs are similar to (and sometimes easier than) the ones
-presented above. We only discuss 2. To prove $\tl \le \hlogic$ (over
+presented above. We only discuss 2. To prove $\cMLRK \le \hlogic$ (over
 the appropriate signatures) we adapt the translation $\Tr$ with the
 following clause for $\known$
 $$
@@ -475,11 +476,11 @@ $$
 \mathit{known}.
 \end{array}
 $$
-$\hlogic \not \le \tl$ can be shown using the following models. Let
+$\hlogic \not \le \cMLRK$ can be shown using the following models. Let
 $\model_1=\diam{\{w\},$ $\{(w,w)\},\emptyset,\{w\}}$ and
 $\model_2=\diam{\{u,v\},\{(u,v),(v,u)\},\emptyset,\{u,v\}}$.
 Duplicator always wins on $E(\model_1,\model_2,w,u)$ and thus
-$\model_1,w\bisim_{\tl}\model_2,u$. On the other hand,
+$\model_1,w\bisim_{\cMLRK}\model_2,u$. On the other hand,
 $\model'_1,w\models_{\hlogic}\down i.\diam{r}i$ but
 $\model'_2,u\not\models_{\hlogic}\down i.\diam{r}i$, for $\model'_1,
 \model'_2$ the  models corresponding to $\model_1$ and $\model_2$.
@@ -546,4 +547,4 @@ $\MS$ and $\hlogic$ have the same expressive power.
 
 To close this section, we mention that the satisfaction preserving translations defined in
 the proof can actually be used to transfer known results, for example, from  $\hlogic$ to $\tl$ and $\tle$.  For
-instance, both logics are compact and their formulas are preserved by generated submodels (see~\cite{areces01:_hybrid}).
+instance, both logics are compact and their formulas are preserved by generated sub-models (see~\cite{areces01:_hybrid}).
