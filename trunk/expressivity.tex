@@ -83,30 +83,29 @@ Clearly for any formula $\varphi \in \cMLRK$ we have that
 $\gM,w \models \varphi$  iff $\gM',w \models \Tr(\varphi)$.
 \end{pf}
 
-Over the same signature, it is clear that, $\cMLRKE \le \cMLRK$ and
-$\cMLRKME \le \cMLRKM$, and it is not hard to prover that actually
-$\cMLRKE < \cMLRK$ and $\cMLRKME < \cMLRKM$.
+On the other hand, the freedom to decide when to remember one state
+gives $\cMLRK$ and $\cMLRKE$ are more expressive power when compared
+with $\cMLRKM$ and $\cMLRKME$.
 
-\tb{We could include a short proof here}
-
-Hence, the relative
-expressive power of these memory logics, depens on the choosen
-signature.  It is for this reason that we have mark their relation
-with a dash arrow in Figure~\ref{fig-expressivity}.
-
-\tb{In the picture we could actually put two arrows inside
-each globe L2 -> L1 and L1 --> L2, and L4 -> L3 and L3 --> L4.}
 
 \begin{thm}
-$\cMLRKM < \cMLRK$.
+$\cMLRKM < \cMLRK$ and $\cMLRKME < \cMLRKE$.
 \end{thm}
 
 \begin{pf}
-It is easy to see that there is a translation \Tr\ from $\cMLRKM$-
+We only prove the result for $\cMLRKME < \cMLRKE$ as the other case
+is identical.
+\smallskip
+
+\noindent
+$[\cMLRKM \leq \cMLRK]$: It is easy to see that there is a translation \Tr\ from $\cMLRKM$-
 to $\cMLRK$-formulas which maps $\ttup{r}\varphi$ to
 $\remember\diam{r}\varphi$ and verifies $\model \models_{\cMLRKM}
-\varphi$ iff $\model \models_{\cMLRK} \Tr(\varphi)$. This shows that
-$\cMLRKM \leq \cMLRK$. To see $\cMLRK \not\leq \cMLRKM$, let
+\varphi$ iff $\model \models_{\cMLRK} \Tr(\varphi)$.
+\smallskip
+
+\noindent
+$[\cMLRK \not\leq \cMLRKM]$: Let
 $\model_1=\diam{\{w,v,r\}, R_1, V_1, \emptyset}$ and
 $\model_2=\diam{\{w,v,r\}, R_2, V_2, \emptyset}$ such that
 $R_1=\{(w,v),(v,r),(r,w)\}$, $R_2=\{(w,v),(v,r),(r,v)\}$ and $V_1(p)
