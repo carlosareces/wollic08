@@ -42,9 +42,29 @@ expressive (notation $\gL = \gL'$) if $\gL \le \gL'$ and $\gL' \le \gL$.
 
 \begin{figure}
 \begin{center}
-\includegraphics{picture-logics.pdf}
+\begin{tikzpicture}[>=latex]
+  \node[draw,rounded corners,minimum height=2.5cm,minimum width=1cm] (b1) at (3,1.25) {};
+  \node[draw,rounded corners,minimum height=2.5cm,minimum width=1cm] (b2) at (5,1.25) {};
+    \node[draw,rounded corners,minimum height=2.5cm,minimum width=1.4cm] (b3) at (7,1.25) {};
+  
+  \node (n0) at (1.2,1.25) {$\mathcal{K}$};
+  \node (n3) at (3,2) {$\cMLRKM$};%L3
+  \node (n4) at (3,.5) {$\cMLRKME$};%L4
+  \node (n1) at (5,2) {$\cMLRK$};%L1
+  \node (n2) at (5,.5) {$\cMLRKE$};%L2
+  \node (n5) at (7,2) {$\cMLS$};%L5
+  \node (n6) at (7,.5) {$\hlogic$};%HL
+  
+  \draw [->] (n0) -- (b1);
+  \draw [->] (b1) -- (b2);
+  \draw [->] (b2) -- (b3);
+  
+  \draw [dashed] (n3) edge (n4);
+  \draw [dashed] (n1) edge (n2);
+  \draw [dashed] (n5) edge (n6);
+\end{tikzpicture}
 \end{center}
-\caption{Expressive power}\label{fig-expressivity}
+\caption{Expressive power.}\label{fig-expressivity}
 \end{figure}
 
 The summary of the results we are going to establish in this section
@@ -109,43 +129,38 @@ $[\cMLRK \not\leq \cMLRKM]$: Let
 $\model_1=\diam{\{w,v,r\}, R_1, V_1, \emptyset}$ and
 $\model_2=\diam{\{w,v,r\}, R_2, V_2, \emptyset}$ such that
 $R_1=\{(w,v),(v,r),(r,w)\}$, $R_2=\{(w,v),(v,r),(r,v)\}$ and $V_1(p)
-= V_2(p) = \emptyset$ for all $p \in \prop$.
-% \begin{center}
-% \begin{pgfpicture}{0cm}{0cm}{4cm}{1cm}
-%     \pgfnodecircle{nodo1}[stroke]{\pgfxy(0.5,0.5)}{0.25cm}
-%     \pgfnodecircle{nodo2}[stroke]{\pgfxy(2.0,0.5)}{0.25cm}
-%     \pgfnodecircle{nodo3}[stroke]{\pgfxy(3.5,0.5)}{0.25cm}
-%
-%     \pgfsetlinewidth{0.4pt}
-%     \pgfnodesetsepstart{1.5pt}
-%     \pgfnodesetsepend{3pt}
-%     \pgfsetendarrow{\pgfarrowtriangle{4pt}}
-%     \pgfnodeconnline{nodo1}{nodo2}
-%     \pgfnodeconnline{nodo2}{nodo3}
-% %    \pgfnodeconncurve{nodo3}{nodo1}{225}{315}{1cm}{1cm}
-%
-%     \pgfnodelabel{nodo1}{nodo1}[-17][0pt]{\pgfbox[center,base]{$w$}}
-%     \pgfnodelabel{nodo3}{nodo3}[-30][1.5cm]{\pgfbox[center,base]{$\model_1$}}
-% \end{pgfpicture}
-% \hspace{20mm}
-% \begin{pgfpicture}{0cm}{0cm}{4cm}{1cm}
-%     \pgfnodecircle{nodo1}[stroke]{\pgfxy(0.5,0.5)}{0.25cm}
-%     \pgfnodecircle{nodo2}[stroke]{\pgfxy(2.0,0.5)}{0.25cm}
-%     \pgfnodecircle{nodo3}[stroke]{\pgfxy(3.5,0.5)}{0.25cm}
-%
-%     \pgfsetlinewidth{0.4pt}
-%     \pgfnodesetsepstart{1.5pt}
-%     \pgfnodesetsepend{3pt}
-%     \pgfsetendarrow{\pgfarrowtriangle{4pt}}
-%     \pgfnodeconnline{nodo1}{nodo2}
-%     \pgfnodeconnline{nodo2}{nodo3}
-% %    \pgfnodeconncurve{nodo3}{nodo2}{225}{315}{0.2cm}{1cm}
-%
-%     \pgfnodelabel{nodo1}{nodo1}[-17][0pt]{\pgfbox[center,base]{$w$}}
-%     \pgfnodelabel{nodo3}{nodo3}[-30][1.5cm]{\pgfbox[center,base]{$\model_2$}}
-% \end{pgfpicture}
-% \vspace{8mm}
-% \end{center}
+= V_2(p) = \emptyset$ for all $p \in \prop$, as shown in Figure~\ref{fig:L3L1}.
+
+\begin{figure} 
+\begin{center}
+\begin{tikzpicture}[>=latex]
+  \node (n1) at (0,0) [shape=circle,draw,minimum height=.6cm] {$w$} ;
+  \node (n2) at (1.5,0) [shape=circle,draw,minimum height=.6cm] {$v$} ;
+  \node (n3) at (3,0) [shape=circle,draw,minimum height=.6cm] {$r$} ;
+  
+  \draw [->] (n1) -- (n2);
+  \draw [->] (n2) -- (n3);
+  \draw [->] (n3) edge[bend right=30] (n1);
+  
+  \node at (1.5,-.7) {$\model_1$};
+\end{tikzpicture}
+\hspace{1cm}
+\begin{tikzpicture}[>=latex]
+  \node (n1) at (0,0) [shape=circle,draw,minimum height=.6cm] {$w$} ;
+  \node (n2) at (1.5,0) [shape=circle,draw,minimum height=.6cm] {$v$} ;
+  \node (n3) at (3,0) [shape=circle,draw,minimum height=.6cm] {$r$} ;
+  
+  \draw [->] (n1) -- (n2);
+  \draw [->] (n2) -- (n3);
+  \draw [->] (n3) edge[bend right=30] (n2);
+  
+  \node at (1.5,-.7) {$\model_2$};
+\end{tikzpicture}
+\end{center}
+\caption{$\cMLRKME \not= \cMLRKE$.}
+\label{fig:L3L1}
+\end{figure}
+
 We prove that $\model_1$ and $\model_2$ are $\cMLRKM$-bisimilar. As
 every state in both models has a unique successor, Duplicator has
 only one way of playing, and this only way is indeed a winning
