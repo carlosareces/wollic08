@@ -25,7 +25,7 @@ language.
 
 \begin{defn}[$\mathcal{L} \le \mathcal{L'}$]
 We say that
-$\mathcal{L}$ is \emph{not more expressive than} $\mathcal{L'}$
+$\mathcal{L'}$ is \emph{at least as expressive as} $\mathcal{L}$
 (notation $\mathcal{L} \le \mathcal{L'}$) if it is possible to
 define a function $\Tr$ between formulas of  $\mathcal{L}$ and $\mathcal{L'}$
 such that for every model $\model$ and every formula $\varphi$ of $\mathcal{L}$
@@ -34,30 +34,68 @@ we have that
 \model \models_\mathcal{L} \varphi \mbox{ iff } \model \models_{\mathcal{L}'} \Tr(\varphi).
 \]
 
-We say that $\mathcal{L}$ is \emph{strictly less expressive} than $\mathcal{L'}$
+We say that $\mathcal{L'}$ is \emph{strictly more expressive} than $\mathcal{L}$
 (notation $\mathcal{L} < \mathcal{L'}$) if $\mathcal{L} \le \mathcal{L'}$ but
-not $\mathcal{L}' \le \mathcal{L}$.
+not $\mathcal{L}' \le \mathcal{L}$.  And we say that $\gL$ and $\gL'$ are equally
+expressive (notation $\gL = \gL'$) if $\gL \le \gL'$ and $\gL' \le \gL$.
 \end{defn}
 
-\tb{It would be good to give a figure, where we show all the results in
-terms of expressivity in a picture. I.e., given a graph where we draw
-an arrow between $\gL_1$ and $\gL_2$ when $\gL_1 < \gL_2$.\\
-DIEGO: STH LIKE THIS? DASHED LINE MEANS UNCOMPARABLE. ARE THERE ERRORS OR SOMETHING MISSING?}
+\begin{figure}
 \begin{center}
 \includegraphics{picture-logics.pdf}
 \end{center}
-We now give some results related to the expressive power of
-$\cMLRKE$.
+\caption{Expressive power}\label{fig-expressivity}
+\end{figure}
 
-\begin{thm}
-$\bml$ over the signature $\diam{\prop \cup \{known\}, \rel}$ is
-strictly less expressive than $\tlm$ over the signature
-$\diam{\prop, \rel}$.
+The summary of the results we are going to establish in this section
+is shown in Figure~\ref{fig-expressivity}.  In the figure, a full arrow
+between two logics $\gL$ and $\gL'$ means that $\gL < \gL'$. Double headed
+arrows link languages with the same expressive power.  We use dashed
+arrows when a change in the signature is required in the proof, and this is
+the first result we are going to show.
+
+\begin{thm} \
+\begin{enumerate}
+\item $\cMLRKE$ over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel}$ is equivalent to $\cMLRK$ over the signature $\diam{\prop, \rel}$
+\item $\cMLRKME$ over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel}$ is equivalent to $\cMLRKM$ over the signature $\diam{\prop, \rel}$
+\end{enumerate}
 \end{thm}
 
 \begin{pf}
-Exactly the same proof used to prove that $\bml < \tl$.
+The argument for item $2$ is exactly the same as the one for item $1$.  Hence let's
+prove $\cMLRKE=\cMLRK$ (over the appropriate signatures).
+
+We start by associating every model $\gM=\tup{W,\rels,V,S}$ of $\cMLRK$ over the signature $\diam{\prop, \rel}$ with the model $\gM'=\tup{W,\rels,V',\emptyset}$
+of $\cMLRKE$ over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel}$ where $V'$ is identical to $V$ over $\prop$ and $V'(\mathit{known}) =S$.
+\smallskip
+
+\noindent
+$[\cMLRKE \le \cMLRK]$: use the translation $\Tr$ that only rewrite the propositional symbol $\mathit{known}$
+as $\known$ in any formula of $\cMLRKE$.
+Clearly for any formula $\varphi \in \cMLRKE$ we have that
+$\gM',w \models \varphi$ iff $\gM,w \models \Tr(\varphi)$.
+\smallskip
+
+\noindent
+$[\cMLRK \le \cMLRKE]$: use the translation $\Tr$ that only rewrite $\known$
+as $(\known \vee \mathit{known})$ in any formula of $\cMLRK$.
+Clearly for any formula $\varphi \in \cMLRK$ we have that
+$\gM,w \models \varphi$  iff $\gM',w \models \Tr(\varphi)$.
 \end{pf}
+
+Over the same signature, it is clear that, $\cMLRKE \le \cMLRK$ and
+$\cMLRKME \le \cMLRKM$, and it is not hard to prover that actually
+$\cMLRKE < \cMLRK$ and $\cMLRKME < \cMLRKM$.
+
+\tb{We could include a short proof here}
+
+Hence, the relative
+expressive power of these memory logics, depens on the choosen
+signature.  It is for this reason that we have mark their relation
+with a dash arrow in Figure~\ref{fig-expressivity}.
+
+\tb{In the picture we could actually put two arrows inside
+each globe L2 -> L1 and L1 --> L2, and L4 -> L3 and L3 --> L4.}
 
 \begin{thm}
 $\cMLRKM < \cMLRK$.
@@ -120,33 +158,46 @@ $\cMLRK$-formula. It is easy to see that $\model_1,w \not \models
 \end{pf}
 
 
+We will now compare the expressive power of memory logics with
+the basic modal logic $\bml$.
 
-It is easy to see intuitively that $\remember$ and $\known$ do bring
+\subsection{Memory Logics and Modal Logics}
+
+Because model of $\K$ are different from models for memory logics
+we should start by defining how are we going to match them.  In
+this case, it seems that we don't have other option but to change
+the signature.  But even over a suitable extended signature,
+$\bml$ is less expressive than $\cMLRKM$.
+
+It is not difficult to see intuitively that $\remember$ and $\known$ do bring
 additional expressive power into the language of $\bml$: with their
 help we can detect cycles in a given model, while formulas of $\K$
 are invariant under unraveling.
 
 \begin{thm}
-$\bml<\cMLRKE$.
+$\bml$ over the signature $\diam{\prop \cup \{known\}, \rel}$ is
+strictly less expressive than $\cMLRKM$ over the signature
+$\diam{\prop, \rel}$.
 \end{thm}
 
 \begin{pf}
-Showing that $\bml\leq\cMLRKE$ is straightforward as $\bml$ is a
-sub-language of $\cMLRKE$.  Hence, we can take $\Tr$ to be the
+\tb{modify proof below so that it works with $\cMLRKM$}
+
+Showing that $\bml\leq\cMLRK$ is straightforward as $\bml$ is a
+sub-language of $\cMLRK$.  Hence, we can take $\Tr$ to be the
 identity function.
 
-To see that $\cMLRKE\not\leq\bml$, let
+To see that $\cMLRK\not\leq\bml$, let
 $\model_1=\diam{\{w\},\{(w,w)\},\emptyset}$ and
 $\model_2=\diam{\{u,v\},\{(u,v),(v,u)\},\emptyset}$ be two Kripke
 models. It is known that they are $\bml$ bisimilar
-(see~\cite{BRV01}). On the other hand, the equivalent $\cMLRKE$
+(see~\cite{BRV01}). On the other hand, the equivalent $\cMLRK$
 models are distinguishable by $\varphi=\remember \diam{r}\known$.
 \end{pf}
 
 
 
-
-
+\subsection{Memory Logics and Hybrid Logics}
 
 To prove that $\cMLRKE$ is strictly less expressive than $\hlogic$,
 we will define a translation that maps formulas of $\tle$ into
@@ -328,18 +379,12 @@ We prove that $\hlogic \not \leq \cMLRKE$ on image-finite models
 showing that there cannot exist an equivalence preserving
 translation for finite models from $\hlogic$ to $\cMLRKE$
 
-\tb{below should not be a definition (it is only used in the proof
-of Theorem 10). Give first the theorem and move the lemmas to
-'claims' within the proof.  The definition of the models goes also
-inside the proof.\\SANTI SAYS: DONE.}
-
-
 
 \begin{thm}
 There is no translation $\Tr$ from $\hlogic$-sentences to
 $\cMLRKE$-formulas such that for every finite model $\model$ and
-every $\hlogic$-formula $\varphi$ we have $\model \models_{\hlogic}
-\varphi$ iff $\model \models_{\cMLRKE} \Tr(\varphi)$.
+every $\hlogic$-sentence $\varphi$ we have $\model \models
+\varphi$ iff $\model \models \Tr(\varphi)$.
 \end{thm}
 \begin{pf}
 Let us suppose that such translation $\Tr$ exists. Let
@@ -357,20 +402,17 @@ R_1&=&\{(n,m)\mid n \neq m\} \cup \{(w_0,w_0)\}\\
 R_2&=&R_1 \cup \{w_1, w_1\}.
 \end{eqnarray*}
 
-
-\begin{fact}
-For every $n \geq 1$, $\model^1_n, w_0 \not\models \varphi$ and
+Clearly, for every $n \geq 1$, $\model^1_n, w_0 \not\models \varphi$ and
 $\model^2_n, w_0 \models \varphi$.
-\end{fact}
 
-\begin{fact}\label{lem:not-distinguish}
-Let $\psi$ be a $\cMLRKE$-formula such that the number of
+\begin{claim}\label{lem:not-distinguish}
+Let $\psi$ be an $\cMLRKE$-formula such that the number of
 occurrences of the $\remember$ operator is at most $n$. Then
 $\model^1_{n+2}, w_0 \models \psi$ iff $\model^2_{n+2}, w_0 \models
 \psi$.
-\end{fact}
+\end{claim}
 
-\begin{pf}
+\begin{pfclaim}
 We prove that Duplicator has a winning strategy in the game
 $EF(\model^1_{n+2},$ $\model^2_{n+2},$ $w_0,$ $w_0)$ in the case Spoiler
 makes at most $n$ memorizing steps. The strategy for Duplicator is
@@ -391,8 +433,8 @@ therefore there is always at least two non-remembered states. That
 means that both $w_n$ and $w_m$ see at least one remembered state
 and at least one non-remembered state, and this condition will hold
 for the rest of the game.
-\end{pf}
-%
+\end{pfclaim}
+
 Now, let let $n$ be the complexity of $\Tr(\varphi)$. Because
 $\Tr(\varphi)$ has at most $n$ remember operators, we know by
 Fact~\ref{lem:not-distinguish} that
@@ -405,8 +447,6 @@ But on the other hand, $\model^1_{n+2}, w_0
 This is an absurd, since $\Tr$ should be an equivalence preserving
 translation for finite models.
 \end{pf}
-
-
 
 
 Second, notice that the $\hlogic$ sentence that we used in the proof
@@ -443,9 +483,6 @@ This result can be extended to $\hlogic$ restricted to any fixed number of nomin
 \end{pf}
 
 
-\medskip
-
-\noindent
 We will now briefly discuss the case of $\cMLRK$.  As we already mentioned at the beginning
 of this section, the first required step to compare expressivity is to be able to define
 a natural mapping between models of the different logics involved.  Consider a model
@@ -463,8 +500,6 @@ The following results concerning expressive power can be established
 less expressive than {\em $\cMLRK$} over the signature $\diam{\prop, \rel}$.
 \item {\em $\cMLRK$} over the signature $\diam{\prop, \rel}$ is strictly less expressive
 than $\hlogic$ over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel,\nom}$.
-\item {\em $\cMLRKE$} over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel}$ is equivalent to \linebreak
-{\em $\cMLRK$} over the signature $\diam{\prop, \rel}$
 \end{enumerate}
 \end{thm}
 
@@ -491,14 +526,14 @@ $\model'_2,u\not\models_{\hlogic}\down i.\diam{r}i$, for $\model'_1,
 
 \tb{(Diego) Falta el resultado que dice que L4=K, que esta desperdigado en la seccion 5}
 
-\begin{pro}\label{prop:stack_leq_hl}
-$\MS$ is not more expressive than $\hlogic$.
-\end{pro}
+
+\begin{thm}\label{prop:stack_leq_hl}
+$\cMLS = \hlogic$.
+\end{thm}
 
 \begin{pf}
-We show that every property captured by a $\MS$-formula can be
-captured by a $\hlogic$-formula. We do this by defining the
-following translation transforming an $\MS$-formula and a list of
+To prove $\cMLS \le \hlogic$, we define
+the translation mapping an $\cMLS$-formula and a list of
 nominals $N$ into an $\hlogic$-formula.
 \begin{eqnarray*}
 \Tr_N(p) & = & p \quad p \in \prop\\
@@ -513,20 +548,17 @@ nominals $N$ into an $\hlogic$-formula.
 \Tr_{[\ ]}(\tope) & = & \lnot\top
 \end{eqnarray*}
 (Here $q$ is a fixed propositional symbol in \prop.)
+\tb{where is $q$ used above?}
 
 It can be shown by induction in $\varphi$ that $\model, w \models
 \varphi$ iff $\model, g, w \models \Tr_{[\ ]}(\varphi)$, for any $g$
-\end{pf}
+\smallskip
 
-\begin{pro} \label{prop:hl_leq_stack}
-$\hlogic$ is not more expressive than $\MS$.
-\end{pro}
-
-\begin{pf}
-As in the previous proof, we define a translation transforming an
-$\hlogic$-formula and a list of nominals $N$ into an $\MS$-formula.
-The idea is that in a formula of the form $\down i.\down j.\varphi$
-we can stack first $i$ and then $j$. Now if $i$ and $j$ appear in
+\noindent
+To prove $\hlogic \le \cMLS$ we define a translation transforming an
+$\hlogic$-formula and a list of nominals $N$ into an $\cMLS$-formula.
+Intuitively, for a formula of the form $\down i.\down j.\varphi$
+we can push first $i$ and then $j$ into the stack. Now if $i$ and $j$ appear in
 $\varphi$, then $j$ must be translated as $\tope$ and  $i$ must be
 translated as $\pop\tope$. We define the translation which coincides
 with the one defined in the proof of
@@ -542,13 +574,9 @@ lists are numbered from $1$ and $N[x]$ represents the $x$-th element
 of $N$.)
 
 It can be shown by induction in $\varphi$ that if $\varphi$ is an
-$\hlogic$-formula with no free nominals, $\model, g, w \models
+$\hlogic$-sentence, $\model, g, w \models
 \varphi$ iff $\model, w \models \Tr_{[\ ]}(\varphi)$ for any $g$.
 \end{pf}
-
-\begin{cor}
-$\MS$ and $\hlogic$ have the same expressive power.
-\end{cor}
 
 To close this section, we mention that the satisfaction preserving translations defined in
 the proof can actually be used to transfer known results, for example, from  $\hlogic$ to $\tl$ and $\tle$.  For
