@@ -1,165 +1,11 @@
 \section{Infinite Models and Undecidability}
 
-The last issue that we will discuss in this paper
-is the undecidability of the satisfiability problem
-for both $\cMLRK$ and $\cMLRKE$.  The proof is an adaptation
-of the proof of undecidability of $\hlogic$ presented in~\cite{BS95}.
+In this section we will analyze the decidability and the finite model property of the memory logics we introduced. First, we will show that $\cMLRKM$ has the bounded model property and, therefore, it is a decidable logic. On the other hand, the languages $\cMLRK$, $\cMLRKE$ and $\cMLRKME$ lack the finite model property and they are undecidable. We also analyze the case when $\cMLRKM$ is extended with only one nominal $i$, and we show that $\cMLRKM + i$ is also undecidable and that an infinte model can be forced.
 
-We first prove that both languages lack the finite model property~\cite{BRV01}.
-
-\begin{thm}\label{thm:infinite_model}
-There is a formula {\em $\textit{Inf} \in \cMLRKE$} such that $\mathcal{M},w \models \textit{Inf}$ implies that the domain of $\mathcal{M}$ is an infinite set.
-\end{thm}
-
-\begin{pf}
-Consider the following formulas:
-$$
-\begin{array}{rl}
-(\textit{Back}) & p \land [r] \lnot p  \land \diam{r} \top \land \remember ([r]\diam{r} \known) \\
-(\textit{Spy}) & \remember( [r][r]( \lnot p \to \remember ( \diam{r} (p \land \known \land \diam{r}(\lnot p \land \known))))) \\
-(\textit{Irr}) & [r] \remember \lnot \diam{r} \known\\
-(\textit{Succ}) & [r]\diam{r} \lnot p \\
-(\textit{3cyc}) & \lnot(\diam{r}\remember\diam{r}(\lnot p \land \diam{r}(\lnot p \land \lnot \known \land \diam{r}\known)))\\
-(\textit{Tran}) & [r] \remember [r](\lnot p \to ([r] (\lnot p \to (\remember \diam{r}(p \land \diam{r}(\known \land \diam{r}\known)))))) \\
-\end{array}
-$$
-
-Let $\textit{Inf}$ be $\textit{Back} \land \textit{Spy} \land
-\textit{Irr} \land \textit{Succ} \land \textit{3cyc} \land
-\textit{Tran}$. Let $\model=\diam{W, R, V, \emptyset}$. We show that
-if $\model, w \models \textit{Inf}$, then $W$ is infinite.
-
-Suppose $\model, w \models \textit{Inf}$. Notice that if $\known$
-holds in a state, is because it was previously remembered by the
-evaluating formula. Let $B = \{b \in W \mid wRb\}$. Because
-$\textit{Back}$ is satisfied, $w \not \in B$, $B \not= \emptyset$
-and for all $b \in B$, $bRw$. Because $\textit{Spy}$ is satisfied,
-if $a \not= w$ and $a$ is a successor of an element of $B$ then $a$
-is also an element of $B$. As $\textit{Irr}$ is satisfied at $w$,
-every state in $B$ is irreflexive. As $\textit{Succ}$ is satisfied
-at $w$, every point in $B$ has a successor distinct from $w$. As
-$\textit{3cyc}$ is satisfied, there cannot be $3$ different elements
-in $B$ forming a cycle, and this sentence together with
-$\textit{Tran}$ force $R$ to transitively order $B$.
-
-It follows that $B$ is an unbounded strict partial order, hence
-infinite, and so is $W$.
-\end{pf}
-
-To prove failure of the finite model property for the case $\cMLRK$
-we first notice that the following lemma is easy to establish (we only
-state it for the mono-modal case; a similar result is true in the
-multi-modal case).
-Failure of the finite model property is then a direct consequence.
-
-\begin{lem}\label{lem:boxes}
-Let $\varphi$ be a formula of modal depth $d$. If
-{\em $\diam{W,R_r,V,S},w\models$} \linebreak {\em $\left(\bigwedge_{i=0}^d [r]^i \lnot
-\known\right) \wedge \varphi$} then $\diam{W,R_r,V,\emptyset},w\models
-\varphi$.
-\end{lem}
-
-\begin{cor}
-{\em $\cMLRK$} lacks the finite model property.
-\end{cor}
-
-\begin{pf}
-Using Lemma~\ref{lem:boxes}, one can easily see that the formula
-$\textit{Inf}\land \left(\bigwedge_{i=0}^4 [r]^i \lnot
-\known\right)$, where $\textit{Inf}$ is the one in the proof of
-Theorem~\ref{thm:infinite_model}, forces an infinite model.
-\end{pf}
-
-We now turn to undecidability.
-We show that $\cMLRK$ and $\cMLRKE$ are undecidable by encoding the
-$\omega\times\omega$ tiling problem (see~\cite{BGG97}). Following the idea
-in~\cite{BS95}, we construct a spy point over the relation $S$ which
-has access to every tile. The relations $U$ and $R$ represent moving
-up and to the right, respectively, from one tile to the other. We code each
-type of tile with a fixed propositional symbol $t_i$. With this
-encoding we define for each tiling problem $T$, a formula $\varphi^T$ such that the set of tiles $T$ tiles
-$\omega\times\omega$ iff $\varphi^T$ has a model.
-
-\begin{thm} \label{thm:tle_undecidable}
-The satisfiability problem for {\em $\cMLRKE$} is undecidable.
-\end{thm}
-
-\begin{pf}
-Let $T=\{T_1,\dots,T_n\}$ be a set of tile types. Given a tile type
-$T_i$, $u(T_i)$, $r(T_i)$, $d(T_i)$, $l(T_i)$ will represent the
-colors of the up, right, down and left edges of $T_i$ respectively.
-Define
-$$
-\begin{array}{rl}
-(\textit{Back}) & p \land [S] \lnot p  \land \diam{S} \top \land \remember ([S]\diam{S} \known) \land \remember ([S][S] \known) \\
-(\textit{Spy}) & \remember [S][\dag]\remember\diam{S}(\known\wedge p \wedge \diam{S}(\known \wedge \lnot p)) ,\qquad\textrm{where } \dag\in\{U,R\}\\
-(\textit{Grid}) & [S][U]\lnot p \wedge [S][R]\lnot p \wedge [S]\diam{U}\top \wedge [S]\diam{r}\top \\
-(\textit{Func}) & \remember[S]\remember\diam{\dag}\remember\diam{S}\diam{S}(\known\wedge\diam{\dag}\known \wedge [\dag]\known),\qquad\textrm{where } \dag\in\{U,R\}\\
-(\textit{Irr}) & [S] \remember [\dag] \lnot \known, \qquad\textrm{where } \dag\in\{U,R\}\\
-(\textit{2cyc}) & [S] \remember [\dag] [\dag] \lnot \known, \qquad\textrm{where } \dag\in\{U,R\}\\
-(\textit{Confluent}) & [S] \remember \diam{U}\diam{r} \remember \diam{S}\diam{S} (\known \wedge \diam{U}\diam{r}\known \wedge \diam{r}\diam{U}\known)\\
-(\textit{UR-Irr}) & [S] \remember [U][R] \lnot \known\\
-(\textit{UR-2cyc}) & [S] \remember [U] [R] [U] [R]\lnot \known \\
-(\textit{Unique}) & [S] \left( \bigvee_{1\leq i\leq n} t_i \wedge \bigwedge_{1\leq i < j \leq n } (t_i\to \lnot t_j)\right) \\
-(\textit{Vert}) & [S] \bigwedge_{1\leq i\leq n} \left( t_i \to \diam{U} \bigvee_{1\leq j\leq n,u(T_i)=d(T_j)}  t_j\right) \\
-(\textit{Horiz}) & [S] \bigwedge_{1\leq i\leq n} \left( t_i \to \diam{r} \bigvee_{1\leq j\leq n,r(T_i)=l(T_j)}  t_j\right) \\
-\end{array}
-$$
-
-Let the formula $\varphi^T$ be the conjunction of all the above
-formulas. We show that $T$ tiles $\omega\times\omega$ iff
-$\varphi^T$ is satisfiable.
-
-Suppose $\model,w\models\varphi^T$. Observe that (\textit{Back}) and
-(\textit{Spy}) impose $w$ to be a spy point over all its
-$S$-accessible states of $\model$. These $S$-accessible states will
-be the tiles. From this it follows that $[S]\psi$ holds at $w$ iff
-$\psi$ is true at every tile. Additionally, $\diam{S}\diam{S}\psi$
-holds at tile $v$ iff $\psi$ is true at some tile (maybe the same
-one).
-
-Taking the above points into account, one can establish the
-following. (\textit{Grid}) states that from every tile there is
-another tile moving up (that is, following the $U$-relation). The
-same holds for the right direction (following the $R$-relation).
-(\textit{Func}) forces that $U$ and $R$ are both functionals, given
-that (\textit{Irr}) and (\textit{2cyc}) guarantee irreflexivity and
-asymmetry of $U$ and $R$ respectively. (\textit{Confluent}) imposes
-that the tiles are arranged in a grid pattern. To make its job,
-(\textit{Confluent}) needs the composed relation $U\circ R$ to be
-irreflexive and asymmetric, and this is done by (\textit{UR-Irr})
-and (\textit{UR-2cyc}) respectively.
-
-All the formulas we discuss up to now configure the grid. The last
-three ensure that every tile has a unique type $t_i$, and that the
-colors of the tiles match properly. From this, it easily follows
-that $\model$ is a tiling of $\omega\times\omega$.
-
-For the converse, suppose $f:\omega\times\omega\to T$ is a tiling of
-$\omega\times\omega$. We define the model
-$\model=\diam{W,\{S,U,R\},V,\emptyset}$ as follows:
-\begin{itemize}
-\item $W=\omega\times\omega \cup \{w\}$
-\item $S=\{(w,v),(v,w)\mid v\in\omega\times\omega\}$  (hence $w$ will act as the spy
-point)
-\item $U=\{((x,y),(x,y+1))\mid x,y\in\omega\}$
-\item $R=\{((x,y),(x+1,y))\mid x,y\in\omega\}$
-\item $V(p)=\{w\}$; $V(t_i)=\{x\mid x\in\omega\times\omega, f(x)=T_i\}$
-\end{itemize}
-The reader may verify that, by construction,
-$\model,w\models\varphi^T$.
-\end{pf}
+\tb{Estaría bueno reescribir un poco el párrafo de arriba, como para agregar alguna intuición sobre por qué sucede esto, y que de alguna manera la decidibilidad de L3 no es muy ``robusta''}
 
 
-\begin{cor}
-The satisfiability problem for {\em $\cMLRK$} is undecidable.
-\end{cor}
-%
-\begin{pf}
-Using Lemma~\ref{lem:boxes} and the formula $\varphi^T$ in Theorem~\ref{thm:tle_undecidable}, we obtain a formula $\psi$ such that if $\model,w\models\psi$ then $\model$ is a tiling of $\omega \times \omega$. For the converse, we can build exactly the same model as in the above proof.
-\end{pf}
-
-We now establish an equivalence result between $\bml$ and $\cMLRKM$ for
+We start by establishing an equivalence result between $\bml$ and $\cMLRKM$ for
 the class of tree-like models. We first define, given a formula
 $\varphi$, a new formula $\varphi^\sharp$, as the result of
 replacing all the ocurrences of $\known$ that are in $\varphi$ at
@@ -176,7 +22,7 @@ p^\sharp & = & p \quad p \in \prop\\
 \end{array}
 \end{displaymath}
 
-\tb{(Diego) Los siguientes resultados deberian ir en la seccion de expresividad}
+\tb{(Diego) Los siguientes resultados deberian ir en la seccion de expresividad \\ (Sergio) Les parece? a mi me parece bien que esten aca, en la sección de epresividad lo veo un poco descolgado}
 
 \begin{lem}\label{lem:replace}
 $\model, w \models \remember \varphi$ iff $\model, w \models
@@ -448,6 +294,171 @@ $\varphi$, determining the $\bml$-satisfiability of $\Tr(\varphi)$
 (and we can do this with a \textsc{pspace} algorithm~\cite{BRV01})
 is enough to decide the $\cMLRKM$-satisfiability of $\varphi$.
 \end{pf}
+
+
+
+
+
+
+The last issue that we will discuss in this paper
+is the undecidability of the satisfiability problem
+for both $\cMLRK$ and $\cMLRKE$.  The proof is an adaptation
+of the proof of undecidability of $\hlogic$ presented in~\cite{BS95}.
+
+We first prove that both languages lack the finite model property~\cite{BRV01}.
+
+\begin{thm}\label{thm:infinite_model}
+There is a formula {\em $\textit{Inf} \in \cMLRKE$} such that $\mathcal{M},w \models \textit{Inf}$ implies that the domain of $\mathcal{M}$ is an infinite set.
+\end{thm}
+
+\begin{pf}
+Consider the following formulas:
+$$
+\begin{array}{rl}
+(\textit{Back}) & p \land [r] \lnot p  \land \diam{r} \top \land \remember ([r]\diam{r} \known) \\
+(\textit{Spy}) & \remember( [r][r]( \lnot p \to \remember ( \diam{r} (p \land \known \land \diam{r}(\lnot p \land \known))))) \\
+(\textit{Irr}) & [r] \remember \lnot \diam{r} \known\\
+(\textit{Succ}) & [r]\diam{r} \lnot p \\
+(\textit{3cyc}) & \lnot(\diam{r}\remember\diam{r}(\lnot p \land \diam{r}(\lnot p \land \lnot \known \land \diam{r}\known)))\\
+(\textit{Tran}) & [r] \remember [r](\lnot p \to ([r] (\lnot p \to (\remember \diam{r}(p \land \diam{r}(\known \land \diam{r}\known)))))) \\
+\end{array}
+$$
+
+Let $\textit{Inf}$ be $\textit{Back} \land \textit{Spy} \land
+\textit{Irr} \land \textit{Succ} \land \textit{3cyc} \land
+\textit{Tran}$. Let $\model=\diam{W, R, V, \emptyset}$. We show that
+if $\model, w \models \textit{Inf}$, then $W$ is infinite.
+
+Suppose $\model, w \models \textit{Inf}$. Notice that if $\known$
+holds in a state, is because it was previously remembered by the
+evaluating formula. Let $B = \{b \in W \mid wRb\}$. Because
+$\textit{Back}$ is satisfied, $w \not \in B$, $B \not= \emptyset$
+and for all $b \in B$, $bRw$. Because $\textit{Spy}$ is satisfied,
+if $a \not= w$ and $a$ is a successor of an element of $B$ then $a$
+is also an element of $B$. As $\textit{Irr}$ is satisfied at $w$,
+every state in $B$ is irreflexive. As $\textit{Succ}$ is satisfied
+at $w$, every point in $B$ has a successor distinct from $w$. As
+$\textit{3cyc}$ is satisfied, there cannot be $3$ different elements
+in $B$ forming a cycle, and this sentence together with
+$\textit{Tran}$ force $R$ to transitively order $B$.
+
+It follows that $B$ is an unbounded strict partial order, hence
+infinite, and so is $W$.
+\end{pf}
+
+To prove failure of the finite model property for the case $\cMLRK$
+we first notice that the following lemma is easy to establish (we only
+state it for the mono-modal case; a similar result is true in the
+multi-modal case).
+Failure of the finite model property is then a direct consequence.
+
+\begin{lem}\label{lem:boxes}
+Let $\varphi$ be a formula of modal depth $d$. If
+{\em $\diam{W,R_r,V,S},w\models$} \linebreak {\em $\left(\bigwedge_{i=0}^d [r]^i \lnot
+\known\right) \wedge \varphi$} then $\diam{W,R_r,V,\emptyset},w\models
+\varphi$.
+\end{lem}
+
+\begin{cor}
+{\em $\cMLRK$} lacks the finite model property.
+\end{cor}
+
+\begin{pf}
+Using Lemma~\ref{lem:boxes}, one can easily see that the formula
+$\textit{Inf}\land \left(\bigwedge_{i=0}^4 [r]^i \lnot
+\known\right)$, where $\textit{Inf}$ is the one in the proof of
+Theorem~\ref{thm:infinite_model}, forces an infinite model.
+\end{pf}
+
+We now turn to undecidability.
+We show that $\cMLRK$ and $\cMLRKE$ are undecidable by encoding the
+$\omega\times\omega$ tiling problem (see~\cite{BGG97}). Following the idea
+in~\cite{BS95}, we construct a spy point over the relation $S$ which
+has access to every tile. The relations $U$ and $R$ represent moving
+up and to the right, respectively, from one tile to the other. We code each
+type of tile with a fixed propositional symbol $t_i$. With this
+encoding we define for each tiling problem $T$, a formula $\varphi^T$ such that the set of tiles $T$ tiles
+$\omega\times\omega$ iff $\varphi^T$ has a model.
+
+\begin{thm} \label{thm:tle_undecidable}
+The satisfiability problem for {\em $\cMLRKE$} is undecidable.
+\end{thm}
+
+\begin{pf}
+Let $T=\{T_1,\dots,T_n\}$ be a set of tile types. Given a tile type
+$T_i$, $u(T_i)$, $r(T_i)$, $d(T_i)$, $l(T_i)$ will represent the
+colors of the up, right, down and left edges of $T_i$ respectively.
+Define
+$$
+\begin{array}{rl}
+(\textit{Back}) & p \land [S] \lnot p  \land \diam{S} \top \land \remember ([S]\diam{S} \known) \land \remember ([S][S] \known) \\
+(\textit{Spy}) & \remember [S][\dag]\remember\diam{S}(\known\wedge p \wedge \diam{S}(\known \wedge \lnot p)) ,\qquad\textrm{where } \dag\in\{U,R\}\\
+(\textit{Grid}) & [S][U]\lnot p \wedge [S][R]\lnot p \wedge [S]\diam{U}\top \wedge [S]\diam{r}\top \\
+(\textit{Func}) & \remember[S]\remember\diam{\dag}\remember\diam{S}\diam{S}(\known\wedge\diam{\dag}\known \wedge [\dag]\known),\qquad\textrm{where } \dag\in\{U,R\}\\
+(\textit{Irr}) & [S] \remember [\dag] \lnot \known, \qquad\textrm{where } \dag\in\{U,R\}\\
+(\textit{2cyc}) & [S] \remember [\dag] [\dag] \lnot \known, \qquad\textrm{where } \dag\in\{U,R\}\\
+(\textit{Confluent}) & [S] \remember \diam{U}\diam{r} \remember \diam{S}\diam{S} (\known \wedge \diam{U}\diam{r}\known \wedge \diam{r}\diam{U}\known)\\
+(\textit{UR-Irr}) & [S] \remember [U][R] \lnot \known\\
+(\textit{UR-2cyc}) & [S] \remember [U] [R] [U] [R]\lnot \known \\
+(\textit{Unique}) & [S] \left( \bigvee_{1\leq i\leq n} t_i \wedge \bigwedge_{1\leq i < j \leq n } (t_i\to \lnot t_j)\right) \\
+(\textit{Vert}) & [S] \bigwedge_{1\leq i\leq n} \left( t_i \to \diam{U} \bigvee_{1\leq j\leq n,u(T_i)=d(T_j)}  t_j\right) \\
+(\textit{Horiz}) & [S] \bigwedge_{1\leq i\leq n} \left( t_i \to \diam{r} \bigvee_{1\leq j\leq n,r(T_i)=l(T_j)}  t_j\right) \\
+\end{array}
+$$
+
+Let the formula $\varphi^T$ be the conjunction of all the above
+formulas. We show that $T$ tiles $\omega\times\omega$ iff
+$\varphi^T$ is satisfiable.
+
+Suppose $\model,w\models\varphi^T$. Observe that (\textit{Back}) and
+(\textit{Spy}) impose $w$ to be a spy point over all its
+$S$-accessible states of $\model$. These $S$-accessible states will
+be the tiles. From this it follows that $[S]\psi$ holds at $w$ iff
+$\psi$ is true at every tile. Additionally, $\diam{S}\diam{S}\psi$
+holds at tile $v$ iff $\psi$ is true at some tile (maybe the same
+one).
+
+Taking the above points into account, one can establish the
+following. (\textit{Grid}) states that from every tile there is
+another tile moving up (that is, following the $U$-relation). The
+same holds for the right direction (following the $R$-relation).
+(\textit{Func}) forces that $U$ and $R$ are both functionals, given
+that (\textit{Irr}) and (\textit{2cyc}) guarantee irreflexivity and
+asymmetry of $U$ and $R$ respectively. (\textit{Confluent}) imposes
+that the tiles are arranged in a grid pattern. To make its job,
+(\textit{Confluent}) needs the composed relation $U\circ R$ to be
+irreflexive and asymmetric, and this is done by (\textit{UR-Irr})
+and (\textit{UR-2cyc}) respectively.
+
+All the formulas we discuss up to now configure the grid. The last
+three ensure that every tile has a unique type $t_i$, and that the
+colors of the tiles match properly. From this, it easily follows
+that $\model$ is a tiling of $\omega\times\omega$.
+
+For the converse, suppose $f:\omega\times\omega\to T$ is a tiling of
+$\omega\times\omega$. We define the model
+$\model=\diam{W,\{S,U,R\},V,\emptyset}$ as follows:
+\begin{itemize}
+\item $W=\omega\times\omega \cup \{w\}$
+\item $S=\{(w,v),(v,w)\mid v\in\omega\times\omega\}$  (hence $w$ will act as the spy
+point)
+\item $U=\{((x,y),(x,y+1))\mid x,y\in\omega\}$
+\item $R=\{((x,y),(x+1,y))\mid x,y\in\omega\}$
+\item $V(p)=\{w\}$; $V(t_i)=\{x\mid x\in\omega\times\omega, f(x)=T_i\}$
+\end{itemize}
+The reader may verify that, by construction,
+$\model,w\models\varphi^T$.
+\end{pf}
+
+
+\begin{cor}
+The satisfiability problem for {\em $\cMLRK$} is undecidable.
+\end{cor}
+%
+\begin{pf}
+Using Lemma~\ref{lem:boxes} and the formula $\varphi^T$ in Theorem~\ref{thm:tle_undecidable}, we obtain a formula $\psi$ such that if $\model,w\models\psi$ then $\model$ is a tiling of $\omega \times \omega$. For the converse, we can build exactly the same model as in the above proof.
+\end{pf}
+
 
 
 %\subsection{Undecidable again}
