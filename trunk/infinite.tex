@@ -2,13 +2,13 @@
 
 The last issue that we will discuss in this paper
 is the undecidability of the satisfiability problem
-for both $\tl$ and $\tle$.  The proof is an adaptation
+for both $\cMLRK$ and $\cMLRKE$.  The proof is an adaptation
 of the proof of undecidability of $\hlogic$ presented in~\cite{BS95}.
 
 We first prove that both languages lack the finite model property~\cite{BRV01}.
 
 \begin{thm}\label{thm:infinite_model}
-There is a formula {\em $\textit{Inf} \in \tle$} such that $\mathcal{M},w \models \textit{Inf}$ implies that the domain of $\mathcal{M}$ is an infinite set.
+There is a formula {\em $\textit{Inf} \in \cMLRKE$} such that $\mathcal{M},w \models \textit{Inf}$ implies that the domain of $\mathcal{M}$ is an infinite set.
 \end{thm}
 
 \begin{pf}
@@ -46,7 +46,7 @@ It follows that $B$ is an unbounded strict partial order, hence
 infinite, and so is $W$.
 \end{pf}
 
-To prove failure of the finite model property for the case $\tl$
+To prove failure of the finite model property for the case $\cMLRK$
 we first notice that the following lemma is easy to establish (we only
 state it for the monomodal case; a similar result is true in the
 multimodal case).
@@ -60,7 +60,7 @@ Let $\varphi$ be a formula of modal depth $d$. If
 \end{lem}
 
 \begin{cor}
-{\em $\tl$} lacks the finite model property.
+{\em $\cMLRK$} lacks the finite model property.
 \end{cor}
 
 \begin{pf}
@@ -71,7 +71,7 @@ Theorem~\ref{thm:infinite_model}, forces an infinite model.
 \end{pf}
 
 We now turn to undecidability.
-We show that $\tl$ and $\tle$ are undecidable by encoding the
+We show that $\cMLRK$ and $\cMLRKE$ are undecidable by encoding the
 $\omega\times\omega$ tiling problem (see~\cite{BGG97}). Following the idea
 in~\cite{BS95}, we construct a spy point over the relation $S$ which
 has access to every tile. The relations $U$ and $R$ represent moving
@@ -81,7 +81,7 @@ encoding we define for each tiling problem $T$, a formula $\varphi^T$ such that 
 $\omega\times\omega$ iff $\varphi^T$ has a model.
 
 \begin{thm} \label{thm:tle_undecidable}
-The satisfiability problem for {\em $\tle$} is undecidable.
+The satisfiability problem for {\em $\cMLRKE$} is undecidable.
 \end{thm}
 
 \begin{pf}
@@ -152,14 +152,14 @@ $\model,w\models\varphi^T$.
 
 
 \begin{cor}
-The satisfiability problem for {\em $\tl$} is undecidable.
+The satisfiability problem for {\em $\cMLRK$} is undecidable.
 \end{cor}
 %
 \begin{pf}
 Using Lemma~\ref{lem:boxes} and the formula $\varphi^T$ in Theorem~\ref{thm:tle_undecidable}, we obtain a formula $\psi$ such that if $\model,w\models\psi$ then $\model$ is a tiling of $\omega \times \omega$. For the converse, we can build exactly the same model as in the above proof.
 \end{pf}
 
-We now establish an equivalence result between $\bml$ and $\tlm$ for
+We now establish an equivalence result between $\bml$ and $\cMLRKM$ for
 the class of tree-like models. We first define, given a formula
 $\varphi$, a new formula $\varphi^\sharp$, as the result of
 replacing all the ocurrences of $\known$ that are in $\varphi$ at
@@ -172,7 +172,7 @@ p^\sharp & = & p \quad p \in \prop\\
 (\lnot \varphi)^\sharp & = & \lnot \varphi^\sharp \\
 (\varphi_1 \land \varphi_2)^\sharp & = & \varphi_1^\sharp \land \varphi_2^\sharp \\
 (\remember \varphi)^\sharp & = & \remember \varphi^\sharp\\
-(\diam{R} \varphi)^\sharp & = & \diam{R} \varphi
+(\ttup{r} \varphi)^\sharp & = & \ttup{r} \varphi
 \end{array}
 \end{displaymath}
 
@@ -188,7 +188,7 @@ symbols and booleans are straightforward. We analyze the other
 cases:
 \begin{itemize}
  \item $\varphi = \remember \psi$. $\model, w \models \remember\remember\psi$ iff $\model, w \models \remember \psi$ iff (by inductive hypothesis) $\model, w \models \psi^\sharp$ iff $\model, w \models (\psi^\sharp)^\sharp$ iff (by inductive hypothesis) $\model, w \models \remember (\psi^\sharp)$ iff $\model, w \models (\remember\psi)^\sharp$
-\item $\varphi = \diam{R} \psi$. $\model, w \models \remember \diam{R} \psi$ iff (by definition) $\model[w], w \models \diam{R} \psi$ iff (by inductive hypothesis) $\model[w], w \models (\diam{R} \psi)^\sharp$ iff (by definition) $\model, w \models (\diam{R} \psi)^\sharp$
+\item $\varphi = \ttup{r} \psi$. $\model, w \models \remember \ttup{r} \psi$ iff (by definition) $\model[w], w \models \ttup{r} \psi$ iff (by inductive hypothesis) $\model[w], w \models (\ttup{r} \psi)^\sharp$ iff (by definition) $\model, w \models (\ttup{r} \psi)^\sharp$
 \end{itemize}
 \end{pf}
 
@@ -197,7 +197,7 @@ the tree-like models.
 
 \begin{defn}[Translation]\label{def:tr-tlm-k}
 Let $known$ be a new proposition symbol not in $\prop$. The
-translation $\Tr$, taking $\tlm$ formulas over the signature
+translation $\Tr$, taking $\cMLRKM$ formulas over the signature
 $\diam{\prop, \rel}$ to $\bml$-formulas over the signature
 $\diam{\prop \cup \{known\}, \rel}$ is defined as:
 
@@ -207,19 +207,19 @@ $\diam{\prop \cup \{known\}, \rel}$ is defined as:
 \Tr(\known) & = & known \\
 \Tr(\lnot \varphi) & = & \lnot \Tr(\varphi) \\
 \Tr(\varphi_1 \land \varphi_2) & = & \Tr(\varphi_1) \land \Tr(\varphi_2) \\
-\Tr(\diam{R} \varphi) & = & \diam{R} \Tr(\varphi) \\
+\Tr(\ttup{r} \varphi) & = & \diam{r} \Tr(\varphi) \\
 \Tr(\remember \varphi) & = & \Tr(\varphi^\sharp)
 \end{array}
 \end{displaymath}
 
 \end{defn}
 
-Taking the same model equivalence used to compare $\bml$ with $\tl$,
+Taking the same model equivalence used to compare $\bml$ with $\cMLRK$,
 the following result can be established:
 
 \begin{pro}[Satisfiability preserving]\label{prop:sat-preserv-tree}
 Let $\model$ be a a tree-like model. Then
-$\model,w\models_{\tlm}\varphi$ iff $\model,w\models_{\bml}
+$\model,w\models_{\cMLRK}\varphi$ iff $\model,w\models_{\bml}
 \Tr(\varphi)$.
 \end{pro}
 
@@ -228,13 +228,13 @@ We proceed by induction on $\varphi$. The propositional and boolean
 cases are trivial. The $\known$ case is also easy given the
 definitions. For the diamond case. Given that $\model$ is tree-like,
 the remember operator has no effect beyond modal operators, so
-$\model, w \models_{\tlm} \diam{R}\psi$ iff exists $v$ such that
-$wRv$ and $\model,v\models_{\tlm} \psi$. By inductive hypothesis,
-$\model,v\models_{\tlm} \psi$ iff $\model, v \models_{\bml}
-\Tr(\psi)$, and by definition $\model, w \models_{\bml} \diam{R}
+$\model, w \models_{\cMLRKM} \ttup{r}\psi$ iff exists $v$ such that
+$wRv$ and $\model,v\models_{\cMLRKM} \psi$. By inductive hypothesis,
+$\model,v\models_{\cMLRKM} \psi$ iff $\model, v \models_{\bml}
+\Tr(\psi)$, and by definition $\model, w \models_{\bml} \diam{r}
 \Tr(\psi)$. Finally, let's see the case for remember. By
-Lemma~\ref{lem:replace}, $\model, w \models_{\tlm} \remember \psi$
-iff $\model, w \models_{\tlm} \psi^\sharp$. By inductive hypothesis,
+Lemma~\ref{lem:replace}, $\model, w \models_{\cMLRKM} \remember \psi$
+iff $\model, w \models_{\cMLRKM} \psi^\sharp$. By inductive hypothesis,
 $\model, w \models_{\bml} \Tr(\psi^\sharp)$.
 \end{pf}
 
@@ -267,7 +267,7 @@ $\model, w \models_{\bml} \Tr(\psi^\sharp)$.
 
 
 \begin{pro}[Tree model
-property]\label{prop:tree-model-property} For every $\tlm$-model
+property]\label{prop:tree-model-property} For every $\cMLRKM$-model
 $\model$ and $w\in\model$ there is a tree-like model $\model'$ where
 $w\in\model'$ and $\model,w\bisim\model',w$.
 \end{pro}
@@ -287,9 +287,9 @@ $u_n\in S$.
 
 We call $s_i$ the sequence $(v_0,\dots,v_i)$ for every
 $i=0,\dots,n$. Let us see that Duplicator has a winning strategy in
-the game $E(\model,\model',w,w)$. It is sufficient to see that in
+the game $\EF(\model,\model',w,w)$. It is sufficient to see that in
 the game
-$E(\model[v_0,\dots,v_n],\model'[s_0,\dots,s_n],v_{n+1},s_{n+1})$,
+$\EF(\model[v_0,\dots,v_n],\model'[s_0,\dots,s_n],v_{n+1},s_{n+1})$,
 Duplicator can always answer successfully to Spoiler's move.
 \begin{itemize}
 \item
@@ -315,7 +315,7 @@ $s_{n+1}\in S'$ (since there are no cycles in $\model'$) and by
 definition $v_{n+1}\in S \cup \{v_0,\dots,v_n\}$.
 \end{pf}
 
-If $\model$ is a $\tlm$-model, we denote with $\model_T$ the
+If $\model$ is a $\cMLRKM$-model, we denote with $\model_T$ the
 tree-like model constructed in the above proposition.
 
 %\begin{lem}\label{lem:bisim_bml_then_bisim_tlm}
@@ -368,12 +368,12 @@ tree-like model constructed in the above proposition.
 %\end{pf}
 
 \begin{thm}
-If $\varphi\in\tlm$ is satisfiable then it is satisfiable on a
+If $\varphi\in\cMLRKM$ is satisfiable then it is satisfiable on a
 finite model.
 \end{thm}
 
 \begin{pf}
-Let $\varphi$ be a $\tlm$ formula, and suppose $\model,w \models
+Let $\varphi$ be a $\cMLRKM$ formula, and suppose $\model,w \models
 \varphi$. By Proposition~\ref{prop:tree-model-property}, there is a
 tree-like model $\model'$ such that $\model',w \models \varphi$.
 Using Proposition~\ref{prop:sat-preserv-tree}, we can turn to basic
@@ -410,7 +410,7 @@ and conclude $\model'',w \models \varphi$.
 
 
 \begin{cor}[Decidability]\label{cor:tlm-decidability}
-$\tlm$ is decidable.
+$\cMLRKM$ is decidable.
 \end{cor}
 
 \begin{pf}
@@ -425,38 +425,38 @@ for all models $\model$ with size at most $n^k$.
 \end{pf}
 
 \begin{thm}[\mbox{\rm\textsc{pspace}}-complete]
-The satisfaction problem for $\tlm$ is \textsc{pspace}-complete.
+The satisfaction problem for $\cMLRKM$ is \textsc{pspace}-complete.
 \end{thm}
 \begin{pf}
-The lower \textsc{pspace}-hard bound for $\tlm$ follows from the
+The lower \textsc{pspace}-hard bound for $\cMLRKM$ follows from the
 lower bound for the basic modal logic~\cite{BRV01}. We show a
 matching upper bound by reducing the problem to the satisfiability
-problem for basic modal logic. Given a $\tlm$-formula $\varphi$, we
+problem for basic modal logic. Given a $\cMLRKM$-formula $\varphi$, we
 compute $\Tr(\varphi)$ using Definition~\ref{def:tr-tlm-k}. Note
 that the size of the translated formula $\Tr(\varphi)$ is actually
 smaller than $\varphi$. Let suppose that $\Tr(\varphi)$ has a model,
 that is $\model, w \models_{\bml} \Tr(\varphi)$. This happens iff
 there exists a tree-like model $\model'$ such that $\model', w
 \models_{\bml} \Tr(\varphi)$ (by the tree model property of $\bml$)
-iff $\model', w \models_{\tlm} \varphi$ (by
+iff $\model', w \models_{\cMLRKM} \varphi$ (by
 Proposition~\ref{prop:sat-preserv-tree}) iff there exists a model
-$\nodel$ such that $\nodel,w \models_{\tlm} \varphi$ (by the tree
-model property for $\tlm$, stated in
+$\nodel$ such that $\nodel,w \models_{\cMLRKM} \varphi$ (by the tree
+model property for $\cMLRKM$, stated in
 Proposition~\ref{prop:tree-model-property}). Therefore, given
 $\varphi$, determining the $\bml$-satisfiability of $\Tr(\varphi)$
 (and we can do this with a \textsc{pspace} algorithm~\cite{BRV01})
-is enough to decide the $\tlm$-satisfiability of $\varphi$.
+is enough to decide the $\cMLRKM$-satisfiability of $\varphi$.
 \end{pf}
 
 
 %\subsection{Undecidable again}
 
-No we want to analyze the case of $\tlem$ with respect to
-decidability. We first prove that $\tlem$ lack the finite model
+No we want to analyze the case of $\cMLRKME$ with respect to
+decidability. We first prove that $\cMLRKME$ lack the finite model
 property.
 
 \begin{thm}\label{thm:infinite_model}
-There is a formula $\textit{Inf} \in \tlem$ such that $\mathcal{M},w
+There is a formula $\textit{Inf} \in \cMLRKME$ such that $\mathcal{M},w
 \models \textit{Inf}$ implies that the domain of $\mathcal{M}$ is an
 infinite set.
 \end{thm}
@@ -503,11 +503,12 @@ Theorem~\ref{thm:infinite_model} to show that if $\model, w \models
 %infinite, and so is $W$.
 \end{pf}
 
-We now show that the satisfiability problem for $\tlem$ is
+
+We now show that the satisfiability problem for $\cMLRKME$ is
 undecidable, by encoding the $\omega \times \omega$ tiling problem.
 
 \begin{thm}
-The satisfiability problem for $\tlem$ is undecidable.
+The satisfiability problem for $\cMLRKME$ is undecidable.
 \end{thm}
 \begin{pf}
 Let $T=\{T_1,\dots,T_n\}$ be a set of tile types. Given a tile type
@@ -580,10 +581,10 @@ Theorem~\ref{thm:tle_undecidable}.
 \end{pf}
 
 We close this section showing that only one nominal is enough to
-turn $\tlm$ undecidable. We call this language $\tlmi$.
+turn $\cMLRKM$ undecidable. We call this language $\cMLRKM + i$.
 
 \begin{thm}
-There is a formula $\textit{Inf} \in \tlmi$ such that $\mathcal{M},w
+There is a formula $\textit{Inf} \in \cMLRKM + i$ such that $\mathcal{M},w
 \models \textit{Inf}$ implies that the domain of $\mathcal{M}$ is an
 infinite set.
 \end{thm}
@@ -630,7 +631,7 @@ Theorem~\ref{thm:infinite_model} to show that if $\model, w \models
 We show that this logic is undecidable.
 
 \begin{thm}
-The satisfiability problem for $\tlmi$ is undecidable.
+The satisfiability problem for $\cMLRKM + i$ is undecidable.
 \end{thm}
 \begin{pf}
 Let $T=\{T_1,\dots,T_n\}$ be a set of tile types. Given a tile type
