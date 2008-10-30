@@ -7,10 +7,10 @@ fix some terminology.
 All the languages we will introduce are obtained by extending (in
 one case, also slightly modifying) the syntax and semantics of the
 basic modal logic. We are mainly interested in investigating the
-behavior of the $\remember$ and $\known$ operators introduced in the
+behaviour of the $\remember$ and $\known$ operators introduced in the
 previous section, but to put them in the appropriate context we will
 actually investigate five different logics which are described in
-Figure~\ref{logics}
+Figure~\ref{logics}.
 
 \newcommand{\cMLRK}{\ensuremath{\mathcal{L}_1}}
 \newcommand{\cMLRKE}{\ensuremath{\mathcal{L}_2}}
@@ -79,7 +79,7 @@ each language are the ones indicated in Figure~\ref{logics}.
 \newcommand{\gL}{\mathcal{L}}
 
 \begin{defn}[Semantics]\label{semantics}
-Given a signature $\sig=\diam{\prop,\rel}$, a model a tuple
+Given a signature $\sig=\diam{\prop,\rel}$, a model is a tuple
 $\gM = \diam{W, \rels, V, S}$ where
 $W$ is a nonempty set, $\rels$ are binary relations over $W$, $V:\prop \to
 \wp(W)$ is a valuation function. $S$ will be called the \emph{memory}
@@ -131,7 +131,7 @@ $\props(w) = \{p \in \prop \mid w \in V(p)\}$. Given two models $\model_1$ and $
 states $w_1 \in W_1$ and $w_2 \in W_2$, we say that they \emph{agree} when $\props(w_1)=\props(w_2)$ and $w_1\in S_1$ iff $w_2
 \in S_2$.
 
-Given a modal $\gM$ and $w$ in the domain of $\gM$, we call $\tup{\gM,w}$ a \emph{pointed
+Given a model $\gM$ and $w$ in the domain of $\gM$, we call $\tup{\gM,w}$ a \emph{pointed
 model}.
 \end{defn}
 
