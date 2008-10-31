@@ -193,19 +193,19 @@ are invariant under unraveling.
 
 \begin{thm}\label{teo:bml_ml}
 $\bml$ over the signature $\diam{\prop \cup \{known\}, \rel}$ is
-strictly less expressive than $\cMLRKM$ over the signature
+strictly less expressive than both $\cMLRKM$ and $\cMLRKME$ over the signature
 $\diam{\prop, \rel}$.
 \end{thm}
 
 \begin{pf}
-Showing that $\bml\leq\cMLRKM$ is straightforward as $\bml$ is a
+We only prove the result for $\bml$ and $\cMLRKM$, the other case is identical. Showing that $\bml\leq\cMLRKM$ is straightforward as $\bml$ is a
 sub-language of $\cMLRKM$.  Hence, we can take $\Tr$ to be the
 identity function.
 
 To see that $\cMLRKM\not\leq\bml$, let
 $\model_1=\diam{\{w\},\{(w,w)\},V_1}$ and
 $\model_2=\langle \{u,v\}, \{(u,v)$, $(v,u)\},V_2\rangle$, where
-$V_1(p) = V_2(p) = \emptyset$ for all $p \in \prop$
+$V_1(p) = V_2(p) = \emptyset$ for all $p \in \prop \cup \{known\}$
  be two Kripke models as shown below:
 %in Figure~\ref{fig:L3K}.
 \begin{center}
@@ -228,7 +228,7 @@ $V_1(p) = V_2(p) = \emptyset$ for all $p \in \prop$
 
 It is known that the models are $\bml$ bisimilar
 (see~\cite{BRV01}). On the other hand, they can be distinguished
-by the $\cMLRKM$-formula $\remember \diam{r}\known$.
+by the $\cMLRKM$-formula $\remember \ttup{r}\known$.
 %
 %\begin{figure}
 %\caption{$\cMLRKM\not=\bml$.}
@@ -237,13 +237,13 @@ by the $\cMLRKM$-formula $\remember \diam{r}\known$.
 %
 \end{pf}
 
-\tb{C: we won't say anyting about $\cMLRKME$ is that ok?}
+\tb{C: we won't say anyting about $\cMLRKME$ is that ok? \\SS: agregamos ese resultado en el teo de arriba, a eso te referias? Del lado de K vs memory logics es la flecha que faltaba mencionar}
 
 
 \subsection{Memory Logics and Hybrid Logics}
 
 We will now compare the expressive power of memory logics with
-respecto to hybrid logics.  The most natural choice for the
+respect to hybrid logics.  The most natural choice for the
 comparison is the hybrid logics $\hlogic$.
 We will prove that $\hlogic$ is strictly more expressive than $\cMLRKE$.
 Intuitively,
@@ -482,7 +482,8 @@ This result can be extended to $\hlogick$ for any fixed $k$, by taking cliques o
 \end{pf}
 
 \tb{C: I propose We don't say anything about $\cMLRK$ is that ok? Result
-commented out below}
+commented out below\\
+SS: Mirando el grafico de expresividad solo falta demostrar la flecha $L1 < HL(\down)$. Eso creo que deberíamos ponerlo, al menos como un teo sin demostracion, es bastante facil de ver. Con eso se completaria el diagrama. Ahora es el 2do item de lo que esta comentado aca abajo, pero yo creo que lo pondria apenas empieza la subseccion ``Memory Logics and Hybrid Logics'', antes de la demoledora.}
 
 
 % \begin{thm}\label{thm:expr_power}
