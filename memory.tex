@@ -41,10 +41,10 @@
 \newcommand{\diam}[1]{\langle #1 \rangle}
 \newcommand{\tup}[1]{\langle #1 \rangle}
 
-%\newcommand{\remember}{\mbox{$\bigcirc \hspace*{-.258cm} \texttt{r}\,$}}
-%\newcommand{\known}{\mbox{$\bigcirc \hspace*{-.258cm} \texttt{k}\,$}}
 \newlength{\ksize}\settowidth{\ksize}{\texttt{k}}
 \newcommand{\known}{{\bigcirc\hspace*{-1.45\ksize}\textnormal{\tt k}}\,}
+\newlength{\sksize}\settowidth{\sksize}{\small \texttt{k}}
+\newcommand{\sknown}{{\bigcirc\hspace*{-1.45\sksize}\textnormal{\tt k}}\,}
 \newlength{\rsize}\settowidth{\rsize}{\texttt{r}}
 \newcommand{\remember}{{\bigcirc\hspace*{-1.4\rsize} \textnormal{\tt r}}\,}
 \newlength{\fsize}\settowidth{\fsize}{\texttt{f}}
@@ -57,10 +57,7 @@
 \newcommand{\nodel}{\mathcal{N}}
 \newcommand{\img}{\textrm{im\ }}
 \newcommand{\bisim}{\mathrel{\,\raisebox{.3ex}{$\underline{\makebox[.7em]{$\leftrightarrow$}}$}\,}}
-%\newcommand{\bisim}{\underline{\leftrightarrow}}
 \newcommand{\modelse}{\models_{\emptyset}}
-\newcommand{\tl}{\mathcal{M}(\remember,\known)}
-\newcommand{\tle}{\ensuremath{\mathcal{M}_\emptyset(\remember,\known)}}
 \newcommand{\tlem}{\mathcal{M}^-_\emptyset(\remember,\known)\xspace}
 \newcommand{\tm}{\mathcal{T\!L}^-\xspace}
 \newcommand{\tlme}{\mathcal{T\!L}^-_{\emptyset}\xspace}
@@ -70,24 +67,20 @@
 \newcommand{\bml}{\K}
 \newcommand{\cset}[1]{\{#1\}}
 \newcommand{\HL}{\mathcal{HL}}
-\newcommand{\HLe}{\mathcal{HL}_{\emptyset}}
 \newcommand{\K}{\mathcal{K}}
 \newcommand{\sig}{\mathcal{S}}
 \newcommand{\ML}{\mathcal{M}}
-\newcommand{\MLe}{\mathcal{M_{\emptyset}}}
 \newcommand{\rels}{(R_r)_{r \in \rel}}
 \newcommand{\relsp}{(R'_r)_{r \in \rel}}
 \newcommand{\relsu}{(R^1_r)_{r \in \rel}}
 \newcommand{\relsd}{(R^2_r)_{r \in \rel}}
 \newcommand{\gM}{\mathcal{M}}
+\newcommand{\gL}{\mathcal{L}}
 \newcommand{\atom}{\textsc{atom}}
-\newcommand{\MS}{\mathcal{M}(stack)}
 \newcommand{\push}{{\tt (push)}}
 \newcommand{\pop}{{\tt (pop)}}
 \newcommand{\tope}{{\tt (top)}}
 \newcommand{\len}[1]{|#1|}
-\newcommand{\MSpp}{\mathcal{M}^-(stack)}
-\newcommand{\MSbound}[1]{\mathcal{M}^{\leq #1}(stack)}
 
 
 \newtheorem{thm}{Theorem}
