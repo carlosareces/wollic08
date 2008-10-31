@@ -1,21 +1,36 @@
-\section{Infinite Models and Undecidability}
+\section{(Un)Decidability and the Finite Model Property}
 
-In this section we will analyze the decidability and the finite
-model property of the memory logics we introduced. First, we will
-show that $\cMLRKM$ has the bounded model property and, therefore,
-it is a decidable logic. On the other hand, the languages $\cMLRK$,
-$\cMLRKE$ and $\cMLRKME$ lack the finite model property and they are
-undecidable. We also analyze the case when $\cMLRKM$ is extended
-with only one nominal $i$, and we show that $\cMLRKM + i$ is also
-undecidable and that an infinite model can be forced.
+In Section~\ref{expressivity} we show four memory logics
+($\cMLRK$, $\cMLRKE$, $\cMLRKM$ and $\cMLRKME$) which are
+all more expressive than $\bml$ but less expressive than
+$\hlogic$. Given that $\bml$ is decidable and $\hlogic$ is
+undecidable, exploring where the decidability line lies is
+an intriguing question.  The mail goal of this section is
+investigating this issue, together with the related question
+of whether the langauge is sufficiently expressive to force
+infinite models.
 
-\tb{Estaría bueno reescribir un poco el párrafo de arriba, como para agregar alguna intuición sobre por qué sucede esto, y que de alguna manera la decidibilidad de L3 no es muy ``robusta''}
+We start by investigating $\cMLRKM$ and $\cMLRKME$. We will
+show that even though they are equivalent in terms of expressive
+power when we allow a shift if the signature, the satisfiability
+problem for $\cMLRKM$ is decidable (actually \textsc{pspace}-complete)
+while $\cMLRKME$ is already undecidable. As we will show in
+the proof of Theorem~\ref{} the trick will be to use a `dirty'
+memory. In $\cMLRKME$, we are restricted to the class of models
+where the memory is always initialized to $\emptyset$ and we can't
+play this trick anymore.  Actually $\cMLRKM$ is really standing
+on the decidability line, adding a single nominal to $\cMLRKM$
+push tha satisfiability problem over to undecidability.
 
+\subsection{The Decidability of $\cMLRKM$\ldots}
 
-\subsection{A decidable memory logic}
+We will first prove that $\bml$ and $\cMLRKM$ expressively
+equivalent over the class of tree-like models.  With that result
+at hand, we will then prove that $\cMLRKM$ has a tree model
+property, and from that decidability and  \textsc{pspace}-completeness
+follows.
 
-We start by establishing an equivalence result between $\bml$ and $\cMLRKM$ for
-the class of tree-like models. We first define, given a formula
+We first define, given a formula
 $\varphi$, a new formula $\varphi^\sharp$, as the result of
 replacing all the ocurrences of $\known$ that are in $\varphi$ at
 modal depth zero by $\top$. More formally:
@@ -120,8 +135,8 @@ $\model, w \models_{\bml} \Tr(\psi^\sharp)$.
 
 
 
-\begin{pro}[Tree model
-property]\label{prop:tree-model-property} For every $\cMLRKM$-model
+\begin{pro}[Tree model property]\label{prop:tree-model-property}
+For every $\cMLRKM$-model
 $\model$ and $w\in\model$ there is a tree-like model $\model'$ where
 $w\in\model'$ and $\model,w\bisim\model',w$.
 \end{pro}
@@ -282,7 +297,7 @@ $\model\models\varphi$ for all models $\model$ with size at most
 $b$.
 \end{pf}
 
-\begin{thm}[\mbox{\rm\textsc{pspace}}-complete]
+\begin{thm}[\textsc{pspace}-complete]
 The satisfaction problem for $\cMLRKM$ is \textsc{pspace}-complete.
 \end{thm}
 \begin{pf}
@@ -306,9 +321,8 @@ $\varphi$, determining the $\bml$-satisfiability of $\Tr(\varphi)$
 is enough to decide the $\cMLRKM$-satisfiability of $\varphi$.
 \end{pf}
 
+\subsection{\ldots and its Undecidable Neighbours}
 
-
-\subsection{Undecidable memory logics}
 
 In this subsection we show that the rest of the memory logics
 presented in this work are undecidable. We start by analyzing the
@@ -325,9 +339,6 @@ logic $\cMLRKME$) is also undecidable.
 From the undecidability of $\cMLRKME$, we will conclude the
 undecidability of $\cMLRK$ and $\cMLRKE$. Additionally, every time
 we show undecidability, we also prove lack of finite model property.
-
-\tb{SS: podemos decir que de alguna manera L3 no es muy robusta en
-cuanto a decidibilidad}
 
 %The last issue that we will discuss in this paper
 %is the undecidability of the satisfiability problem
@@ -615,7 +626,7 @@ Theorem~\ref{thm:tlme:inf}.
 %
 \end{pf}
 
-
+\section{The Undecidable $\cMLRK$ and $\cMLRKE$}
 
 \begin{thm}
 $\cMLRKE$ lacks the finite model property and is undecidable.
