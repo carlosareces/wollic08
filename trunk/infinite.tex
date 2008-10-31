@@ -27,31 +27,45 @@ push tha satisfiability problem over to undecidability.
 We will first prove that $\bml$ and $\cMLRKM$ expressively
 equivalent over the class of tree-like models.  With that result
 at hand, we will then prove that $\cMLRKM$ has a tree model
-property, and from that decidability and  \textsc{pspace}-completeness
+property, and from that decidability and \textsc{pspace}-completeness
 follows.
 
-We first define, given a formula
-$\varphi$, a new formula $\varphi^\sharp$, as the result of
-replacing all the ocurrences of $\known$ that are in $\varphi$ at
-modal depth zero by $\top$. More formally:
+\tb{C: Yo termino con toda la seccion 5 el Sabado}
 
-\begin{displaymath}\label{sharp}
-\begin{array}{rcl}
-p^\sharp & = & p \quad p \in \prop\\
-\known^\sharp & = & \top \\
-(\lnot \varphi)^\sharp & = & \lnot \varphi^\sharp \\
-(\varphi_1 \land \varphi_2)^\sharp & = & \varphi_1^\sharp \land \varphi_2^\sharp \\
-(\remember \varphi)^\sharp & = & \remember \varphi^\sharp\\
-(\ttup{r} \varphi)^\sharp & = & \ttup{r} \varphi
-\end{array}
-\end{displaymath}
+\tb{C: Termino de escribir la demo el Sabado}
 
-\begin{lem}\label{lem:replace}
-$\model, w \models \remember \varphi$ iff $\model, w \models
-\varphi^\sharp$.
-\end{lem}
+\begin{thm}\label{prop:sat-preserv-tree}
+$\K$  over the signature $\tup{\prop \cup \{\mathit{known}\},\rel}$
+is equivalent to $\cMLRKM$ over the class of tree models.
+\end{thm}
 
 \begin{pf}
+%
+% We first define, given a formula
+% $\varphi$, a new formula More formally:
+%
+% \begin{displaymath}\label{sharp}
+% \begin{array}{rcl}
+% p^\sharp & = & p \quad p \in \prop\\
+% \known^\sharp & = & \top \\
+% (\lnot \varphi)^\sharp & = & \lnot \varphi^\sharp \\
+% (\varphi_1 \land \varphi_2)^\sharp & = & \varphi_1^\sharp \land \varphi_2^\sharp \\
+% (\remember \varphi)^\sharp & = & \remember \varphi^\sharp\\
+% (\ttup{r} \varphi)^\sharp & = & \ttup{r} \varphi
+% \end{array}
+% \end{displaymath}
+We start by noticing that over tree models, we can eliminate
+$\known$ at modal depth 0 from the formula $\remember \varphi$.
+
+\begin{claim}\label{lem:replace}
+Let $\varphi^\sharp$ be the result of
+replacing all the ocurrences of $\known$ that are in $\varphi$ at
+modal depth zero by $\top$, and let $\gM$ be a tree model. Then
+$\model, w \models \remember \varphi$ iff $\model, w \models
+\varphi^\sharp$.
+\end{claim}
+
+\begin{pfclaim}
 We proceed by induction. The case for $\known$, the propositional
 symbols and booleans are straightforward. We analyze the other
 cases:
@@ -59,18 +73,15 @@ cases:
  \item $\varphi = \remember \psi$. $\model, w \models \remember\remember\psi$ iff $\model, w \models \remember \psi$ iff (by inductive hypothesis) $\model, w \models \psi^\sharp$ iff $\model, w \models (\psi^\sharp)^\sharp$ iff (by inductive hypothesis) $\model, w \models \remember (\psi^\sharp)$ iff $\model, w \models (\remember\psi)^\sharp$
 \item $\varphi = \ttup{r} \psi$. $\model, w \models \remember \ttup{r} \psi$ iff (by definition) $\model[w], w \models \ttup{r} \psi$ iff (by definition of $\sharp$) $\model[w], w \models (\ttup{r} \psi)^\sharp$ iff (by definition) $\model, w \models (\ttup{r} \psi)^\sharp$
 \end{itemize}
-\end{pf}
+\end{pfclaim}
 
-We are now ready to define an equivalence preserving translation for
-the tree-like models.
+Taking the same model equivalence used to compare $\bml$ with $\cMLRK$,
+the following result can be established:
 
-\begin{defn}[Translation]\label{def:tr-tlm-k}
-Let $known$ be a new proposition symbol not in $\prop$. The
-translation $\Tr$, taking $\cMLRKM$ formulas over the signature
+Define the following translation taking $\cMLRKM$ formulas over the signature
 $\diam{\prop, \rel}$ to $\bml$-formulas over the signature
-$\diam{\prop \cup \{known\}, \rel}$ is defined as:
-
-\begin{displaymath}
+$\diam{\prop \cup \{known\}, \rel}$:
+$$
 \begin{array}{rcl}
 \Tr(p) & = & p \quad p \in \prop\\
 \Tr(\known) & = & known \\
@@ -79,20 +90,8 @@ $\diam{\prop \cup \{known\}, \rel}$ is defined as:
 \Tr(\ttup{r} \varphi) & = & \diam{r} \Tr(\varphi) \\
 \Tr(\remember \varphi) & = & \Tr(\varphi^\sharp)
 \end{array}
-\end{displaymath}
+$$
 
-\end{defn}
-
-Taking the same model equivalence used to compare $\bml$ with $\cMLRK$,
-the following result can be established:
-
-\begin{pro}[Satisfiability preserving]\label{prop:sat-preserv-tree}
-Let $\model$ be a tree-like model. Then
-$\model,w\models_{\cMLRK}\varphi$ iff $\model,w\models_{\bml}
-\Tr(\varphi)$.
-\end{pro}
-
-\begin{pf}
 We proceed by induction on $\varphi$. The propositional and boolean
 cases are trivial. The $\known$ case is also easy given the
 definitions. For the diamond case. Given that $\model$ is tree-like,
@@ -106,6 +105,8 @@ Lemma~\ref{lem:replace}, $\model, w \models_{\cMLRKM} \remember \psi$
 iff $\model, w \models_{\cMLRKM} \psi^\sharp$. By inductive hypothesis,
 $\model, w \models_{\bml} \Tr(\psi^\sharp)$.
 \end{pf}
+
+
 
 
 
@@ -626,7 +627,7 @@ Theorem~\ref{thm:tlme:inf}.
 %
 \end{pf}
 
-\section{The Undecidable $\cMLRK$ and $\cMLRKE$}
+\subsection{The Undecidable $\cMLRK$ and $\cMLRKE$}
 
 \begin{thm}
 $\cMLRKE$ lacks the finite model property and is undecidable.
