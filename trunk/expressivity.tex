@@ -59,9 +59,9 @@ expressive (notation $\gL = \gL'$) if $\gL \le \gL'$ and $\gL' \le \gL$.
   \draw [->] (b1) -- (b2);
   \draw [->] (b2) -- (b3);
 
-  \draw [dashed] (n3) edge (n4);
-  \draw [dashed] (n1) edge (n2);
-  \draw [dashed] (n5) edge (n6);
+  \draw [<->,dashed] (n3) edge (n4);
+  \draw [<->,dashed] (n1) edge (n2);
+  \draw [<->,dashed] (n5) edge (n6);
 \end{tikzpicture}
 \end{center}
 \caption{Expressive power.}\label{fig-expressivity}
@@ -165,7 +165,7 @@ $R_1=\{(w,v),(v,r),(r,w)\}$, $R_2=\{(w,v),(v,r),(r,v)\}$ and $V_1(p)
   \node at (1.5,-.7) {$\model_2$};
 \end{tikzpicture}
 \end{center}
-\caption{$\cMLRKME \not= \cMLRKE$.}
+\caption{$\cMLRKE\not=\cMLRKME$.}
 \label{fig:L3L1}
 \end{figure}
 
@@ -203,18 +203,42 @@ $\diam{\prop, \rel}$.
 \end{thm}
 
 \begin{pf}
-\tb{modify proof below so that it works with $\cMLRKM$}
+\tb{modify proof below so that it works with $\cMLRKM$.\\
+(diego) tan solo cambie el lenguaje, esta bien la demo asi, no?}
 
-Showing that $\bml\leq\cMLRK$ is straightforward as $\bml$ is a
-sub-language of $\cMLRK$.  Hence, we can take $\Tr$ to be the
+Showing that $\bml\leq\cMLRKM$ is straightforward as $\bml$ is a
+sub-language of $\cMLRKM$.  Hence, we can take $\Tr$ to be the
 identity function.
 
-To see that $\cMLRK\not\leq\bml$, let
+To see that $\cMLRKM\not\leq\bml$, let
 $\model_1=\diam{\{w\},\{(w,w)\},\emptyset}$ and
 $\model_2=\diam{\{u,v\},\{(u,v),(v,u)\},\emptyset}$ be two Kripke
-models. It is known that they are $\bml$ bisimilar
-(see~\cite{BRV01}). On the other hand, the equivalent $\cMLRK$
+models as shown in Figure~\ref{fig:L3K}. It is known that they are $\bml$ bisimilar
+(see~\cite{BRV01}). On the other hand, the equivalent $\cMLRKM$
 models are distinguishable by $\varphi=\remember \diam{r}\known$.
+%
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[>=latex]
+  \node (n1) at (0,0) [shape=circle,draw,minimum height=.6cm] {$w$} edge [in=90, out=130,loop] ();
+
+  \node at (0,-.7) {$\model_1$};
+\end{tikzpicture}
+\hspace{2cm}
+\begin{tikzpicture}[>=latex]
+  \node (n2) at (0,0) [shape=circle,draw,minimum height=.6cm] {$u$} ;
+  \node (n3) at (1.5,0) [shape=circle,draw,minimum height=.6cm] {$v$} ;
+
+  \draw [->] (n2) edge[bend left=30] (n3);
+  \draw [->] (n3) edge[bend left=30] (n2);
+
+  \node at (.75,-.7) {$\model_2$};
+\end{tikzpicture}
+\end{center}
+\caption{$\cMLRKM\not=\bml$.}
+\label{fig:L3K}
+\end{figure}
+%
 \end{pf}
 
 
@@ -289,55 +313,55 @@ $\model_2=\diam{\omega,R_2,\emptyset,\emptyset}$, where $R_1=\{(n,m)
 accessibility relation is the non-reflexive transitive closure of the arrows shown
 in the picture).
 
-%\begin{figure}
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[>=latex]
+
+  \node (n11) at (0,0) [shape=circle,draw] {} edge [in=220, out=250,loop] ();
+  \node (n22) at (1,1) [shape=circle,draw, label=right:$\dots$, label=above:$\vdots$] {};
+  \node (n12) at (0,1) [shape=circle,draw] {} ;
+  \node (n21) at (1,0) [shape=circle,draw] {};
+  \node (n13) at (0,2) [shape=circle,draw, label=above:$\vdots$] {};
+  \node (n31) at (2,0) [shape=circle,draw, label=right:$\dots$] {};
+
+  \draw [<->] (n11) -- (n12);
+  \draw [<->] (n21) -- (n22);
+  \draw [<->] (n12) -- (n22);
+  \draw [<->] (n11) -- (n21);
+  \draw [<->] (n21) -- (n31);
+  \draw [<->] (n12) -- (n13);
+
+  \node at (1,-.7) {$\mathcal{M}_1$};
+
+\end{tikzpicture}
+\hspace{10mm}
+\begin{tikzpicture}[>=latex]
+
+  \node (n11) at (0,0) [shape=circle,draw] {}
+                       edge [in=220, out=250,loop] ();
+  \node (n22) at (1,1) [shape=circle,draw, label=right:$\dots$, label=above:$\vdots$] {}
+                       edge [in=220, out=250,loop] ();
+  \node (n12) at (0,1) [shape=circle,draw] {} ;
+  \node (n21) at (1,0) [shape=circle,draw] {};
+  \node (n13) at (0,2) [shape=circle,draw, label=above:$\vdots$] {};
+  \node (n31) at (2,0) [shape=circle,draw, label=right:$\dots$] {};
+
+  \draw [<->] (n11) -- (n12);
+  \draw [<->] (n21) -- (n22);
+  \draw [<->] (n12) -- (n22);
+  \draw [<->] (n11) -- (n21);
+  \draw [<->] (n21) -- (n31);
+  \draw [<->] (n12) -- (n13);
+
+  \node at (1,-.7) {$\mathcal{M}_2$};
+\end{tikzpicture}
+\end{center}
+
 %\begin{center}
-%\begin{tikzpicture}[>=latex]
-%
-%  \node (n11) at (0,0) [shape=circle,draw] {} edge [in=220, out=250,loop] ();
-%  \node (n22) at (1,1) [shape=circle,draw, label=right:$\dots$, label=above:$\vdots$] {};
-%  \node (n12) at (0,1) [shape=circle,draw] {} ;
-%  \node (n21) at (1,0) [shape=circle,draw] {};
-%  \node (n13) at (0,2) [shape=circle,draw, label=above:$\vdots$] {};
-%  \node (n31) at (2,0) [shape=circle,draw, label=right:$\dots$] {};
-%
-%  \draw [<->] (n11) -- (n12);
-%  \draw [<->] (n21) -- (n22);
-%  \draw [<->] (n12) -- (n22);
-%  \draw [<->] (n11) -- (n21);
-%  \draw [<->] (n21) -- (n31);
-%  \draw [<->] (n12) -- (n13);
-%
-%  \node at (1,-.7) {$\mathcal{M}_1$};
-%
-%\end{tikzpicture}
-%\hspace{10mm}
-%\begin{tikzpicture}[>=latex]
-%
-%  \node (n11) at (0,0) [shape=circle,draw] {}
-%                       edge [in=220, out=250,loop] ();
-%  \node (n22) at (1,1) [shape=circle,draw, label=right:$\dots$, label=above:$\vdots$] {}
-%                       edge [in=220, out=250,loop] ();
-%  \node (n12) at (0,1) [shape=circle,draw] {} ;
-%  \node (n21) at (1,0) [shape=circle,draw] {};
-%  \node (n13) at (0,2) [shape=circle,draw, label=above:$\vdots$] {};
-%  \node (n31) at (2,0) [shape=circle,draw, label=right:$\dots$] {};
-%
-%  \draw [<->] (n11) -- (n12);
-%  \draw [<->] (n21) -- (n22);
-%  \draw [<->] (n12) -- (n22);
-%  \draw [<->] (n11) -- (n21);
-%  \draw [<->] (n21) -- (n31);
-%  \draw [<->] (n12) -- (n13);
-%
-%  \node at (1,-.7) {$\mathcal{M}_2$};
-%\end{tikzpicture}
-%\end{center}
-%
-%%\begin{center}
-%%\includegraphics[scale=0.8]{figure1.eps}
-%%\medskip
-%\caption{Two \tle-bisimilar models}\label{fig}
-%\end{figure}
+%\includegraphics[scale=0.8]{figure1.eps}
+%\medskip
+\caption{Two $\cMLRKE$-bisimilar models}\label{fig}
+\end{figure}
 
 We prove that $\model_1,0\bisim\model_2,0$ showing the winning
 strategy for Duplicator. Intuitively, the strategy for Duplicator
