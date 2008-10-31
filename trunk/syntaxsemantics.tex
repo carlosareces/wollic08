@@ -53,7 +53,8 @@ $\forms$ of formulas  in the
 signature $\langle \prop,\rel\rangle$ is defined as:
 $$
 \forms
-::=      p
+::=      \top
+    \mid p
     \mid \lnot \varphi
     \mid \varphi_1 \land \varphi_2
     \mid \diam{r} \varphi
@@ -65,8 +66,6 @@ $$
     \mid \pop \varphi,
 $$
 
-\tb{SS: poner $\top$ en el lenguaje porque se usa}
-
 \noindent
 where $p \in \prop$, $r \in \rel$  and $\varphi, \varphi_1,
 \varphi_2 \in \forms$. The other standard operators are introduced
@@ -75,10 +74,14 @@ and $\bbox{r}\varphi := \neg\ttup{r}\neg \varphi$.
 \end{defn}
 
 Definition~\ref{syntax} introduces the syntax of the five logics
-we will discuss in the paper. In particular, the operators allowed in
-each language are the ones indicated in Figure~\ref{logics}.
+we will discuss in this article. In particular, the operators allowed in
+each language are the ones indicated in Figure~\ref{logics}\footnote{Notice
+that the syntax allows formulas, like $\push\sknown$, which are not in any
+of the logics we will discuss in this article (and that actually, do not
+seem to have a natural interpretation).}.
 
-\newcommand{\gL}{\mathcal{L}}
+We will also define in one go the semantics of all the memory logics that we will
+investigate.
 
 \begin{defn}[Semantics]\label{semantics}
 Given a signature $\sig=\diam{\prop,\rel}$, a model is a tuple

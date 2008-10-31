@@ -61,15 +61,11 @@ expressive (notation $\gL = \gL'$) if $\gL \le \gL'$ and $\gL' \le \gL$.
 
   \draw [<->,dashed] (n3) edge (n4);
   \draw [<->,dashed] (n1) edge (n2);
-  \draw [<->,dashed] (n5) edge (n6);
+  \draw [<->] (n5) edge (n6);
 \end{tikzpicture}
 \end{center}
-\caption{Expressive power.}\label{fig-expressivity}
+\caption{Expressive power hierarchy.}\label{fig-expressivity}
 \end{figure}
-
-\tb{SS: mejor poner las lineas punteadas como doble flechas
-punteadas}
-
 
 
 The summary of the results we are going to establish in this section
@@ -137,9 +133,9 @@ $[\cMLRK \not\leq \cMLRKM]$: Let
 $\model_1=\diam{\{w,v,r\}, R_1, V_1, \emptyset}$ and
 $\model_2=\diam{\{w,v,r\}, R_2, V_2, \emptyset}$ such that
 $R_1=\{(w,v),(v,r),(r,w)\}$, $R_2=\{(w,v),(v,r),(r,v)\}$ and $V_1(p)
-= V_2(p) = \emptyset$ for all $p \in \prop$, as shown in Figure~\ref{fig:L3L1}.
-
-\begin{figure}
+= V_2(p) = \emptyset$ for all $p \in \prop$, as shown below:
+%in Figure~\ref{fig:L3L1}.
+%\begin{figure}
 \begin{center}
 \begin{tikzpicture}[>=latex]
   \node (n1) at (0,0) [shape=circle,draw,minimum height=.6cm] {$w$} ;
@@ -165,9 +161,9 @@ $R_1=\{(w,v),(v,r),(r,w)\}$, $R_2=\{(w,v),(v,r),(r,v)\}$ and $V_1(p)
   \node at (1.5,-.7) {$\model_2$};
 \end{tikzpicture}
 \end{center}
-\caption{$\cMLRKE\not=\cMLRKME$.}
-\label{fig:L3L1}
-\end{figure}
+%\caption{$\cMLRKE\not=\cMLRKME$.}
+%\label{fig:L3L1}
+%\end{figure}
 
 We prove that $\model_1$ and $\model_2$ are $\cMLRKM$-bisimilar. As
 every state in both models has a unique successor, Duplicator has
@@ -190,34 +186,28 @@ we should start by defining how are we going to match them.  In this
 case, it seems that we don't have other option but to change the
 signature.  But even over a suitable extended signature, $\bml$ is
 less expressive than $\cMLRKM$.
-
 It is not difficult to see intuitively that $\remember$ and $\known$ do bring
 additional expressive power into the language of $\bml$: with their
 help we can detect cycles in a given model, while formulas of $\K$
 are invariant under unraveling.
 
-\begin{thm}
+\begin{thm}\label{teo:bml_ml}
 $\bml$ over the signature $\diam{\prop \cup \{known\}, \rel}$ is
 strictly less expressive than $\cMLRKM$ over the signature
 $\diam{\prop, \rel}$.
 \end{thm}
 
 \begin{pf}
-\tb{modify proof below so that it works with $\cMLRKM$.\\
-(diego) tan solo cambie el lenguaje, esta bien la demo asi, no?}
-
 Showing that $\bml\leq\cMLRKM$ is straightforward as $\bml$ is a
 sub-language of $\cMLRKM$.  Hence, we can take $\Tr$ to be the
 identity function.
 
 To see that $\cMLRKM\not\leq\bml$, let
-$\model_1=\diam{\{w\},\{(w,w)\},\emptyset}$ and
-$\model_2=\diam{\{u,v\},\{(u,v),(v,u)\},\emptyset}$ be two Kripke
-models as shown in Figure~\ref{fig:L3K}. It is known that they are $\bml$ bisimilar
-(see~\cite{BRV01}). On the other hand, the equivalent $\cMLRKM$
-models are distinguishable by $\varphi=\remember \diam{r}\known$.
-%
-\begin{figure}
+$\model_1=\diam{\{w\},\{(w,w)\},V_1}$ and
+$\model_2=\langle \{u,v\}, \{(u,v)$, $(v,u)\},V_2\rangle$, where
+$V_1(p) = V_2(p) = \emptyset$ for all $p \in \prop$
+ be two Kripke models as shown below:
+%in Figure~\ref{fig:L3K}.
 \begin{center}
 \begin{tikzpicture}[>=latex]
   \node (n1) at (0,0) [shape=circle,draw,minimum height=.6cm] {$w$} edge [in=90, out=130,loop] ();
@@ -235,47 +225,43 @@ models are distinguishable by $\varphi=\remember \diam{r}\known$.
   \node at (.75,-.7) {$\model_2$};
 \end{tikzpicture}
 \end{center}
-\caption{$\cMLRKM\not=\bml$.}
-\label{fig:L3K}
-\end{figure}
+
+It is known that the models are $\bml$ bisimilar
+(see~\cite{BRV01}). On the other hand, they can be distinguished
+by the $\cMLRKM$-formula $\remember \diam{r}\known$.
+%
+%\begin{figure}
+%\caption{$\cMLRKM\not=\bml$.}
+%\label{fig:L3K}
+%\end{figure}
 %
 \end{pf}
 
+\tb{C: we won't say anyting about $\cMLRKME$ is that ok?}
 
 
 \subsection{Memory Logics and Hybrid Logics}
 
-To prove that $\cMLRKE$ is strictly less expressive than $\hlogic$,
-we will define a translation that maps formulas of $\tle$ into
-sentences of $\hlogic$. Intuitively, it is clear that we can use
-$\downarrow$ to simulate $\remember$, but $\known$ does not
+We will now compare the expressive power of memory logics with
+respecto to hybrid logics.  The most natural choice for the
+comparison is the hybrid logics $\hlogic$.
+We will prove that $\hlogic$ is strictly more expressive than $\cMLRKE$.
+Intuitively,
+$\downarrow$ can easily simulate $\remember$, but $\known$ does not
 distinguishes between different memorized states (while nominals
-bound by $\downarrow$ do distinguish them).  We can solve this using
-disjunction to gather together all previously remembered states.
+bound by $\downarrow$ do distinguish them).
 
-
-%\begin{defn}[Model equivalence]
-%We say that a memory logic model $\model_1= \diam{W,\rels,V_1,S}$ over
-%$\diam{\prop, \rel}$ is equivalent to a Kripke model over
-%$\diam{\prop\cup\{\mathit{known}\}, \rel}$  $\model_2= \diam{W,\rels,V_2}$ if
-%$V_1(p) = V_2(p)$ for any $p \not= \mathit{known}$, and $V_2(k) = S$.
-%Moreover, we say that $\model_1$ is  equivalent to a $\hlogic$
-%model $\model'_2$ over $\diam{\prop\cup\{k\}, \rel,\var}$ when %$\model'_2=\diam{W,\rels,V_2,g}$, for any arbitrary assignment $g$.
-%
-% To each $\tl$ model $\model_\tl= \diam{W,\{R_i\},V,S}$, we associate
-% a Kripke model $\model = \diam{W,\{R_i\},V'}$, where $V(p) = V'(p)$
-% for any $p \not= k$, and $V'(k) = S$.
-%\end{defn}
 
 
 \begin{thm}\label{thm:tle_leq_hlogic}
-$\cMLRKE\leq\hlogic$.
+$\cMLRKE < \hlogic$.
 \end{thm}
 
 \begin{pf}
-The translation $\Tr$, taking $\cMLRKE$-formulas over the signature
+We first prover that $\cMLRKE \le \hlogic$. We define
+the translation $\Tr$, taking $\cMLRKE$-formulas over the signature
 $\diam{\prop,$ $\rel}$ to $\hlogic$ sentences over the signature
-$\diam{\prop, \rel, \nom}$ is defined for any finite set $N
+$\diam{\prop, \rel, \nom}$. $\Tr$ is defined for any finite set $N
 \subseteq \nom$ as follows:
 $$
 \begin{array}{rcl}
@@ -291,33 +277,19 @@ $$
 
 \noindent A simple induction shows that $\model, w \models \varphi$
 iff $\model, g, w \models \Tr_\emptyset(\varphi)$, for any $g$.
-\end{pf}
-
-Finally we arrive to the most interesting question in this section:
-as we already mentioned, $\cMLRKE$ seems to be weaker than $\hlogic$
-because it allows us to remember that we have already visited a
-given state, but we cannot distinguish among different visited
-states. Indeed, we can prove that $\cMLRKE$ is strictly less
-expressive than $\hlogic$, but the proof is slightly involved.
+\smallskip
 
 
-\begin{thm} \label{thm:tle_not_equal_hlogic}
-$\hlogic\not\leq\cMLRKE$.
-\end{thm}
-
-\begin{pf}
+Now we prove that $\hlogic$ is strictly more expressive than $\cMLRKE$.
 Let $\model_1=\diam{\omega,R_1,\emptyset,\emptyset}$ and
 $\model_2=\diam{\omega,R_2,\emptyset,\emptyset}$, where $R_1=\{(n,m)
 \mid n\not= m\} \cup \{(0,0)\}$ and $R_2=\{(n,m) \mid n\not= m\}
-\cup \{(0,0),(1,1)\}$ (the models are shown in Figure~\ref{fig}, the
-accessibility relation is the non-reflexive transitive closure of the arrows shown
-in the picture).
+\cup \{(0,0),(1,1)\}$. Graphically,
 
-\begin{figure}
 \begin{center}
 \begin{tikzpicture}[>=latex]
 
-  \node (n11) at (0,0) [shape=circle,draw] {} edge [in=220, out=250,loop] ();
+  \node (n11) at (0,0) [shape=circle,draw] {0} edge [in=220, out=250,loop] ();
   \node (n22) at (1,1) [shape=circle,draw, label=right:$\dots$, label=above:$\vdots$] {};
   \node (n12) at (0,1) [shape=circle,draw] {} ;
   \node (n21) at (1,0) [shape=circle,draw] {};
@@ -337,14 +309,14 @@ in the picture).
 \hspace{10mm}
 \begin{tikzpicture}[>=latex]
 
-  \node (n11) at (0,0) [shape=circle,draw] {}
+  \node (n11) at (0,0) [shape=circle,draw] {0}
                        edge [in=220, out=250,loop] ();
-  \node (n22) at (1,1) [shape=circle,draw, label=right:$\dots$, label=above:$\vdots$] {}
+  \node (n22) at (1,1) [shape=circle,draw, label=right:$\dots$, label=above:$\vdots$] {1}
                        edge [in=220, out=250,loop] ();
-  \node (n12) at (0,1) [shape=circle,draw] {} ;
-  \node (n21) at (1,0) [shape=circle,draw] {};
-  \node (n13) at (0,2) [shape=circle,draw, label=above:$\vdots$] {};
-  \node (n31) at (2,0) [shape=circle,draw, label=right:$\dots$] {};
+  \node (n12) at (0,1) [shape=circle,draw] { } ;
+  \node (n21) at (1,0) [shape=circle,draw] { };
+  \node (n13) at (0,2) [shape=circle,draw, label=above:$\vdots$] { };
+  \node (n31) at (2,0) [shape=circle,draw, label=right:$\dots$] { };
 
   \draw [<->] (n11) -- (n12);
   \draw [<->] (n21) -- (n22);
@@ -357,76 +329,57 @@ in the picture).
 \end{tikzpicture}
 \end{center}
 
-%\begin{center}
-%\includegraphics[scale=0.8]{figure1.eps}
-%\medskip
-\caption{Two $\cMLRKE$-bisimilar models}\label{fig}
-\end{figure}
+\noindent where the accessibility relation is the
+transitive closure of the arrows shown but without reflexive
+loops excepts those explicitly marked.
 
-We prove that $\model_1,0\bisim\model_2,0$ showing the winning
+
+We prove that $\tup{\model_1,0}\equiv^{\EF} \tup{\model_2,0}$ showing a winning
 strategy for Duplicator. Intuitively, the strategy for Duplicator
-consists in the following idea: whenever one player is in
-$(\model_1,0)$ the other will be in $(\model_2,0)$ or
-$(\model_2,1)$, and conversely whenever a player is in
-$(\model_1,n)$, $n>0$ the other will be in $(\model_2,m)$, $m>1$.
+is as follows: whenever one player is in
+$\tup{\model_1,0}$ the other will be in $\tup{\model_2,0}$ or
+$\tup{\model_2,1}$, and conversely whenever a player is in
+$\tup{\model_1,n}$, $n>0$ the other will be in $\tup{\model_2,m}$, $m>1$.
 This is maintained until Spoiler (if ever) decides to remember a
-state. Once this is done, then any strategy will be a winning one
-for Duplicator.
+state. Once this is done, then any move leads to a win of Duplicator.
 
+Formally, the winning strategy will have two stages:
+\smallskip
 
-Being a bit more formal, the winning strategy will have two stages. While Spoiler does not remember any reflexive
-state, Duplicator plays with the following strategy: if Spoiler
-chooses $0$ in any model, Duplicator chooses $0$ in the other one;
+\noindent
+a) While Spoiler does not remember any reflexive
+state, Duplicator plays as follows: if Spoiler
+chooses $0$ in any model, Duplicator chooses $0$ in the other;
 if Spoiler chooses $n>0$ in $\model_1$, Duplicator plays $n+1$ in
 $\model_2$; if Spoiler chooses $n>0$ in $\model_2$, Duplicator plays
-$n-1$ in $\model_1$.
-
-Notice that with this strategy Spoiler chooses
+$n-1$ in $\model_1$. Notice that with this strategy Spoiler chooses
 a reflexive state if and only if Duplicator answers with a reflexive
-one. This is clearly a winning strategy. If ever Spoiler decides to
+one. This is clearly a winning strategy.
+\smallskip
+
+\noindent
+b) If ever Spoiler decides to
 remember a reflexive state, Duplicator starts using the following
 strategy: if Spoiler selects a state $n$, Duplicator answers with an
 agreeing state $m$ of the opposite model. Notice that this is always
 possible since both $n$ and $m$ see infinitely many non remembered
-states and at least one remembered state. Therefore $\model_1,w \bisim \model_2, w$.
+states and at least one remembered state.
+\smallskip
 
+\noindent
 On the other hand, let $\varphi$ be the formula $\down i. \diam{r}(i
 \land \diam{r}(\lnot i \land \down i.\diam{r}i))$. It is easy to see
-that $\model_1, w \not \models \varphi$ but $\model_2, w \models
+that $\model_1, 0 \not \models \varphi$ but $\model_2, 0 \models
 \varphi$.
 \end{pf}
 
-\begin{cor}
-$\cMLRKE<\hlogic$.
-\end{cor}
 
-\begin{pf}
-Straightforward from Theorems~\ref{thm:tle_leq_hlogic}
-and~\ref{thm:tle_not_equal_hlogic}.
-\end{pf}
+We have shown that $\cMLRKE < \hlogic$ but the proof seems to intrinsically
+use infinite models.  Actually, $\cMLRKE < \hlogic$ even on finite models.
 
-The basic idea behind the proof of
-Theorem~\ref{thm:tle_not_equal_hlogic} is that if the relations
-$R_1$ and $R_2$ extend the set $\{(n,m) \mid n\not= m\}$, then
-$\cMLRKE$ can distinguish between irreflexive and non irreflexive
-frames, but it cannot distinguish frames with a different number of
-reflexive nodes.
+\tb{Dieguis cambia la demo de abajo.}
 
-There is a number of interesting remarks to be made above the
-previous proof. First, notice that it is essential for the winning
-strategy of Duplicator that each state in a model is related to
-infinitely many others.
-
-
-We have already shown that $\cMLRKE \not= \hlogic$ and we used a
-pair of infinite models to distinguish both logics. We now analyze
-the question whether $\cMLRKE \not= \hlogic$ on image-finite models.
-We prove that $\hlogic \not \leq \cMLRKE$ on image-finite models
-showing that there cannot exist an equivalence preserving
-translation for finite models from $\hlogic$ to $\cMLRKE$
-
-
-\begin{thm}
+\begin{thm}\label{thm:tle_leq_hlogic_fin}
 There is no translation $\Tr$ from $\hlogic$-sentences to
 $\cMLRKE$-formulas such that for every finite model $\model$ and
 every $\hlogic$-sentence $\varphi$ we have $\model \models
@@ -445,7 +398,7 @@ where
 \begin{eqnarray*}
 W_n&=&\{w_0, \dots, w_{n-1}\}\\
 R_1&=&\{(n,m)\mid n \neq m\} \cup \{(w_0,w_0)\}\\
-R_2&=&R_1 \cup \{w_1, w_1\}.
+R_2&=&R_1 \cup \{(w_1, w_1)\}.
 \end{eqnarray*}
 
 Clearly, for every $n \geq 1$, $\model^1_n, w_0 \not\models \varphi$ and
@@ -482,8 +435,7 @@ for the rest of the game.
 \end{pfclaim}
 
 Now, let let $n$ be the complexity of $\Tr(\varphi)$. Because
-$\Tr(\varphi)$ has at most $n$ remember operators, we know by
-Fact~\ref{lem:not-distinguish} that
+$\Tr(\varphi)$ has at most $n$ remember operators, we know that
 \[
 \model^1_{n+2}, w_0 \models \Tr(\varphi) \mbox{\quad
 iff\quad}\model^2_{n+2}, w_0 \models \Tr(\varphi).
@@ -494,81 +446,82 @@ This is an absurd, since $\Tr$ should be an equivalence preserving
 translation for finite models.
 \end{pf}
 
-
-Second, notice that the $\hlogic$ sentence that we used in the proof
-uses only one nominal.  Hence, we have actually proved that
+The $\hlogic$-sentence we use in the proofs of Theorem~\ref{thm:tle_leq_hlogic}
+and~\ref{thm:tle_leq_hlogic_fin} has only one nominal.
+  Hence, we have actually proved that
 $\hlogicone\not\le\cMLRKE$, where $\hlogicone$ is $\hlogic$
 restricted to only one nominal.  But actually, it is also the case
-that $\cMLRKE \not\le\hlogicone$.
-
-\tb{Give the general claim for an arbitrary $k$ as a theorem. Then
-say that we just prove the case for $k=1$ and that the rest are similar. \\DIEGO SAYS: DONE}
+that $\cMLRKE \not\le\hlogicone$.  More generally, for any fixed
+number $k$ of nominals, the logics $\hlogick$ and $\cMLRKE$ are
+incomparable.
 
 \begin{thm}
-For any fixed $k$, the logics $\hlogick$ and {\em $\cMLRKE$} are incomparable in terms of expressive power.
+For any fixed $k$, the logics $\hlogick$ and $\cMLRKE$ are incomparable in terms of expressive power.
 \end{thm}
-%\begin{pro}\label{prop:hlogicone_incomparable_tle}
-%The logics $\hlogicone$ and {\em $\tle$} are incomparable in terms of expressive power.
-%\end{pro}
 \begin{pf}
 We will show the proof for $k=1$, the general case being similar.
-As we said, $\hlogicone\not\leq\cMLRKE$ is a direct consequence of the
-proof of Theorem~\ref{thm:tle_not_equal_hlogic}. To prove $\cMLRKE \not
+$\hlogicone\not\leq\cMLRKE$ is a direct consequence of the
+proof of Theorem~\ref{thm:tle_leq_hlogic}.
+
+To prove $\cMLRKE \not
 \le \hlogicone$, let $\model_1=\diam{\{1,2,3\},\{(i,j) \mid 1 \leq
-i,j \leq 3\},\emptyset,\emptyset}$ (a clique of size 3) and
+i,j \leq 3\},V_1,\emptyset}$  and
 $\model_2=\diam{\{1,2\},\{(i,j) \mid 1 \leq i,j \leq
-2\},\emptyset,\emptyset}$ (a clique of size 2). It is easy to check
-that $\model_1,1 \bisim_{\hlogicone} \model_2,1$. However, the
+2\},V_2,\emptyset}$
+where
+$V_1(p) = V_2(p) = \emptyset$ for all $p \in \prop$
+(a clique of size 3 and 2 respectively). It is easy to check
+that $\model_1,1$ and $\model_2,1$ are $\bisim_{\hlogicone}$-bisimilar. However, the
 formula
 $\varphi = \remember \diam{r} (\neg \known \land \remember
 \diam{r} (\neg\known \land \remember \diam{r} \neg\known))$
 distinguishes the models: $\model_1,1 \models \varphi$ but
 $\model_2,1 \not\models \varphi$.
 
-This result can be extended to $\hlogic$ restricted to any fixed number of nominals, by taking cliques of the appropriate size.
+This result can be extended to $\hlogick$ for any fixed $k$, by taking cliques of the appropriate size.
 \end{pf}
 
-
-We will now briefly discuss the case of $\cMLRK$.  As we already mentioned at the beginning
-of this section, the first required step to compare expressivity is to be able to define
-a natural mapping between models of the different logics involved.  Consider a model
-$\diam{W,\rels,V,S}$ for $\cMLRK$; if we want to associate a Kripke model we have to decide
-how to deal with the set $S$.  The only natural choice seems to be to extend the signature
-with a special propositional variable \emph{known}, and let $V'$ be identical to
-$V$ excepts that $V'(\mathit{known}) = S$.  And  the same can be done to obtain a hybrid model
-from a $\cMLRK$ model.
+\tb{C: I propose We don't say anything about $\cMLRK$ is that ok? Result
+commented out below}
 
 
-\begin{thm}\label{thm:expr_power}
-The following results concerning expressive power can be established
-\begin{enumerate}
-\item $\bml$ over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel}$ is strictly
-less expressive than {\em $\cMLRK$} over the signature $\diam{\prop, \rel}$.
-\item {\em $\cMLRK$} over the signature $\diam{\prop, \rel}$ is strictly less expressive
-than $\hlogic$ over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel,\nom}$.
-\end{enumerate}
-\end{thm}
+% \begin{thm}\label{thm:expr_power}
+% The following results concerning expressive power can be established
+% \begin{enumerate}
+% \item $\bml$ over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel}$ is strictly
+% less expressive than {\em $\cMLRK$} over the signature $\diam{\prop, \rel}$.
+% \item {\em $\cMLRK$} over the signature $\diam{\prop, \rel}$ is strictly less expressive
+% than $\hlogic$ over the signature $\diam{\prop \cup \{\mathit{known}\}, \rel,\nom}$.
+% \end{enumerate}
+% \end{thm}
+%
+% \begin{pf}
+% All proofs are similar to (and sometimes easier than) the ones
+% presented above. We only discuss 2. To prove $\cMLRK \le \hlogic$ (over
+% the appropriate signatures) we adapt the translation $\Tr$ with the
+% following clause for $\known$
+% $$
+% \begin{array}{rcl}
+% \Tr_N(\known) & = & \big (\bigvee_{i \in N} i \big) \vee
+% \mathit{known}.
+% \end{array}
+% $$
+% $\hlogic \not \le \cMLRK$ can be shown using the following models. Let
+% $\model_1=\diam{\{w\},$ $\{(w,w)\},\emptyset,\{w\}}$ and
+% $\model_2=\diam{\{u,v\},\{(u,v),(v,u)\},\emptyset,\{u,v\}}$.
+% Duplicator always wins on $E(\model_1,\model_2,w,u)$ and thus
+% $\model_1,w\bisim_{\cMLRK}\model_2,u$. On the other hand,
+% $\model'_1,w\models_{\hlogic}\down i.\diam{r}i$ but
+% $\model'_2,u\not\models_{\hlogic}\down i.\diam{r}i$, for $\model'_1,
+% \model'_2$ the  models corresponding to $\model_1$ and $\model_2$.
+% \end{pf}
 
-\begin{pf}
-All proofs are similar to (and sometimes easier than) the ones
-presented above. We only discuss 2. To prove $\cMLRK \le \hlogic$ (over
-the appropriate signatures) we adapt the translation $\Tr$ with the
-following clause for $\known$
-$$
-\begin{array}{rcl}
-\Tr_N(\known) & = & \big (\bigvee_{i \in N} i \big) \vee
-\mathit{known}.
-\end{array}
-$$
-$\hlogic \not \le \cMLRK$ can be shown using the following models. Let
-$\model_1=\diam{\{w\},$ $\{(w,w)\},\emptyset,\{w\}}$ and
-$\model_2=\diam{\{u,v\},\{(u,v),(v,u)\},\emptyset,\{u,v\}}$.
-Duplicator always wins on $E(\model_1,\model_2,w,u)$ and thus
-$\model_1,w\bisim_{\cMLRK}\model_2,u$. On the other hand,
-$\model'_1,w\models_{\hlogic}\down i.\diam{r}i$ but
-$\model'_2,u\not\models_{\hlogic}\down i.\diam{r}i$, for $\model'_1,
-\model'_2$ the  models corresponding to $\model_1$ and $\model_2$.
-\end{pf}
+To finish this section, we will compare $\cMLS$ with $\hlogic$ and
+prove that they are equivalently expressive.  This might come as a
+surprize, as we could think that the restricted access to the elements
+in the stack might actually restrict the expressive power of $\cMLS$.
+The proof below shows that it is the possibility to `make copies of
+the stack' while evaluating a formula what solves the problem.
 
 \begin{thm}\label{prop:stack_leq_hl}
 $\cMLS = \hlogic$.
@@ -590,34 +543,28 @@ nominals $N$ into an $\hlogic$-formula.
 \Tr_{N\cdot i}(\tope) & = & i\\
 \Tr_{[\ ]}(\tope) & = & \lnot\top
 \end{eqnarray*}
-It can be shown by induction in $\varphi$ that $\model, w \models
+Let $[\ ]$ be the empty list, we can show
+by induction in $\varphi$ that $\model, w \models
 \varphi$ iff $\model, g, w \models \Tr_{[\ ]}(\varphi)$, for any $g$
 \smallskip
 
 \noindent
 To prove $\hlogic \le \cMLS$ we define a translation transforming an
 $\hlogic$-formula and a list of nominals $N$ into an $\cMLS$-formula.
-Intuitively, for a formula of the form $\down i.\down j.\varphi$
-we can push first $i$ and then $j$ into the stack. Now if $i$ and $j$ appear in
-$\varphi$, then $j$ must be translated as $\tope$ and  $i$ must be
-translated as $\pop\tope$. We define the translation which coincides
-with the one defined in the proof of
-Proposition~\ref{prop:stack_leq_hl} for the propositional, negation,
-conjunction and modality, plus:
+The translation coincides with the translation above for the propositional, negation,
+conjunction and modality cases. We translate $\down$ and nominals as follows:
 \begin{eqnarray*}
 \Tr_N(\down i.\varphi) & = & \push\Tr_{N\cdot i}(\varphi)\\
-\Tr_N(i) & = & \pop^{\len{N}-x}\tope \quad i \in \nom, N[x]=i,
-\forall y>x:\, N[y]\not=i
+\Tr_N(i) & = & \pop^{\len{N}-n}\tope \quad i \in \nom, N[n]=i,
+\forall m>n:\, N[m]\not=i
 \end{eqnarray*}
-(Here $\len{N}$ represents the length of $N$; for convenience the
-lists are numbered from $1$ and $N[x]$ represents the $x$-th element
-of $N$.)
-
+where $\len{N}$ represents the length of $N$ and $N[n]$ represents the $n$-th element
+of $N$.
 It can be shown by induction in $\varphi$ that if $\varphi$ is an
 $\hlogic$-sentence, $\model, g, w \models
 \varphi$ iff $\model, w \models \Tr_{[\ ]}(\varphi)$ for any $g$.
 \end{pf}
 
 To close this section, we mention that the satisfaction preserving translations defined in
-the proof can actually be used to transfer known results, for example, from  $\hlogic$ to $\tl$ and $\tle$.  For
+the proof can actually be used to transfer known results, for example, from  $\hlogic$ to $\cMLRK$ and $\cMLRKE$.  For
 instance, both logics are compact and their formulas are preserved by generated sub-models (see~\cite{areces01:_hybrid}).
