@@ -248,7 +248,7 @@ comparison is the hybrid logics $\hlogic$.
 We will prove that $\hlogic$ is strictly more expressive than $\cMLRKE$.
 Intuitively,
 $\downarrow$ can easily simulate $\remember$, but $\known$ does not
-distinguishes between different memorized states (while nominals
+distinguish between different memorized states (while nominals
 bound by $\downarrow$ do distinguish them).
 
 
@@ -258,7 +258,7 @@ $\cMLRKE < \hlogic$.
 \end{thm}
 
 \begin{pf}
-We first prover that $\cMLRKE \le \hlogic$. We define
+We first prove that $\cMLRKE \le \hlogic$. We define
 the translation $\Tr$, taking $\cMLRKE$-formulas over the signature
 $\diam{\prop,$ $\rel}$ to $\hlogic$ sentences over the signature
 $\diam{\prop, \rel, \nom}$. $\Tr$ is defined for any finite set $N
@@ -373,20 +373,28 @@ that $\model_1, 0 \not \models \varphi$ but $\model_2, 0 \models
 \varphi$.
 \end{pf}
 
-
-We have shown that $\cMLRKE < \hlogic$ but the proof seems to intrinsically
-use infinite models.  Actually, $\cMLRKE < \hlogic$ even on finite models.
-
 \tb{Dieguis cambia la demo de abajo.}
 
+We have shown that $\cMLRKE < \hlogic$ but the proof seems to intrinsically
+use infinite models.  Actually, $\cMLRKE < \hlogic$ even on finite models. For this purpose we will first introduce a bounded round version of the EF game:
+%
+\begin{defn}
+We will define the \emph{$n$-round Ehrenfeucht-Fra\"iss\'e game} for a given logic $\mathcal{L}$ $\EF^n(\model_1, \model_2, w_1, w_2)$ as the game in which Spoiler has only $n$ rounds of the game to beat Duplicator. In the case Duplicator has a strategy to remain undefeated for $n$ rounds, he wins the game and we will write $\tup{\gM_1,w_1}\equiv^{\EF}_n\tup{\gM_2,w_2}$.
+\end{defn}
+%
+We will state without a proof the following theorem we will use, that can actually be extended to any of the logics $\mathcal{L}_i$.
+\begin{thm}
+For any pair of pointed models, $\tup{\gM_1,w_1}\equiv^{\EF}_n\tup{\gM_2,w_2}$ in $\cMLRKE$ if and only if for every formula $\varphi$ of $\cMLRKE$ with modal depth $n$, $\gM_1,w_1\models\varphi$ iff $\gM_2,w_2\models\varphi$.
+\end{thm}
+%
+We can now prove the expected theorem.
 \begin{thm}\label{thm:tle_leq_hlogic_fin}
-There is no translation $\Tr$ from $\hlogic$-sentences to
-$\cMLRKE$-formulas such that for every finite model $\model$ and
-every $\hlogic$-sentence $\varphi$ we have $\model \models
-\varphi$ iff $\model \models \Tr(\varphi)$.
+$\cMLRKE < \hlogic$ over the class of finite models.
 \end{thm}
 \begin{pf}
-Let us suppose that such translation $\Tr$ exists. Let
+We will prove that there is an $\hlogic$-expressible property $\varphi$ that cannot be expressed in $\cMLRKE$ over finite models. To do this, for every $n$ we will exhibit two finite models $\gM_1^n,\gM_2^n$ such that $\gM_1^n,w_0\models\varphi$, $\gM_1^n,w_0\not\models\varphi$ but $\tup{\gM_1^n,w_0}\equiv^{\EF}_n\tup{\gM_1^n,w_0}$. This implies that there is no formula of $\cMLRKE$ capable of expressing this property. If there was one $\psi$ with modal depth $m$, then as $\tup{\gM_1^n,w_0}\equiv^{\EF}_m\tup{\gM_2^n,w_0}$,  $\psi$ would be satisfied in either none or both of these models, which is absurd.
+
+Let
 \[
  \varphi =
 \down i. \diam{R}(i \land \diam{R}(\lnot i \land \down i.
@@ -396,26 +404,19 @@ and let, for $n\geq 1$, $\model^1_n = \diam{W_n, R_1, \emptyset,
 \emptyset}$ and $\model^2_n = \diam{W_n, R_2, \emptyset, \emptyset}$
 where
 \begin{eqnarray*}
-W_n&=&\{w_0, \dots, w_{n-1}\}\\
+W_n&=&\{w_0, \dots, w_{n+1}\}\\
 R_1&=&\{(n,m)\mid n \neq m\} \cup \{(w_0,w_0)\}\\
 R_2&=&R_1 \cup \{(w_1, w_1)\}.
 \end{eqnarray*}
-
+%
 Clearly, for every $n \geq 1$, $\model^1_n, w_0 \not\models \varphi$ and
 $\model^2_n, w_0 \models \varphi$.
 
-\begin{claim}\label{lem:not-distinguish}
-Let $\psi$ be an $\cMLRKE$-formula such that the number of
-occurrences of the $\remember$ operator is at most $n$. Then
-$\model^1_{n+2}, w_0 \models \psi$ iff $\model^2_{n+2}, w_0 \models
-\psi$.
-\end{claim}
+To prove that $\tup{\gM_1^n,w_0}\equiv^{\EF}_n\tup{\gM_2^n,w_0}$, we will describe Duplicator's strategy dividing it again in two stages:
+\smallskip
 
-\begin{pfclaim}
-We prove that Duplicator has a winning strategy in the game
-$EF(\model^1_{n+2},$ $\model^2_{n+2},$ $w_0,$ $w_0)$ in the case Spoiler
-makes at most $n$ memorizing steps. The strategy for Duplicator is
-the following. While Spoiler does not remember any reflexive state,
+\noindent
+a) While Spoiler does not remember any reflexive state,
 Duplicator plays with the following strategy: if Spoiler chooses
 $w_0$ in any model, Duplicator chooses $w_0$ in the other one; if
 Spoiler chooses $w_k$, $0 < k < n+1$, in $\model_1$, Duplicator
@@ -423,27 +424,15 @@ plays $w_{k+1}$ in $\model_2$, and if Spoiler chooses $w_{n+1}$ in
 $\model_1$, Duplicator plays $w_2$ in $\model_2$; if Spoiler chooses
 $w_k$, $k > 0$, in $\model_2$, Duplicator plays $w_{k-1}$ in
 $\model_1$. Note that with this strategy, Spoiler chooses a
-reflexive state iff Duplicator answers with a reflexive one. If ever
-Spoiler decides to remember a reflexive state, then from that point
-of the game, for every state $w_n$ chosen by Spoiler, Duplicator
-will always have an agreeing state $w_m$ on the opposite model he
-can choose. This happens because the models have $n+2$ states, and
-therefore there is always at least two non-remembered states. That
-means that both $w_n$ and $w_m$ see at least one remembered state
-and at least one non-remembered state, and this condition will hold
-for the rest of the game.
-\end{pfclaim}
+reflexive state iff Duplicator answers with a reflexive one.
 
-Now, let let $n$ be the complexity of $\Tr(\varphi)$. Because
-$\Tr(\varphi)$ has at most $n$ remember operators, we know that
-\[
-\model^1_{n+2}, w_0 \models \Tr(\varphi) \mbox{\quad
-iff\quad}\model^2_{n+2}, w_0 \models \Tr(\varphi).
-\]
-But on the other hand, $\model^1_{n+2}, w_0
-\not \models \varphi$ and $\model^2_{n+2}, w_0 \models \varphi$.
-This is an absurd, since $\Tr$ should be an equivalence preserving
-translation for finite models.
+\noindent
+b) If ever
+Spoiler decides to remember a reflexive state, then from that point
+of the game, for every state $w_i$ chosen by Spoiler, Duplicator
+will always have an agreeing state $w_j$ on the opposite model he
+can choose from. This happens because the models have $n+1$ states, and
+therefore there is always at least two non-remembered states. At each round the number of unremembered states can only be decremented by one, and then up to round $n$ both players will always see remembered and unremembered states both from $w_i$ and $w_j$.
 \end{pf}
 
 The $\hlogic$-sentence we use in the proofs of Theorem~\ref{thm:tle_leq_hlogic}
@@ -519,8 +508,8 @@ SS: Mirando el grafico de expresividad solo falta demostrar la flecha $L1 < HL(\
 
 To finish this section, we will compare $\cMLS$ with $\hlogic$ and
 prove that they are equivalently expressive.  This might come as a
-surprize, as we could think that the restricted access to the elements
-in the stack might actually restrict the expressive power of $\cMLS$.
+surprise, as we could think that the restricted access to the elements
+in the stack might actually limit the expressive power of $\cMLS$.
 The proof below shows that it is the possibility to `make copies of
 the stack' while evaluating a formula what solves the problem.
 
@@ -546,7 +535,7 @@ nominals $N$ into an $\hlogic$-formula.
 \end{eqnarray*}
 Let $[\ ]$ be the empty list, we can show
 by induction in $\varphi$ that $\model, w \models
-\varphi$ iff $\model, g, w \models \Tr_{[\ ]}(\varphi)$, for any $g$
+\varphi$ iff $\model, g, w \models \Tr_{[\ ]}(\varphi)$, for any $g$.
 \smallskip
 
 \noindent
