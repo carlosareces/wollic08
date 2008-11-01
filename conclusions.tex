@@ -1,32 +1,47 @@
 \section{Conclusions and Further Work}
 
-In this paper we investigate two members of a family of logics that
+In this paper we investigate several members of a family of logics that
 we called \emph{memory logics}.  These logics were inspired by the
 hybrid logic $\hlogic$: the $\down$ operator can be thought of as a
 storage command, and our aim is to carry this idea further
 investigating different ways in which information can be stored. We
 have proved that, in terms of  expressive power, the memory logics
-$\cMLRK$ and $\cMLRKE$ lay between the basic modal logic $\K$ and the
-hybrid logic $\hlogic$.  Unluckily, the reduced expressive power is
-not sufficient to ensure good computational behavior: both $\cMLRK$ and
-$\cMLRKE$ fail to have the finite model property and moreover their
-satisfiability problems are undecidable.
+we presented lay between the basic modal logic $\K$ and the
+hybrid logic $\hlogic$.  In some cases, the reduced expressive power is
+not sufficient to ensure good computational behavior: both $\cMLRK$,
+$\cMLRKE$ and $\cMLRKME$ fail to have the finite model property, and moreover, their
+satisfiability problems are undecidable. On the other hand, $\cMLRKM$ has the bounded tree model property, and its satisfiability problem is pspace-complete.
 
-Much work rest to be done. We are currently working on complete
-axiomatizations of $\cMLRK$ and $\cMLRKE$, and on model theoretic
-characterizations. Extending the language with nominals is a natural
-step, and then adapting the internalized hybrid tableau
-method~\cite{backburn00:_inter} to the new languages is
-straightforward.  More interesting is to explore new languages of
-the family (like $\texttt{(push)}$, $\texttt{(pop)}$, or
-$\texttt{(forget)}$), and interaction between the memory operators
-and the modalities.
+The efforts to increase modal logic expressivity by adding some notion of state are the result of a natural need, since modal logics are used in many different scenarios as tools for modeling behavior. In this sense, there is work already done that tries to capture this feature. A good example are the epistemic logics with dynamic operators (often called Dynamic Epistemic Logics~\cite{epistemic}), which allow to express the evolution of knowledge by accessing and changing the model structure through logic operators~\cite{plaza,1028135,1225972}. There are many other examples in this direction: update logics~\cite{vanbenthem05,gerbrandy99}, XCTL~\cite{113765}, the freeze operator~\cite{Alur89areally,Henzinger90half-ordermodal}, etc. We believe that the memory logic family defines a common and more general framework to add explicit state to a model, and to access and modify it via logical operators.
+
+Much work rest to be done. There are natural operators that can be added when using a set as the information storage. Two particular interesting cases are the ``forget'' operator $\forget$, which eliminates the current point of evaluation from the set $S$, and the ``erase'' operator $\erase$, that completely wipes out the memory $S$:
+
+\begin{center}
+\begin{tabular}{rcl}
+$\diam{W,\rels,V,S},w \models \forget \varphi$ &
+ iff & $\diam{W,\rels,V,S\setminus\cset{w}},w \models \varphi$ \\
+$\diam{W,\rels,V,S},w \models \erase \varphi$ &
+ iff & $\diam{W,\rels,V,\emptyset},w \models \varphi$.
+\end{tabular}
+\end{center}
+
+We have proved that the addition of $\forget$ and $\erase$ to $\cMLRK$ actually adds expressive power, but we have not completely determined the expressivity relationship between these new operators and $\HL(\down)$. We are also working on complete axiomatizations, and we have found complete systems for $\cMLRKM$, and for $\cMLRK$, $\cMLRKE$ and $\cMLRKME$ when nominals are added to the language~\cite{comp}. Furthermore, once nominals have been added, the internalized hybrid tableau method~\cite{backburn00:_inter} can be naturally adapted, leading to complete tableau algorithms.
+
+\tb{SS: Mencionamos algo mas en trabajo futuro relacionado con memory logics sobre estructuras lineales? Tambien se podria mencionar el estudio sobre interpolacion y Beth}
+
+% characterizations. Extending the language with nominals is a natural
+% step, and then adapting the internalized hybrid tableau
+% method~\cite{backburn00:_inter} to the new languages is
+% straightforward.  More interesting is to explore new languages of
+% the family (like $\texttt{(push)}$, $\texttt{(pop)}$, or
+% $\texttt{(forget)}$), and interaction between the memory operators
+% and the modalities.
 %$\diam{r}$ and $[r]$ modalities.
 
 
-\tb{extend relation with DEL, change ending, weak}
-The work presented in this paper is somehow related in spirit with
-the work on Dynamic Epistemic Logic and other update
-logics~\cite{vanbenthem05,gerbrandy99}, but as we discuss in the
-introduction, our inspiration was rooted in a new interpretation of
-the $\down$ binder.
+% \tb{extend relation with DEL, change ending, weak}
+% The work presented in this paper is somehow related in spirit with
+% the work on Dynamic Epistemic Logic and other update
+% logics~\cite{vanbenthem05,gerbrandy99}, but as we discuss in the
+% introduction, our inspiration was rooted in a new interpretation of
+% the $\down$ binder.
