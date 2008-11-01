@@ -1,26 +1,25 @@
 \section{(Un)Decidability and the Finite Model Property}
 
-In Section~\ref{expressivity} we show four memory logics
-($\cMLRK$, $\cMLRKE$, $\cMLRKM$ and $\cMLRKME$) which are
-all more expressive than $\bml$ but less expressive than
-$\hlogic$. Given that $\bml$ is decidable and $\hlogic$ is
-undecidable, exploring where the decidability line lies is
-an intriguing question.  The mail goal of this section is
-investigating this issue, together with the related question
-of whether the langauge is sufficiently expressive to force
+In Section~\ref{expressivity} we show four memory logics ($\cMLRK$,
+$\cMLRKE$, $\cMLRKM$ and $\cMLRKME$) which are all more expressive
+than $\bml$ but less expressive than $\hlogic$. Given that $\bml$ is
+decidable and $\hlogic$ is undecidable, exploring where the
+decidability line lies is an intriguing question.  The main goal of
+this section is to investigate this issue, together with the related
+question of whether the language is sufficiently expressive to force
 infinite models.
 
-We start by investigating $\cMLRKM$ and $\cMLRKME$. We will
-show that even though they are equivalent in terms of expressive
-power when we allow a shift if the signature, the satisfiability
-problem for $\cMLRKM$ is decidable (actually \textsc{pspace}-complete)
-while $\cMLRKME$ is already undecidable. As we will show in
-the proof of Theorem~\ref{} the trick will be to use a `dirty'
-memory. In $\cMLRKME$, we are restricted to the class of models
-where the memory is always initialized to $\emptyset$ and we can't
-play this trick anymore.  Actually $\cMLRKM$ is really standing
-on the decidability line, adding a single nominal to $\cMLRKM$
-push tha satisfiability problem over to undecidability.
+We start by investigating $\cMLRKM$ and $\cMLRKME$. We will show
+that even though they are equivalent in terms of expressive power
+when we allow a shift if the signature, the satisfiability problem
+for $\cMLRKM$ is decidable (actually \textsc{pspace}-complete) while
+$\cMLRKME$ is already undecidable. As we will show in the proof of
+Theorem~\ref{} the trick will be to use a `dirty' memory. In
+$\cMLRKME$, we are restricted to the class of models where the
+memory is always initialized to $\emptyset$ and we can't play this
+trick anymore.  Actually $\cMLRKM$ is really standing on the
+decidability line, adding a single nominal to $\cMLRKM$ push the
+satisfiability problem over to undecidability.
 
 \subsection{The Decidability of $\cMLRKM$\ldots}
 
@@ -58,11 +57,10 @@ We start by noticing that over tree models, we can eliminate
 $\known$ at modal depth 0 from the formula $\remember \varphi$.
 
 \begin{claim}\label{lem:replace}
-Let $\varphi^\sharp$ be the result of
-replacing all the ocurrences of $\known$ that are in $\varphi$ at
-modal depth zero by $\top$, and let $\gM$ be a tree model. Then
-$\model, w \models \remember \varphi$ iff $\model, w \models
-\varphi^\sharp$.
+Let $\varphi^\sharp$ be the result of replacing all the occurrences
+of $\known$ that are in $\varphi$ at modal depth zero by $\top$, and
+let $\gM$ be a tree model. Then $\model, w \models \remember
+\varphi$ iff $\model, w \models \varphi^\sharp$.
 \end{claim}
 
 \begin{pfclaim}
