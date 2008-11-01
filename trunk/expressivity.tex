@@ -392,7 +392,16 @@ We can now prove the expected theorem.
 $\cMLRKE < \hlogic$ over the class of finite models.
 \end{thm}
 \begin{pf}
-We will prove that there is an $\hlogic$-expressible property $\varphi$ that cannot be expressed in $\cMLRKE$ over finite models. To do this, for every $n$ we will exhibit two finite models $\gM_1^n,\gM_2^n$ such that $\gM_1^n,w_0\models\varphi$, $\gM_1^n,w_0\not\models\varphi$ but $\tup{\gM_1^n,w_0}\equiv^{\EF}_n\tup{\gM_1^n,w_0}$. This implies that there is no formula of $\cMLRKE$ capable of expressing this property. If there was one $\psi$ with modal depth $m$, then as $\tup{\gM_1^n,w_0}\equiv^{\EF}_m\tup{\gM_2^n,w_0}$,  $\psi$ would be satisfied in either none or both of these models, which is absurd.
+We will prove that there is an $\hlogic$-expressible property
+$\varphi$ that cannot be expressed in $\cMLRKE$ over finite models.
+To do this, for every $n$ we will exhibit two finite models
+$\gM_1^n,\gM_2^n$ such that $\gM_1^n,w_0\models\varphi$,
+$\gM_1^n,w_0\not\models\varphi$ but
+$\tup{\gM_1^n,w_0}\equiv^{\EF}_n\tup{\gM_1^n,w_0}$. This implies
+that there is no formula of $\cMLRKE$ capable of expressing this
+property. If there was one $\psi$ with modal depth $m$, then as
+$\tup{\gM_1^n,w_0}\equiv^{\EF}_m\tup{\gM_2^n,w_0}$,  $\psi$ would be
+satisfied in either none or both of these models, which is absurd.
 
 Let
 \[
@@ -412,7 +421,8 @@ R_2&=&R_1 \cup \{(w_1, w_1)\}.
 Clearly, for every $n \geq 1$, $\model^1_n, w_0 \not\models \varphi$ and
 $\model^2_n, w_0 \models \varphi$.
 
-To prove that $\tup{\gM_1^n,w_0}\equiv^{\EF}_n\tup{\gM_2^n,w_0}$, we will describe Duplicator's strategy dividing it again in two stages:
+To prove that $\tup{\gM_1^n,w_0}\equiv^{\EF}_n\tup{\gM_2^n,w_0}$, we
+will describe Duplicator's strategy dividing it again in two stages:
 \smallskip
 
 \noindent
@@ -426,13 +436,15 @@ $w_k$, $k > 0$, in $\model_2$, Duplicator plays $w_{k-1}$ in
 $\model_1$. Note that with this strategy, Spoiler chooses a
 reflexive state iff Duplicator answers with a reflexive one.
 
-\noindent
-b) If ever
-Spoiler decides to remember a reflexive state, then from that point
-of the game, for every state $w_i$ chosen by Spoiler, Duplicator
-will always have an agreeing state $w_j$ on the opposite model he
-can choose from. This happens because the models have $n+1$ states, and
-therefore there is always at least two non-remembered states. At each round the number of unremembered states can only be decremented by one, and then up to round $n$ both players will always see remembered and unremembered states both from $w_i$ and $w_j$.
+\noindent b) If ever Spoiler decides to remember a reflexive state,
+then from that point of the game, for every state $w_i$ chosen by
+Spoiler, Duplicator will always have an agreeing state $w_j$ on the
+opposite model he can choose from. This happens because the models
+have $n+1$ states, and therefore there is always at least two
+non-remembered states. At each round the number of unremembered
+states can only be decremented by one, and then up to round $n$ both
+players will always see remembered and unremembered states both from
+$w_i$ and $w_j$.
 \end{pf}
 
 The $\hlogic$-sentence we use in the proofs of Theorem~\ref{thm:tle_leq_hlogic}
@@ -555,6 +567,8 @@ $\hlogic$-sentence, $\model, g, w \models
 \varphi$ iff $\model, w \models \Tr_{[\ ]}(\varphi)$ for any $g$.
 \end{pf}
 
-To close this section, we mention that the satisfaction preserving translations defined in
-the proof can actually be used to transfer known results, for example, from  $\hlogic$ to $\cMLRK$ and $\cMLRKE$.  For
-instance, both logics are compact and their formulas are preserved by generated sub-models (see~\cite{areces01:_hybrid}).
+To close this section, we mention that the satisfaction preserving
+translations defined in the proof can actually be used to transfer
+known results, for example, from  $\hlogic$ to $\cMLRK$ and
+$\cMLRKE$.  For instance, both logics are compact and their formulas
+are preserved by generated sub-models (see~\cite{areces01:_hybrid}).
