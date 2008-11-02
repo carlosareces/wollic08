@@ -75,8 +75,7 @@ arrows link languages with the same expressive power.  We use dashed
 arrows when a change in the signature is required in the proof, and this is
 the first result we are going to show.
 
-\tb{SS: no hay double headed arrows. Entre $\hlogic$ y stack hay
-cambio de signatura? Si no hay, deberia ser double headed arrow}
+\tb{D: Les parece que queda claro lo de los `globitos'? ie, que una flecha a un globito significa una flecha a cada elemento del globito...?}
 
 \begin{thm} \
 \begin{enumerate}
@@ -373,16 +372,16 @@ that $\model_1, 0 \not \models \varphi$ but $\model_2, 0 \models
 \varphi$.
 \end{pf}
 
-\tb{Dieguis cambia la demo de abajo.}
+\tb{D: cambi\'e la demo de abajo. Alguien le quiere dar una mirada para corroborar que no meti la pata?}
 
 We have shown that $\cMLRKE < \hlogic$ but the proof seems to intrinsically
-use infinite models.  Actually, $\cMLRKE < \hlogic$ even on finite models. For this purpose we will first introduce a bounded round version of the EF game:
+use infinite models.  Actually, $\cMLRKE < \hlogic$ even on \emph{finite models}. For this purpose we will first introduce a bounded-round version of the E-F game presented in Definition~\ref{def:EF-game}.
 %
 \begin{defn}
-We will define the \emph{$n$-round Ehrenfeucht-Fra\"iss\'e game} for a given logic $\mathcal{L}$ $\EF^n(\model_1, \model_2, w_1, w_2)$ as the game in which Spoiler has only $n$ rounds of the game to beat Duplicator. In the case Duplicator has a strategy to remain undefeated for $n$ rounds, he wins the game and we will write $\tup{\gM_1,w_1}\equiv^{\EF}_n\tup{\gM_2,w_2}$.
+We will define the \emph{$n$-moves Ehrenfeucht-Fra\"iss\'e game} for a given logic $\mathcal{L}$ that we note $\EF^n(\model_1, \model_2, w_1, w_2)$ as the game in which Spoiler can only do $n$ moving steps in the game to beat Duplicator. In the case Duplicator has a strategy to remain undefeated for $n$ steps, he wins the game and we will write $\tup{\gM_1,w_1}\equiv^{\EF}_n\tup{\gM_2,w_2}$.
 \end{defn}
 %
-We will state without a proof the following theorem we will use, that can actually be extended to any of the logics $\mathcal{L}_i$.
+We will state without a proof the following easy theorem we will need, that can actually be extended to any of the logics $\mathcal{L}_i$, $i\in\{1,2,3,4\}$.
 \begin{thm}
 For any pair of pointed models, $\tup{\gM_1,w_1}\equiv^{\EF}_n\tup{\gM_2,w_2}$ in $\cMLRKE$ if and only if for every formula $\varphi$ of $\cMLRKE$ with modal depth $n$, $\gM_1,w_1\models\varphi$ iff $\gM_2,w_2\models\varphi$.
 \end{thm}
@@ -395,12 +394,12 @@ $\cMLRKE < \hlogic$ over the class of finite models.
 We will prove that there is an $\hlogic$-expressible property
 $\varphi$ that cannot be expressed in $\cMLRKE$ over finite models.
 To do this, for every $n$ we will exhibit two finite models
-$\gM_1^n,\gM_2^n$ such that $\gM_1^n,w_0\models\varphi$,
-$\gM_1^n,w_0\not\models\varphi$ but
-$\tup{\gM_1^n,w_0}\equiv^{\EF}_n\tup{\gM_1^n,w_0}$. This implies
+$\gM^1_n,\gM^2_n$ such that $\gM^1_n,w_0\models\varphi$,
+$\gM^2_n,w_0\not\models\varphi$ but
+$\tup{\gM^1_n,w_0}\equiv^{\EF}_n\tup{\gM^2_n,w_0}$. This implies
 that there is no formula of $\cMLRKE$ capable of expressing this
 property. If there was one $\psi$ with modal depth $m$, then as
-$\tup{\gM_1^n,w_0}\equiv^{\EF}_m\tup{\gM_2^n,w_0}$,  $\psi$ would be
+$\tup{\gM^1_n,w_0}\equiv^{\EF}_m\tup{\gM^2_n,w_0}$,  $\psi$ would be
 satisfied in either none or both of these models, which is absurd.
 
 Let
@@ -421,31 +420,71 @@ R_2&=&R_1 \cup \{(w_1, w_1)\}.
 Clearly, for every $n \geq 1$, $\model^1_n, w_0 \not\models \varphi$ and
 $\model^2_n, w_0 \models \varphi$.
 
-To prove that $\tup{\gM_1^n,w_0}\equiv^{\EF}_n\tup{\gM_2^n,w_0}$, we
+\begin{figure}
+\begin{center}
+\begin{tikzpicture}[>=latex]
+  \node (w0) at (0,0) [shape=circle,draw] {$w_0$} edge [in=170, out=200,loop] ();
+  \node (w1) at (0,1.5) [shape=circle,draw] {$w_1$} ;
+  \node (w2) at (1.5,1.5) [shape=circle,draw] {$w_2$} ;
+  \node (w3) at (1.5,0) [shape=circle,draw] {$w_3$} ;
+
+  \draw [<->] (w0) -- (w1);
+  \draw [<->] (w0) -- (w2);
+  \draw [<->] (w0) -- (w3);
+  \draw [<->] (w1) -- (w3);
+  \draw [<->] (w2) -- (w1);
+  \draw [<->] (w2) -- (w3);
+
+  \node at (0.75,-.7) {$\gM^1_2$};
+\end{tikzpicture}
+\hspace{1cm}
+\begin{tikzpicture}[>=latex]
+  \node (w0) at (0,0) [shape=circle,draw] {$w_0$} edge [in=170, out=200,loop] ();
+  \node (w1) at (0,1.5) [shape=circle,draw] {$w_1$} edge [in=170, out=200,loop] ();
+  \node (w2) at (1.5,1.5) [shape=circle,draw] {$w_2$} ;
+  \node (w3) at (1.5,0) [shape=circle,draw] {$w_3$} ;
+
+  \draw [<->] (w0) -- (w1);
+  \draw [<->] (w0) -- (w2);
+  \draw [<->] (w0) -- (w3);
+  \draw [<->] (w1) -- (w3);
+  \draw [<->] (w2) -- (w1);
+  \draw [<->] (w2) -- (w3);
+
+  \node at (0.75,-.7) {$\gM^2_2$};
+\end{tikzpicture}
+\end{center}
+\caption{Spoiler cannot win with only 2 moves.}
+\end{figure}
+
+To prove that $\tup{\gM^1_n,w_0}\equiv^{\EF}_n\tup{\gM^2_n,w_0}$, we
 will describe Duplicator's strategy dividing it again in two stages:
 \smallskip
 
 \noindent
 a) While Spoiler does not remember any reflexive state,
-Duplicator plays with the following strategy: if Spoiler chooses
-$w_0$ in any model, Duplicator chooses $w_0$ in the other one; if
-Spoiler chooses $w_k$, $0 < k < n+1$, in $\model_1$, Duplicator
-plays $w_{k+1}$ in $\model_2$, and if Spoiler chooses $w_{n+1}$ in
-$\model_1$, Duplicator plays $w_2$ in $\model_2$; if Spoiler chooses
-$w_k$, $k > 0$, in $\model_2$, Duplicator plays $w_{k-1}$ in
-$\model_1$. Note that with this strategy, Spoiler chooses a
-reflexive state iff Duplicator answers with a reflexive one.
+Duplicator plays with the following strategy: whenever Spoiler is in $w_k$, $2\leq k \leq n+1$ in one model, Duplicator is in an agreeing state $w_{k'}$, $2\leq k' \leq n+1$ in the other one. On the other hand, one player is in $w_0$ in $\model^1_n$ whenever the other is in $w_0$ or $w_1$ in $\model^2_n$. Finally, if Spoiler plays $w_1$, Duplicator plays in an agreeing $w_k$, $2\leq k \leq n+1$ in $\model^2_n$. Note that with this strategy, Spoiler chooses a
+reflexive state iff Duplicator answers with a reflexive one, and that Duplicator will always be able to choose an agreeing state.
+%if Spoiler chooses
+%$w_0$ in any model, Duplicator chooses $w_0$ in the other one; if
+%Spoiler chooses $w_k$, $0 < k < n$, in $\model^1_n$, Duplicator
+%plays $w_{k+1}$ in $\model^2_n$, and if Spoiler chooses $w_{n}$ in
+%$\model^1_n$, Duplicator plays $w_2$ in $\model^2_n$; if Spoiler chooses
+%$w_k$, $k > 0$, in $\model^2_n$, Duplicator plays $w_{k-1}$ in
+%$\model^1_n$. Note that with this strategy, Spoiler chooses a
+%reflexive state iff Duplicator answers with a reflexive one.
 
 \noindent b) If ever Spoiler decides to remember a reflexive state,
 then from that point of the game, for every state $w_i$ chosen by
 Spoiler, Duplicator will always have an agreeing state $w_j$ on the
 opposite model he can choose from. This happens because the models
-have $n+1$ states, and therefore there is always at least two
+have $n+2$ states, and therefore there is always at least two
 non-remembered states. At each round the number of unremembered
 states can only be decremented by one, and then up to round $n$ both
-players will always see remembered and unremembered states both from
-$w_i$ and $w_j$.
+players will always see remembered and unremembered states from
+$w_i$ and well as from $w_j$.
 \end{pf}
+
 
 The $\hlogic$-sentence we use in the proofs of Theorem~\ref{thm:tle_leq_hlogic}
 and~\ref{thm:tle_leq_hlogic_fin} has only one nominal.
