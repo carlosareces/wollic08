@@ -357,7 +357,7 @@ then $W$ is infinite.
 Suppose $\model, w \models \textit{Inf}$. Let $B = \{b \in W \mid
 wRb\}$. Because $\textit{Back}$ is satisfied, $w \not \in B$, $B
 \not= \emptyset$ and for all $b \in B$, $bRw$. Note that
-\textit{Empty} sais that the one and two-step horizon is not known,
+\textit{Empty} says that the one and two-step horizon is not known,
 and also this implies that every state in $B$ is irreflexive.
 Because $\textit{Spy}$ is satisfied, if $a \not= w$ and $a$ is a
 successor of an element of $B$ then $a$ is also an element of $B$.
@@ -367,8 +367,38 @@ there cannot be $3$ different elements in $B$ forming a cycle, and
 this sentence together with $\textit{Tran}$ force $R$ to
 transitively order $B$.
 %
-It follows that $B$ is an unbounded strict partial order, hence
-infinite, and so is $W$.
+It follows that $B$ is an unbounded strict partial order as showed in the picture below, hence infinite, and so is $W$.
+\begin{center}
+\begin{tikzpicture}[>=latex]
+  \node (n1) at (1.5,.5) [shape=circle,draw] {$p$} ;
+  \node (n2) at (0,1.5) [shape=circle,draw] {} ;
+  \node (n3) at (1,1.5) [shape=circle,draw] {} ;
+  \node (n4) at (2,1.5) [shape=circle,draw] {} ;
+  \node (n5) at (3,1.5) [shape=circle,draw] {} ;
+  \node (n6) at (4.2,1.5) [shape=circle, minimum height=1cm] {$\cdots$} ;
+
+  \draw [<->] (n1) -- (n2);
+  \draw [<->] (n1) -- (n3);
+  \draw [<->] (n1) -- (n4);
+  \draw [<->] (n1) -- (n5);
+  \draw [<->] (n1) -- (n6);
+  
+  \draw [->] (n2) -- (n3);
+  \draw [->] (n3) -- (n4);
+  \draw [->] (n4) -- (n5);
+  \draw [->] (n5) -- (n6);
+  
+  \draw [->] (n2) edge[bend left=25] (n4);
+  \draw [->] (n3) edge[bend left=25] (n5);
+  \draw [->] (n4) edge[bend left=25] (n6);
+  
+  \draw [->] (n2) edge[bend left=30] (n5);
+  \draw [->] (n3) edge[bend left=30] (n6);
+  
+  \draw [->] (n2) edge[bend left=35] (n6);
+\end{tikzpicture}
+\end{center}
+
 \end{pf}
 
 
