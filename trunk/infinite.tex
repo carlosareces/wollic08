@@ -14,7 +14,7 @@ that even though they are equivalent in terms of expressive power
 when we allow a shift if the signature, the satisfiability problem
 for $\cMLRKM$ is decidable (actually \textsc{pspace}-complete) while
 $\cMLRKME$ is already undecidable. As we will show in the proof of
-Theorem~\ref{} the trick will be to use a `dirty' memory. In
+Theorem~\ref{thm:fmp} the trick will be to use a `dirty' memory. In
 $\cMLRKME$, we are restricted to the class of models where the
 memory is always initialized to $\emptyset$ and we can't play this
 trick anymore.  Actually $\cMLRKM$ is really standing on the
@@ -29,17 +29,17 @@ at hand, we will then prove that $\cMLRKM$ has a tree model
 property, and from that decidability and \textsc{pspace}-completeness
 follows.
 
-\tb{C: Yo termino con toda la seccion 5 el Sabado}
-
-\tb{C: Termino de escribir la demo el Sabado}
-
 \begin{thm}\label{prop:sat-preserv-tree}
 $\K$  over the signature $\tup{\prop \cup \{\mathit{known}\},\rel}$
 is equivalent to $\cMLRKM$ over the class of tree models.
 \end{thm}
 
 \begin{pf}
-%
+$[\K \le \cMLRKM]$: This is a direct corollary of Theorem~\ref{teo:bml_ml}.
+\smallskip
+
+\noindent
+$[\cMLRKM \le \K]$: %
 % We first define, given a formula
 % $\varphi$, a new formula More formally:
 %
@@ -53,18 +53,17 @@ is equivalent to $\cMLRKM$ over the class of tree models.
 % (\ttup{r} \varphi)^\sharp & = & \ttup{r} \varphi
 % \end{array}
 % \end{displaymath}
-We start by noticing that over tree models, we can eliminate
-$\known$ at modal depth 0 from the formula $\remember \varphi$.
+We start by noticing that in $\cMLRKM$ we can eliminate
+$\known$ at modal depth 0 from a formula like $\remember \varphi$.
 
 \begin{claim}\label{lem:replace}
 Let $\varphi^\sharp$ be the result of replacing all the occurrences
-of $\known$ that are in $\varphi$ at modal depth zero by $\top$, and
-let $\gM$ be a tree model. Then $\model, w \models \remember
+of $\known$ that are in $\varphi \in \cMLRKM$ at modal depth zero by $\top$. Then $\model, w \models \remember
 \varphi$ iff $\model, w \models \varphi^\sharp$.
 \end{claim}
 
 \begin{pfclaim}
-We proceed by induction. The case for $\known$, the propositional
+We proceed by induction on $\varphi$. The case for $\known$, the propositional
 symbols and booleans are straightforward. We analyze the other
 cases:
 \begin{itemize}
@@ -73,10 +72,7 @@ cases:
 \end{itemize}
 \end{pfclaim}
 
-Taking the same model equivalence used to compare $\bml$ with $\cMLRK$,
-the following result can be established:
-
-Define the following translation taking $\cMLRKM$ formulas over the signature
+Define now the following translation taking $\cMLRKM$ formulas over the signature
 $\diam{\prop, \rel}$ to $\bml$-formulas over the signature
 $\diam{\prop \cup \{known\}, \rel}$:
 $$
@@ -90,18 +86,22 @@ $$
 \end{array}
 $$
 
+Let $\varphi \in \cMLRKM$, and let $\gM=\tup{W,\rels,V,S}$ be an arbitrary tree
+model.  Let $\gM'=\tup{W,\rels,V'}$ where $V'$ is identical to $V$ except that
+$V'(\mathit{known})=S$. We can prover that $\gM,w \models \varphi \mbox{ iff } \gM',w \models \Tr(\varphi)$.
+
 We proceed by induction on $\varphi$. The propositional and boolean
 cases are trivial. The $\known$ case is also easy given the
-definitions. For the diamond case. Given that $\model$ is tree-like,
+definitions. For the diamond case. Given that $\gM$ is tree-like,
 the remember operator has no effect beyond modal operators, so
-$\model, w \models_{\cMLRKM} \ttup{r}\psi$ iff exists $v$ such that
-$wRv$ and $\model,v\models_{\cMLRKM} \psi$. By inductive hypothesis,
-$\model,v\models_{\cMLRKM} \psi$ iff $\model, v \models_{\bml}
-\Tr(\psi)$, and by definition $\model, w \models_{\bml} \diam{r}
+$\gM, w \models \ttup{r}\psi$ iff exists $v$ such that
+$R(w,v)$ and $\gM,v\models \psi$. By inductive hypothesis,
+$\gM',v\models \psi$ iff $\gM', v \models
+\Tr(\psi)$, and by definition $\gM', w \models \diam{r}
 \Tr(\psi)$. Finally, let's see the case for remember. By
-Lemma~\ref{lem:replace}, $\model, w \models_{\cMLRKM} \remember \psi$
-iff $\model, w \models_{\cMLRKM} \psi^\sharp$. By inductive hypothesis,
-$\model, w \models_{\bml} \Tr(\psi^\sharp)$.
+Claim~\ref{lem:replace}, $\gM, w \models \remember \psi$
+iff $\gM, w \models \psi^\sharp$. By inductive hypothesis,
+$\gM, w \models \Tr(\psi^\sharp)$.
 \end{pf}
 
 
@@ -132,13 +132,14 @@ $\model, w \models_{\bml} \Tr(\psi^\sharp)$.
 % Theorem~\ref{thm:bisim-tlm-n-to-modal-n}.
 % \end{pf}
 
+We now prove that $\cMLRKM$ has the \emph{tree model property}~\cite{BRV01},
+that is, every satisfiable formula in $\cMLRKM$ is satisfied in a tree model.
 
-
-\begin{pro}[Tree model property]\label{prop:tree-model-property}
+\begin{thm}[Tree model property]\label{prop:tree-model-property}
 For every $\cMLRKM$-model
 $\model$ and $w\in\model$ there is a tree-like model $\model'$ where
-$w\in\model'$ and $\model,w\bisim\model',w$.
-\end{pro}
+$w\in\model'$ and $\tup{\model,w}\equiv^\EF\tup{\model',w}$.
+\end{thm}
 
 \begin{pf}
 Let $\model=\diam{W,R,V,S}$.  We prove the result for the unimodal
@@ -170,6 +171,7 @@ If Spoiler chooses $\model'[s_0,\dots,s_n]$ and $s_{n+1}=s_nv_{n+1}$
 (for some $v_{n+1}$), a successor of $s_n$, Duplicator chooses the
 state $v_{n+1}$.
 \end{itemize}
+
 By definition, it is easy to see that $s_{n+1}$ and $v_{n+1}$ agree.
 Observe that at this stage of the game the current ``memory" of
 $\model[v_0,\dots,v_n]$ is $S \cup \{v_0,\dots,v_n\}$ and the
@@ -236,27 +238,32 @@ definition $v_{n+1}\in S \cup \{v_0,\dots,v_n\}$.
 %\end{pf}
 
 \begin{thm}\label{thm:fmp}
-If $\varphi\in\cMLRKM$ is satisfiable then it is satisfiable on a
-recursively bounded model.
+The satisfiability problem of $\cMLRKM$ is \pspace-complete.
 \end{thm}
 
 \begin{pf}
-Let $\varphi$ be a $\cMLRKM$ formula of degree $k$, and suppose
-$\model,w \models_{\cMLRKM} \varphi$. By
-Proposition~\ref{prop:tree-model-property}, there is a tree-like
-model $\model'$ such that $\model',w \models_{\cMLRKM} \varphi$.
-Using Proposition~\ref{prop:sat-preserv-tree}, we can turn to basic
-modal logic $\bml$, and assert that $\model',w \models_{\bml}
-\Tr(\varphi)$. Now we can use the finite tree model property for
-basic modal logic~\cite{BRV01}, so there must be a finite tree-like
-model $\model''$ such that $\model'',w \models_{\bml} \Tr(\varphi)$.
-Finally, we can use Proposition~\ref{prop:sat-preserv-tree} again,
-and conclude $\model'',w \models_{\cMLRKM} \varphi$.
+We first show decidability of the satisfiability problem of 
+$\cMLRKM$ proving that any satisfiable formula of $\cMLRKM$ is satisfiable in a
+recursively bounded model.
 
-Observe that it is known~\cite{BRV01} that $\model''$ has at most
-$n^k$ states, where $n$ is the number of non-equivalent formulas of
-degree at most $k$, containing the same propositional symbols of
-$\varphi$.
+Let $\varphi$ be a $\cMLRKM$ formula of degree $k$, and suppose
+$\gM_1,w \models \varphi$. By
+Theorem~\ref{prop:tree-model-property}, there is a tree-like
+model $\gM_2$ such that $\gM_2,w \models \varphi$.
+Using Theorem~\ref{prop:sat-preserv-tree}, we know that $\gM_2',w \models
+\Tr(\varphi)$. Now we can use the \emph{finite} tree model property for
+basic modal logic~\cite{BRV01}, so there must be a recursively bounded tree-like
+model $\gM_3=\tup{W,\rels,V}$ and $v \in W$ such that $\gM_3,v \models \Tr(\varphi)$.
+Finally, we can use Theorem~\ref{prop:sat-preserv-tree} again,
+and conclude $\tup{W,\rels,V,V(\mathit{known})},v \models \varphi$.
+% 
+% Observe that it is known~\cite{BRV01} that $\gM_3$ has at most
+% $n^k$ states, where $n$ is the number of non-equivalent formulas of
+% degree at most $k$, containing the same propositional symbols of
+% $\varphi$.
+
+The \pspace-completeness follows from the fact that the translation 
+$\Tr$ is linear.
 \end{pf}
 
 
@@ -282,76 +289,46 @@ $\varphi$.
 %and conclude $\model'',w \models \varphi$.
 %\end{pf}
 
-
-\begin{cor}[Decidability]\label{cor:tlm-decidability}
-$\cMLRKM$ is decidable.
-\end{cor}
-
-\begin{pf}
-By Theorem~\ref{thm:fmp}, given a $\cMLRKM$-formula $\varphi$ one
-can recursively obtain a bound $b$ such that if $\varphi$ is
-satisfiable then it is satisfiable in a model of at most $b$ states.
-Hence, to decide the satisfiability of $\varphi$ one can check if
-$\model\models\varphi$ for all models $\model$ with size at most
-$b$.
-\end{pf}
-
-\begin{thm}[\textsc{pspace}-complete]
-The satisfaction problem for $\cMLRKM$ is \textsc{pspace}-complete.
-\end{thm}
-\begin{pf}
-The lower \textsc{pspace}-hard bound for $\cMLRKM$ follows from the
-lower bound for the basic modal logic~\cite{BRV01}. We show a
-matching upper bound by reducing the satisfiability problem for
-basic modal logic. Given a $\cMLRKM$-formula $\varphi$, we compute
-$\Tr(\varphi)$ using Definition~\ref{def:tr-tlm-k}. Note that the
-size of the translated formula $\Tr(\varphi)$ is actually at most
-the size of $\varphi$. Let suppose that $\Tr(\varphi)$ has a model,
-that is $\model, w \models_{\bml} \Tr(\varphi)$. This happens iff
-there exists a tree-like model $\model'$ such that $\model', w
-\models_{\bml} \Tr(\varphi)$ (by the tree model property of $\bml$)
-iff $\model', w \models_{\cMLRKM} \varphi$ (by
-Proposition~\ref{prop:sat-preserv-tree}) iff there exists a model
-$\nodel$ such that $\nodel,w \models_{\cMLRKM} \varphi$ (by the tree
-model property for $\cMLRKM$, stated in
-Proposition~\ref{prop:tree-model-property}). Therefore, given
-$\varphi$, determining the $\bml$-satisfiability of $\Tr(\varphi)$
-(and we can do this with a \textsc{pspace} algorithm~\cite{BRV01})
-is enough to decide the $\cMLRKM$-satisfiability of $\varphi$.
-\end{pf}
+% \begin{thm}
+% The satisfaction problem for $\cMLRKM$ is -complete.
+% \end{thm}
+% \begin{pf}
+% The lower \textsc{pspace}-hard bound for $\cMLRKM$ follows from the
+% lower bound for the basic modal logic~\cite{BRV01}. We show a
+% matching upper bound by reducing the satisfiability problem for
+% basic modal logic. Given a $\cMLRKM$-formula $\varphi$, we compute
+% $\Tr(\varphi)$ as in the proof of Theorem~\ref{prop:sat-preserv-tree}. Note that the
+% size of the translated formula $\Tr(\varphi)$ is actually at most
+% the size of $\varphi$. Let suppose that $\Tr(\varphi)$ has a model,
+% that is $\model, w \models_{\bml} \Tr(\varphi)$. This happens iff
+% there exists a tree-like model $\model'$ such that $\model', w
+% \models_{\bml} \Tr(\varphi)$ (by the tree model property of $\bml$)
+% iff $\model', w \models_{\cMLRKM} \varphi$ (by
+% Proposition~\ref{prop:sat-preserv-tree}) iff there exists a model
+% $\nodel$ such that $\nodel,w \models_{\cMLRKM} \varphi$ (by the tree
+% model property for $\cMLRKM$, stated in
+% Proposition~\ref{prop:tree-model-property}). Therefore, given
+% $\varphi$, determining the $\bml$-satisfiability of $\Tr(\varphi)$
+% (and we can do this with a \textsc{pspace} algorithm~\cite{BRV01})
+% is enough to decide the $\cMLRKM$-satisfiability of $\varphi$.
+% \end{pf}
 
 \subsection{\ldots and its Undecidable Neighbours}
 
+We now show the undecidability of two variations of $\cMLRKM$.
 
-In this subsection we show that the rest of the memory logics
-presented in this work are undecidable. We start by analyzing the
-decidability of two variations of $\cMLRKM$.
+While $\cMLRKM$ is decidable, it seems to be standing at the 
+border of undecidability.  The logic $\cMLRKME$, obtained from $\cMLRKM$ by 
+restricting the class of models to those where $S=\emptyset$ is
+undecidable.  Actually, adding one single nominal to $\cMLRKM$ 
+already leads to undecidability.
 
-We first show that adding just one nominal $i$ to $\cMLRKM$ is
-sufficient to turn into undecidability. We denote with $\cMLRKM+i$
-this extension of $\cMLRKM$.
-%
-We next show that the satisfiability problem of the logic $\cMLRKM$
-restricted to the class of models with $S=\emptyset$ (i.e.\ the
-logic $\cMLRKME$) is also undecidable.
-
-From the undecidability of $\cMLRKME$, we will conclude the
-undecidability of $\cMLRK$ and $\cMLRKE$. Additionally, every time
-we show undecidability, we also prove lack of finite model property.
-
-%The last issue that we will discuss in this paper
-%is the undecidability of the satisfiability problem
-%for both $\cMLRK$ and $\cMLRKE$.  The proof is an adaptation
-%of the proof of undecidability of $\hlogic$ presented in~\cite{BS95}.
-
-%We first prove that both languages lack the finite model property~\cite{BRV01}.
-
+Let's call $\cMLRKM + i$ the logic obtained by extending 
+$\cMLRKM$ with a single nominal. We first prove failure of
+the finite model property for $\cMLRKM + i$.
 
 \begin{thm}\label{thm:tlmi:inf}
 $\cMLRKM + i$ lacks the finite model property.
-% There is a formula
-%$\textit{Inf} \in \cMLRKM + i$ such that $\mathcal{M},w \models
-%\textit{Inf}$ implies that the domain of $\mathcal{M}$ is infinite.
 \end{thm}
 
 \begin{pf}
@@ -414,22 +391,23 @@ Let $T=\{T_1,\dots,T_n\}$ be a set of tile types. Given a tile type
 $T_i$, $u(T_i)$, $r(T_i)$, $d(T_i)$, $l(T_i)$ will represent the
 colors of the up, right, down and left edges of $T_i$ respectively.
 Define:
-
-\begin{displaymath}
+$$
 \begin{array}{rl}
 (\textit{Back}) & i \land \bbox{s}\lnot i \land \ttup{s} \top \land \bbox{s}\ttup{s}i \land \bbox{s}\bbox{s}i\\
 (\textit{Empty}) & \bbox{s}\lnot \known \land \bbox{s}\bbox{s}(\lnot i \to \lnot \known) \land \bbox{s}[\dag]\lnot \known \quad \dag \in \{r,u\}\\
 (\textit{Spy}) & \bbox{s}[\dag]\ttup{s}(i \land \ttup{s}(\known \land \lnot\diam{\dag}\known)) \quad \dag \in \{r,u\}\\
 (\textit{Grid}) & \bbox{s}\diam{\dag} \top \quad \dag \in \{r,u\}\\
 (\textit{Func}) & \bbox{s}[\dag]\ttup{s}\ttup{s}(\known \land \diam{\dag}\known \land [\dag]\known) \quad \dag \in \{r,u\}\\
-(\textit{Conf}) & \bbox{s}\ttup{u}\ttup{r}\ttup{s}\ttup{s}(\known \land \lnot \ttup{r}\known \land \ttup{u}\known \land \ttup{r}( \lnot \known \land (\ttup{u}(\known \land \lnot \ttup{r}\known)))\\
+(\textit{Conf}) & \bbox{s}\ttup{u}\ttup{r}\ttup{s}\ttup{s}(\known \land \lnot \ttup{r}\known \land \ttup{u}\known \land \\
+& \ \ \ \ttup{r}( \lnot \known \land (\ttup{u}(\known \land \lnot \ttup{r}\known)))\\
 (\textit{UR-no-Cycle}) & \bbox{s}\bbox{u}\bbox{r}\lnot \known \land \bbox{s}\bbox{r}\bbox{u}\lnot \known\\
 (\textit{URU-no-Cycle}) & \bbox{s}\bbox{u}\bbox{r}\bbox{u}\lnot \known\\
 (\textit{Unique}) & \bbox{s} \left( \bigvee_{1\leq i\leq n} t_i \wedge \bigwedge_{1\leq i < j \leq n } (t_i\to \lnot t_j)\right) \\
 (\textit{Vert}) & \bbox{s} \bigwedge_{1\leq i\leq n} \left( t_i \to \ttup{u} \bigvee_{1\leq j\leq n,u(T_i)=d(T_j)}  t_j\right) \\
 (\textit{Horiz}) & \bbox{s} \bigwedge_{1\leq i\leq n} \left( t_i \to \ttup{r} \bigvee_{1\leq j\leq n,r(T_i)=l(T_j)}  t_j\right) \\
 \end{array}
-\end{displaymath}
+$$
+
 Let the formula $\varphi^T$ be the conjunction of all the above
 formulas. We show that $T$ tiles $\omega\times\omega$ iff
 $\varphi^T$ is satisfiable.
@@ -501,7 +479,8 @@ $$
 %&$``All successors have a successor different from the root.''$\\
 (\textit{no-3cyc}) & \lnot \ttup{r}   \ttup{r} ( \lnot \known \land \ttup{r} ( \lnot \known \land \ttup{r} ( \known \land \lnot p)))\\
 %&$``There are no cycles of 3 elements between successors of the root.''$\\
-(\textit{Tran}) & \bbox{r} ( \lnot p \to \ttup{r} ( \known \land p \land \bbox{r} ( \lnot p \land \lnot \known \to \ttup{r}( \known \land p \land \ttup{r} ( \known \land \lnot p \land  \ttup{r}(\known \land \lnot p) )))))\\
+(\textit{Tran}) & \bbox{r} ( \lnot p \to \ttup{r} ( \known \land p \land \bbox{r} ( \lnot p \land \lnot \known \to \ttup{r}( \known \land p \land \\
+& \ \ \ \ttup{r} ( \known \land \lnot p \land  \ttup{r}(\known \land \lnot p) )))))\\
 %&$``Every pair of successors $u$ and $v$ are related (either $uRv$ or $vRu$).''$\\
 \end{array}
 $$
@@ -559,16 +538,15 @@ Let $T=\{T_1,\dots,T_n\}$ be a set of tile types. Given a tile type
 $T_i$, $u(T_i)$, $r(T_i)$, $d(T_i)$, $l(T_i)$ will represent the
 colors of the up, right, down and left edges of $T_i$ respectively.
 Define:
-
-\begin{displaymath}
+$$
 \begin{array}{rl}
 (\textit{Back}) & p \land \bbox{s}\lnot p \land \ttup{s} \top \land \bbox{s}\ttup{s}(\known \land p) \land \bbox{s}\bbox{s}(\known \land p)\\
 (\textit{Spy}) & \bbox{s}[\dag](\lnot p \land \ttup{s}(\known \land p \land \ttup{s}(\known \land \lnot\diam{\dag}\known))) \quad \dag \in \{r,u\}\\
 (\textit{Grid}) & \bbox{s}\diam{\dag} \top \quad \dag \in \{r,u\}\\
 (\textit{Func}) & \bbox{s}[\dag]\ttup{s}\ttup{s}(\known \land \diam{\dag}\known \land [\dag]\known) \quad \dag \in \{r,u\}\\
 (\textit{Conf}) & \bbox{s}\ttup{u}\ttup{r}\ttup{s}\ttup{s}(\known \land
-\lnot \ttup{r}\known \land \ttup{u}\known \land
-\ttup{r}\ttup{u}(\known \land \lnot \ttup{r}\known))\\
+\lnot \ttup{r}\known \land \ttup{u}\known \land \\
+& \ \ \ \ttup{r}\ttup{u}(\known \land \lnot \ttup{r}\known))\\
 (\textit{URU-no-Cycle}) & \bbox{s}\bbox{u}\bbox{r}\lnot \known \land \bbox{s}\bbox{r}\bbox{u}\lnot \known\\
 (\textit{URU-no-Cycle}) & \bbox{s}\bbox{u}\bbox{r}\bbox{u}\lnot \known\\
 (\textit{Unique}) & \bbox{s} \left( \bigvee_{1\leq i\leq n} t_i \wedge \bigwedge_{1\leq i < j \leq n } (t_i\to \lnot t_j)\right) \\
@@ -576,7 +554,8 @@ Define:
 (\textit{Horiz}) & \bbox{s} \bigwedge_{1\leq i\leq n} \left( t_i \to
 \ttup{r} \bigvee_{1\leq j\leq n,r(T_i)=l(T_j)}  t_j\right)
 \end{array}
-\end{displaymath}
+$$
+
 Let the formula $\varphi^T$ be the conjunction of all the above
 formulas. One can show that $T$ tiles $\omega\times\omega$ iff
 $\varphi^T$ is satisfiable, following the ideas used in the proof of
@@ -625,7 +604,10 @@ Theorem~\ref{thm:tlme:inf}.
 %
 \end{pf}
 
-\subsection{The Undecidable $\cMLRK$ and $\cMLRKE$}
+\subsection{The Undecidables $\cMLRK$ and $\cMLRKE$}
+
+From the undecidability of $\cMLRKME$, we can easily conclude the
+undecidability of $\cMLRK$ and $\cMLRKE$.
 
 \begin{thm}
 $\cMLRKE$ lacks the finite model property and is undecidable.
@@ -636,7 +618,6 @@ Straightforward from the effective translation given as a result of $\cMLRKME \l
 (Theorem~\ref{thm:four-le-two}) and theorems~\ref{thm:tlme:inf}
 and~\ref{thm:tlme:und}.
 \end{pf}
-
 
 To prove failure of the finite model property for the case $\cMLRK$
 we first notice that the following lemma is easy to establish (we only
