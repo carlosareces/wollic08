@@ -9,11 +9,12 @@ introduce an alternative, but equivalent, notion in terms of
 bisimulations.
 
 We will focus on the languages including $\remember$, $\known$ and
-$\ttup{r}$, and hence cover the logics $\cMLRK$, $\cMLRKE$, $\cMLRKM$
-and $\cMLRKME$.  We will show in Section~\ref{expressivity} that
-$\cMLS$ has the same expressive power than $\HL(\down)$ and hence we
-don't need to introduce a new notion of model equivalence for this
-language, we can use hybrid bisimulations as introduced in~\cite{areces01:_hybrid}.
+$\ttup{r}$, and hence cover the logics $\cMLRK$, $\cMLRKE$,
+$\cMLRKM$ and $\cMLRKME$.  We will show in
+Section~\ref{expressivity} that $\cMLS$ has the same expressive
+power than $\HL(\down)$ and hence we don't need to introduce a new
+notion of model equivalence for this logic, we can use hybrid
+bisimulations as introduced in~\cite{areces01:_hybrid}.
 
 \newcommand{\EF}{\mathit{EF}}
 
@@ -28,7 +29,8 @@ Otherwise, the game starts, with the players moving
 alternatively. Spoiler always makes the first move in a turn of the game, starting by choosing in which model he will make a move. Let us set $s=1$ and $d=2$ in case he chooses
 $\model_1$; otherwise, let $s=2$ and $d=1$.
 
-For the languages including the operators $\{\tup{r},\remember,\known\}$ the
+For the logics including the operators
+$\{\tup{r},\remember,\known\}$, that is, $\cMLRK$ and $\cMLRKE$, the
 possible moves are as follows:
 
 \begin{enumerate}
@@ -44,10 +46,11 @@ $\EF(\model_1, \model_2,
 v_1, v_2)$.
 \end{enumerate}
 
-The moves for languages with the operators $\{\ttup{r},\remember,\known\}$ are
-similar, except that during a \emph{move step},
-Spoiler always remembers the current world, i.e., the game goes on
-with $\EF(\model_1[w_1], \model_2[w_2], v_1, v_2)$ after Duplicator
+The moves for logics with the operators
+$\{\ttup{r},\remember,\known\}$, that is, $\cMLRKM$ and $\cMLRKME$,
+are similar, except that during a \emph{move step}, Spoiler always
+remembers the current world, i.e., the game goes on with
+$\EF(\model_1[w_1], \model_2[w_2], v_1, v_2)$ after Duplicator
 response.
 
 
@@ -55,12 +58,12 @@ In the case of an infinite game, Duplicator wins. Note
 that with this definition, exactly one of Spoiler or Duplicator wins
 each game.
 
-Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{\gM_2,w_2}$ we will write
-$\tup{\gM_1,w_1}$ $\equiv^{\EF}\tup{\gM_2,w_2}$ when Duplicator has a winning strategy
-for $\EF(\gM_1, \gM_2, w_1, w_2)$ (the exact type of game involved will usually be
-clear by context, and we will write
-$\equiv^{\EF}_\gL$ when we need to specify to bisimulation asociated to
-the language of the logic $\gL$).
+Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{\gM_2,w_2}$ we
+will write $\tup{\gM_1,w_1}$ $\equiv^{\EF}\tup{\gM_2,w_2}$ when
+Duplicator has a winning strategy for $\EF(\gM_1, \gM_2, w_1, w_2)$
+(the exact type of game involved will usually be clear by context,
+and we will write $\equiv^{\EF}_\gL$ when we need to specify the
+bisimulation associated to the logic $\gL$).
 \end{defn}
 
 %An $n$\textit{-round} \textit{Ehrenfeucht game} (with $n \geq 0$) is
@@ -89,12 +92,13 @@ Let $\gM_1$ and $\gM_2$ be two models. Let $\sim$ be a binary relation between $
 $\diam{\{m_1, m_2, \dots\}, m}$ with $\diam{\{n_1, n_2, \dots\},
 n}$. We write these tuples as $\diam{M, m}$.
 
-For the languages including the operators $\{\tup{r},\remember,\known\}$ the
-a \emph{bisimulation} should satisfy the following properties:
+For the logics including the operators
+$\{\tup{r},\remember,\known\}$ the \emph{bisimulation} should
+satisfy the following properties:
 \begin{center}
 \begin{tabular}{rl}
 (\emph{nontriv}) & $\sim$ is not empty.\\
-(\emph{agree}) & If $\diam{M, m} \sim \diam{N, n}$ , then $m$ and $n$ agree. \\
+(\emph{agree}) & If $\diam{M, m} \sim \diam{N, n}$, then $m$ and $n$ agree. \\
 
 (\emph{forth}) & If $\diam{M, m} \sim \diam{N, n}$  and
 $R_r^1(m,m')$, then there exists $n' \in W_2$\\
@@ -108,7 +112,7 @@ $R_r^2(n,n')$, then there exists $m' \in W_1$ \\
 \end{tabular}
 \end{center}
 
-For languages with the operators $\{\ttup{r},\remember,\known\}$ we
+For logics with the operators $\{\ttup{r},\remember,\known\}$ we
 slightly change (\emph{back}) and (\emph{forth}) to:
 \begin{center}
 \begin{tabular}{rl}
@@ -122,17 +126,17 @@ $R_r^2(n,n')$, then there exists $m' \in W_1$  such\\
 \end{tabular}
 \end{center}
 
-Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{\gM_2,w_2}$ we write
-$\tup{\gM_1,w_1} \bisim \tup{\gM_2,w_2}$ if
-there is a bisimulation linking $\tup{S_1,w_1}$ and $\tup{S_2,w_2}$
-(again, the exact type of
-bisimulation involved will usually be clear by context, and we will write
-$\bisim_\gL$ when we need to specify to bisimulation asociated to
-the language of the logic $\gL$).
+Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{\gM_2,w_2}$ we
+write $\tup{\gM_1,w_1} \bisim \tup{\gM_2,w_2}$ if there is a
+bisimulation linking $\tup{S_1,w_1}$ and $\tup{S_2,w_2}$ (again, the
+exact type of bisimulation involved will usually be clear from the
+context, and we will write $\bisim_\gL$ when we need to specify the
+bisimulation associated to the logic $\gL$).
 \end{defn}
 
-It is not difficult to prove that the notions of Ehrenfeucht-Fra\"iss\'e games and bisimulations for $\mathcal{L}_i, i \in \{1,2,3,4\}$ coincide, as
-indicated in the following theorem.
+It is not difficult to prove that the notions of
+Ehrenfeucht-Fra\"iss\'e games and bisimulations for $\mathcal{L}_i,
+i \in \{1,2,3,4\}$ coincide, as indicated in the following theorem.
 
 \begin{thm}\label{thm:equiv-g-s}
 Given two pointed models $\tup{\model_1,w_1}$ and
@@ -207,10 +211,12 @@ if and only if $\tup{\model_1,w_1} \bisim \tup{\model_2,w_2}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 Moreover, the notions of model equivalence we introduced preserve
-the truth value of formulas. Given two pointed models $\tup{\model_1,w_1}$
-and $\tup{\model_2,w_2}$, we write $\tup{\model_1,w_1} \equiv_\mathcal{L} \tup{\model_2,w_2}$ if for any formulas $\varphi$ in the language of the logic
-$\mathcal{L}_i$ we have that $\gM_1,w_i \models \varphi$ iff and only if
-$\gM_2,w_2 \models \varphi$.
+the truth value of formulas. Given two pointed models
+$\tup{\model_1,w_1}$ and $\tup{\model_2,w_2}$, we write
+$\tup{\model_1,w_1} \equiv_\mathcal{L} \tup{\model_2,w_2}$ if for
+any formula $\varphi$ in the language of the logic $\mathcal{L}_i$
+we have that $\gM_1,w_1 \models \varphi$ iff and only if $\gM_2,w_2
+\models \varphi$.
 
 
 \begin{thm}\label{bisim}
