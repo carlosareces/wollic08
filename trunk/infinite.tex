@@ -1,13 +1,13 @@
 \section{(Un)Decidability and the Finite Model Property}
 
-In Section~\ref{expressivity} we show four memory logics ($\cMLRK$,
-$\cMLRKE$, $\cMLRKM$ and $\cMLRKME$) which are all more expressive
-than $\bml$ but less expressive than $\hlogic$. Given that $\bml$ is
-decidable and $\hlogic$ is undecidable, exploring where the
-decidability line lies is an intriguing question.  The main goal of
-this section is to investigate this issue, together with the related
-question of whether the language is sufficiently expressive to force
-infinite models.
+In Section~\ref{expressivity} we showed four memory logics
+($\cMLRK$, $\cMLRKE$, $\cMLRKM$ and $\cMLRKME$) which are all more
+expressive than $\bml$ but less expressive than $\hlogic$. Given
+that $\bml$ is decidable and $\hlogic$ is undecidable, exploring
+where the decidability line lies is an intriguing question.  The
+main goal of this section is to investigate this issue, together
+with the related question of whether the logic is sufficiently
+expressive to force infinite models.
 
 We start by investigating $\cMLRKM$ and $\cMLRKME$. We will show
 that even though they are equivalent in terms of expressive power
@@ -23,10 +23,10 @@ satisfiability problem over to undecidability.
 
 \subsection{The Decidability of $\cMLRKM$\ldots}
 
-We will first prove that $\bml$ and $\cMLRKM$ expressively
-equivalent over the class of tree-like models.  With that result
-at hand, we will then prove that $\cMLRKM$ has a tree model
-property, and from that decidability and \textsc{pspace}-completeness
+We will first prove that $\bml$ and $\cMLRKM$ are expressively
+equivalent over the class of tree-like models.  With that result at
+hand, we will then prove that $\cMLRKM$ has a tree model property,
+and from that, decidability and \textsc{pspace}-completeness
 follows.
 
 \begin{thm}\label{prop:sat-preserv-tree}
@@ -35,7 +35,8 @@ is equivalent to $\cMLRKM$ over the class of tree models.
 \end{thm}
 
 \begin{pf}
-$[\K \le \cMLRKM]$: This is a direct corollary of Theorem~\ref{teo:bml_ml}.
+$[\K \le \cMLRKM]$: This is a direct corollary of
+Theorem~\ref{teo:bml_ml}.
 \smallskip
 
 \noindent
@@ -72,9 +73,9 @@ cases:
 \end{itemize}
 \end{pfclaim}
 
-Define now the following translation taking $\cMLRKM$ formulas over the signature
-$\diam{\prop, \rel}$ to $\bml$-formulas over the signature
-$\diam{\prop \cup \{known\}, \rel}$:
+Define now the following translation taking $\cMLRKM$-formulas over
+the signature $\diam{\prop, \rel}$ to $\bml$-formulas over the
+signature $\diam{\prop \cup \{known\}, \rel}$:
 $$
 \begin{array}{rcl}
 \Tr(p) & = & p \quad p \in \prop\\
@@ -86,9 +87,11 @@ $$
 \end{array}
 $$
 
-Let $\varphi \in \cMLRKM$, and let $\gM=\tup{W,\rels,V,S}$ be an arbitrary tree
-model.  Let $\gM'=\tup{W,\rels,V'}$ where $V'$ is identical to $V$ except that
-$V'(\mathit{known})=S$. We can prover that $\gM,w \models \varphi \mbox{ iff } \gM',w \models \Tr(\varphi)$.
+Let $\varphi \in \cMLRKM$, and let $\gM=\tup{W,\rels,V,S}$ be an
+arbitrary tree model.  Let $\gM'=\tup{W,\rels,V'}$ where $V'$ is
+identical to $V$ except that $V'(\mathit{known})=S$. We can prove
+that $\gM,w \models \varphi \mbox{ iff } \gM',w \models
+\Tr(\varphi)$.
 
 We proceed by induction on $\varphi$. The propositional and boolean
 cases are trivial. The $\known$ case is also easy given the
@@ -132,8 +135,9 @@ $\gM, w \models \Tr(\psi^\sharp)$.
 % Theorem~\ref{thm:bisim-tlm-n-to-modal-n}.
 % \end{pf}
 
-We now prove that $\cMLRKM$ has the \emph{tree model property}~\cite{BRV01},
-that is, every satisfiable formula in $\cMLRKM$ is satisfied in a tree model.
+We now prove that $\cMLRKM$ has the \emph{tree model
+property}~\cite{BRV01}, that is, every satisfiable formula in
+$\cMLRKM$ is satisfied in a tree model.
 
 \begin{thm}[Tree model property]\label{prop:tree-model-property}
 For every $\cMLRKM$-model
@@ -242,27 +246,28 @@ The satisfiability problem of $\cMLRKM$ is \pspace-complete.
 \end{thm}
 
 \begin{pf}
-We first show decidability of the satisfiability problem of 
-$\cMLRKM$ proving that any satisfiable formula of $\cMLRKM$ is satisfiable in a
-recursively bounded model.
+We first show decidability of the satisfiability problem of
+$\cMLRKM$ proving that any satisfiable formula of $\cMLRKM$ is
+satisfiable in a recursively bounded model.
 
 Let $\varphi$ be a $\cMLRKM$ formula of degree $k$, and suppose
 $\gM_1,w \models \varphi$. By
-Theorem~\ref{prop:tree-model-property}, there is a tree-like
-model $\gM_2$ such that $\gM_2,w \models \varphi$.
-Using Theorem~\ref{prop:sat-preserv-tree}, we know that $\gM_2',w \models
-\Tr(\varphi)$. Now we can use the \emph{finite} tree model property for
-basic modal logic~\cite{BRV01}, so there must be a recursively bounded tree-like
-model $\gM_3=\tup{W,\rels,V}$ and $v \in W$ such that $\gM_3,v \models \Tr(\varphi)$.
-Finally, we can use Theorem~\ref{prop:sat-preserv-tree} again,
-and conclude $\tup{W,\rels,V,V(\mathit{known})},v \models \varphi$.
-% 
+Theorem~\ref{prop:tree-model-property}, there is a tree-like model
+$\gM_2$ such that $\gM_2,w \models \varphi$. Using
+Theorem~\ref{prop:sat-preserv-tree}, we know that $\gM_2',w \models
+\Tr(\varphi)$. Now we can use the \emph{finite} tree model property
+for basic modal logic~\cite{BRV01}, so there must be a recursively
+bounded tree-like model $\gM_3=\tup{W,\rels,V}$ and $v \in W$ such
+that $\gM_3,v \models \Tr(\varphi)$. Finally, we can use
+Theorem~\ref{prop:sat-preserv-tree} again, and conclude
+$\tup{W,\rels,V,V(\mathit{known})},v \models \varphi$.
+%
 % Observe that it is known~\cite{BRV01} that $\gM_3$ has at most
 % $n^k$ states, where $n$ is the number of non-equivalent formulas of
 % degree at most $k$, containing the same propositional symbols of
 % $\varphi$.
 
-The \pspace-completeness follows from the fact that the translation 
+The \pspace-completeness follows from the fact that the translation
 $\Tr$ is linear.
 \end{pf}
 
@@ -313,17 +318,17 @@ $\Tr$ is linear.
 % is enough to decide the $\cMLRKM$-satisfiability of $\varphi$.
 % \end{pf}
 
-\subsection{\ldots and its Undecidable Neighbours}
+\subsection{\ldots and its Undecidable Neighbors}
 
 We now show the undecidability of two variations of $\cMLRKM$.
 
-While $\cMLRKM$ is decidable, it seems to be standing at the 
-border of undecidability.  The logic $\cMLRKME$, obtained from $\cMLRKM$ by 
+While $\cMLRKM$ is decidable, it seems to be standing at the border
+of undecidability.  The logic $\cMLRKME$, obtained from $\cMLRKM$ by
 restricting the class of models to those where $S=\emptyset$ is
-undecidable.  Actually, adding one single nominal to $\cMLRKM$ 
+undecidable.  Actually, adding one single nominal to $\cMLRKM$
 already leads to undecidability.
 
-Let's call $\cMLRKM + i$ the logic obtained by extending 
+Let's call $\cMLRKM + i$ the logic obtained by extending
 $\cMLRKM$ with a single nominal. We first prove failure of
 the finite model property for $\cMLRKM + i$.
 
@@ -350,9 +355,9 @@ $$
 %
 Let $\textit{Inf}$ be $\textit{Back} \land \textit{Empty} \land
 \textit{Spy} \land \textit{Irr} \land \textit{Succ} \land
-\textit{3cyc} \land \textit{Tran}$. Let $\model=\diam{W, R, V,
-\emptyset}$. Let us see that if $\model, w \models \textit{Inf}$,
-then $W$ is infinite.
+\textit{3cyc} \land \textit{Tran}$. Let $\model=\diam{W, R, V, S}$.
+Let us see that if $\model, w \models \textit{Inf}$, then $W$ is
+infinite.
 %
 Suppose $\model, w \models \textit{Inf}$. Let $B = \{b \in W \mid
 wRb\}$. Because $\textit{Back}$ is satisfied, $w \not \in B$, $B
@@ -370,7 +375,7 @@ transitively order $B$.
 It follows that $B$ is an unbounded strict partial order as showed in the picture below, hence infinite, and so is $W$.
 \begin{center}
 \begin{tikzpicture}[>=latex]
-  \node (n1) at (1.5,.5) [shape=circle,draw] {$p$} ;
+  \node (n1) at (1.5,.5) [shape=circle,draw] {$i$} ;
   \node (n2) at (0,1.5) [shape=circle,draw] {} ;
   \node (n3) at (1,1.5) [shape=circle,draw] {} ;
   \node (n4) at (2,1.5) [shape=circle,draw] {} ;
@@ -382,19 +387,19 @@ It follows that $B$ is an unbounded strict partial order as showed in the pictur
   \draw [<->] (n1) -- (n4);
   \draw [<->] (n1) -- (n5);
   \draw [<->] (n1) -- (n6);
-  
+
   \draw [->] (n2) -- (n3);
   \draw [->] (n3) -- (n4);
   \draw [->] (n4) -- (n5);
   \draw [->] (n5) -- (n6);
-  
+
   \draw [->] (n2) edge[bend left=25] (n4);
   \draw [->] (n3) edge[bend left=25] (n5);
   \draw [->] (n4) edge[bend left=25] (n6);
-  
+
   \draw [->] (n2) edge[bend left=30] (n5);
   \draw [->] (n3) edge[bend left=30] (n6);
-  
+
   \draw [->] (n2) edge[bend left=35] (n6);
 \end{tikzpicture}
 \end{center}
@@ -442,27 +447,26 @@ Let the formula $\varphi^T$ be the conjunction of all the above
 formulas. We show that $T$ tiles $\omega\times\omega$ iff
 $\varphi^T$ is satisfiable.
 
-Suppose $\model,w\models\varphi^T$. Observe that (\textit{Back}) and
-(\textit{Spy}), together with (\textit{Empty}) impose $w$ to be a
-spy point over all its $S$-accessible states of $\model$ (and also
-force $U$ and $R$ to be irreflexive and asymmetric). These
-$S$-accessible states will be the tiles. From this it follows that
-$[s]\psi$ holds at $w$ iff $\psi$ is true at every tile.
-Additionally, $\diam{s}\diam{s}\psi$ holds at tile $v$ iff $\psi$ is
-true at some tile (maybe the same one).
+Suppose $\model,w\models\varphi^T$. Observe that \textit{Back} and
+\textit{Spy}, together with \textit{Empty} impose $w$ to be a spy
+point over all its $S$-accessible states of $\model$ (and also force
+$U$ and $R$ to be irreflexive and asymmetric). These $S$-accessible
+states will be the tiles. From this it follows that $\bbox{s}\psi$
+holds at $w$ iff $\psi$ is true at every tile. Additionally,
+$\ttup{s}\ttup{s}\psi$ holds at tile $v$ iff $\psi$ is true at some
+tile (maybe the same one).
 
 Taking the above points into account, one can establish the
-following. (\textit{Grid}) states that from every tile there is
+following. \textit{Grid} states that from every tile there is
 another tile moving up (that is, following the $U$-relation). The
 same holds for the right direction (following the $R$-relation).
-(\textit{Func}) forces that $U$ and $R$ are both functionals, given
-that (\textit{Back}) and (\textit{Spy}) guarantee irreflexivity and
-asymmetry of $U$ and $R$ respectively. (\textit{Conf}) imposes that
+\textit{Func} forces that $U$ and $R$ are both functionals, given
+that \textit{Back} and \textit{Spy} guarantee irreflexivity and
+asymmetry of $U$ and $R$ respectively. \textit{Conf} imposes that
 the tiles are arranged in a grid pattern. To make its job,
-(\textit{Conf}) needs the composed relation $U\circ R$ to be
+\textit{Conf} needs the composed relation $U\circ R$ to be
 irreflexive, and to avoid a cycle with the $URU$ pattern. This job
-is done by (\textit{UR-Irr}) and (\textit{URU-noCycle})
-respectively.
+is done by \textit{UR-Irr} and \textit{URU-no-Cycle} respectively.
 
 All the formulas we discuss up to now configure the grid. The last
 three ensure that every tile has a unique type $t_i$, and that the
@@ -634,19 +638,19 @@ Theorem~\ref{thm:tlme:inf}.
 %
 \end{pf}
 
-\subsection{The Undecidables $\cMLRK$ and $\cMLRKE$}
+\subsection{The Undecidable $\cMLRK$ and $\cMLRKE$}
 
 From the undecidability of $\cMLRKME$, we can easily conclude the
 undecidability of $\cMLRK$ and $\cMLRKE$.
 
 \begin{thm}
-$\cMLRKE$ lacks the finite model property and is undecidable.
+$\cMLRKE$ lacks the finite model property and it is undecidable.
 \end{thm}
 
 \begin{pf}
-Straightforward from the effective translation given as a result of $\cMLRKME \leq \cMLRKE$
-(Theorem~\ref{thm:four-le-two}) and theorems~\ref{thm:tlme:inf}
-and~\ref{thm:tlme:und}.
+Straightforward from the effective translation given as a result of
+$\cMLRKME \leq \cMLRKE$ (Theorem~\ref{thm:four-le-two}) and
+theorems~\ref{thm:tlme:inf} and~\ref{thm:tlme:und}.
 \end{pf}
 
 To prove failure of the finite model property for the case $\cMLRK$
@@ -656,10 +660,10 @@ multi-modal case).
 Failure of the finite model property is then a direct consequence.
 
 \begin{lem}\label{lem:boxes}
-Let $\varphi$ be a formula of modal depth $d$. If
-{\em $\diam{W,R_r,V,S},w\models$} \linebreak {\em $\left(\bigwedge_{i=0}^d [r]^i \lnot
-\known\right) \wedge \varphi$} then $\diam{W,R_r,V,\emptyset},w\models
-\varphi$.
+Let $\varphi$ be a formula of modal depth $d$. If {\em
+$\diam{W,R_r,V,S},w\models$} \linebreak {\em
+$\left(\bigwedge_{i=0}^d [r]^i \lnot \known\right) \wedge \varphi$}
+then $\diam{W,R_r,V,\emptyset},w\models \varphi$.
 \end{lem}
 
 \begin{cor}
