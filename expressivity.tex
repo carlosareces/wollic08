@@ -1,26 +1,19 @@
 \section{Expressive Power}\label{expressivity}
 
 In this section we compare the expressive power of memory logics
-with respect to both the modal and hybrid logics.
+with respect to both modal and hybrid logics.
 But comparing the expressive power of these logics poses a complication
 because, strictly speaking, each of them uses a different class of models.
-We would like to be able to define a natural mapping between models
+We will have to find a natural mapping between models
 of each logic, similar to the natural mapping that exists between
 Kripke models and first-order models~\cite{BRV01}.
 
-Such a mapping is easy to define in the case of $\cMLRKE$ where the model is interpreted with $S=\emptyset$: each
-Kripke model $\diam{W,\rels,V}$ can be identified with the $\cMLRKE$
-model $\diam{W,\rels, V, \emptyset}$. Similarly, for formulas
-which are sentences, the $\cMLRKE$ model $\diam{W,\rels,V,\emptyset}$ can be identified with the hybrid model
+Such a mapping is easy to define in the case of $\cMLRKE$ and $\cMLRKME$ where we only consider models with $S=\emptyset$: each
+Kripke model $\diam{W,\rels,V}$ can be identified with the memory
+model $\diam{W,\rels, V, \emptyset}$. Similarly, for sentences, the memory model $\diam{W,\rels,V,\emptyset}$ can be identified with the hybrid model
 $\diam{W,\rels,V,g}$ (for $g$ arbitrary).
-%
-Since models for the $\cMLRKE$ logic coincide with those of
-$\cMLRKME$, the same applies for the mapping between Kripke models
-and $\cMLRKME$ models.
-%
-As we will discuss below, it is harder to find such a natural way to
-transform models for the case of $\cMLRK$ and $\cMLRKM$: the most
-natural way seems to involve a shift in the signature of the
+It is harder to find such a match for the case of $\cMLRK$ and $\cMLRKM$: the most
+natural option seems to involve a shift in the signature of the
 language.
 
 \begin{defn}[$\mathcal{L} \le \mathcal{L'}$]
@@ -30,9 +23,11 @@ $\mathcal{L'}$ is \emph{at least as expressive as} $\mathcal{L}$
 define a function $\Tr$ between formulas of  $\mathcal{L}$ and $\mathcal{L'}$
 such that for every model $\model$ and every formula $\varphi$ of $\mathcal{L}$
 we have that
-\[
+$$
 \model \models_\mathcal{L} \varphi \mbox{ iff } \model \models_{\mathcal{L}'} \Tr(\varphi).
-\]
+$$
+(here it should be understood that the model $\gM$ is seen as a model of
+$\gL$ on the left and as a model of $\gL'$ on the right).
 
 We say that $\mathcal{L'}$ is \emph{strictly more expressive} than $\mathcal{L}$
 (notation $\mathcal{L} < \mathcal{L'}$) if $\mathcal{L} \le \mathcal{L'}$ but
@@ -59,8 +54,10 @@ expressive (notation $\gL = \gL'$) if $\gL \le \gL'$ and $\gL' \le \gL$.
   \draw [->] (b1) -- (b2);
   \draw [->] (b2) -- (b3);
 
-  \draw [<->,dashed] (n3) edge (n4);
-  \draw [<->,dashed] (n1) edge (n2);
+%  \draw [<->,dashed] (n3) edge (n4);
+%  \draw [<->,dashed] (n1) edge (n2);
+  \draw [<->] (n3) edge (n4);
+  \draw [<->] (n1) edge (n2);
   \draw [<->] (n5) edge (n6);
 \end{tikzpicture}
 \end{center}
@@ -71,11 +68,17 @@ expressive (notation $\gL = \gL'$) if $\gL \le \gL'$ and $\gL' \le \gL$.
 The summary of the results we are going to establish in this section
 is shown in Figure~\ref{fig-expressivity}, where a full arrow
 between two logics $\gL$ and $\gL'$ means that $\gL < \gL'$. Double
-headed arrows link languages with the same expressive power.  We use
-dashed arrows when a change in the signature is required in the
-proof, and this is the first result we are going to show.
+headed arrows link languages with the same expressive power (even though
+in some cases a shift in the signature is needed).
+%We use
+%dashed arrows when a change in the signature is required in the
+%proof, and this is the first result we are going to show.
 
-\tb{D: Les parece que queda claro lo de los `globitos'? ie, que una flecha a un globito significa una flecha a cada elemento del globito...?}
+%\tb{D: Les parece que queda claro lo de los `globitos'? ie, que una flecha a un globito significa una flecha a cada elemento del globito...?}
+
+
+We start by discussing the relation among the logics  $\cMLRK$, $\cMLRKE$,
+$\cMLRKM$ and $\cMLRKME$.
 
 \begin{thm} \
 \begin{enumerate}
@@ -85,7 +88,7 @@ proof, and this is the first result we are going to show.
 \end{thm}
 
 \begin{pf}
-The argument for item $2$ is exactly the same as the one for item $1$.  Hence let's
+The argument for item $2$ is exactly the same as the one for item $1$.  Hence, let's
 prove $\cMLRKE=\cMLRK$ (over the appropriate signatures).
 
 We start by associating every model $\gM=\tup{W,\rels,V,S}$ of $\cMLRK$ over the signature $\diam{\prop, \rel}$ with the model $\gM'=\tup{W,\rels,V',\emptyset}$

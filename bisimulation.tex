@@ -8,12 +8,12 @@ of Ehrenfeucht-Fra\"iss\'e games~\cite{ebbi:math84} and then
 introduce an alternative, but equivalent, notion in terms of
 bisimulations.
 
-We will focus on the languages including $\remember$, $\known$ and
-$\ttup{r}$, and hence cover the logics $\cMLRK$, $\cMLRKE$,
-$\cMLRKM$ and $\cMLRKME$.  We will show in
+We will focus on the languages including $\remember$, $\known$, $\tup{r}$ and
+$\ttup{r}$ (i.e., the logics $\cMLRK$, $\cMLRKE$,
+$\cMLRKM$ and $\cMLRKME$).  We will show in
 Section~\ref{expressivity} that $\cMLS$ has the same expressive
-power than $\HL(\down)$ and hence we don't need to introduce a new
-notion of model equivalence for this logic, we can use hybrid
+power than $\HL(\down)$. Hence we don't need to introduce a new
+notion of model equivalence for this logic, and we can use hybrid
 bisimulations as introduced in~\cite{areces01:_hybrid}.
 
 \newcommand{\EF}{\mathit{EF}}
@@ -35,11 +35,11 @@ possible moves are as follows:
 
 \begin{enumerate}
 \item Make a \emph{memorizing step}. I.e.,
-he extends $S_s$ to $S_s \cup \{w_s\}$. The next turn then starts
+Spoiler extends $S_s$ to $S_s \cup \{w_s\}$. The next turn then starts
 with  $\EF(\model_1[w_1], \model_2[w_2],
 w_1, w_2)$ (Duplicator does nothing in this case).
 
-\item Make a \emph{move step}. I.e., he chooses $r \in \rel$, and $v_s$, an $R^s_r$-successor of $w_s$. If $w_s$ has no $R^s_r$-successors, then Duplicator wins. Duplicator has to chose $v_d$, an
+\item Make a \emph{move step}. I.e., Spoiler chooses $r \in \rel$, and $v_s$, an $R^s_r$-successor of $w_s$. If $w_s$ has no $R^s_r$-successors, then Duplicator wins. Duplicator has to chose $v_d$, an
 $R^d_r$-successor of $w_d$, such that $v_s$ and $v_d$ agree. If there is
 no such successor, Spoiler wins. Otherwise the game continues with
 $\EF(\model_1, \model_2,
@@ -62,8 +62,8 @@ Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{\gM_2,w_2}$ we
 will write $\tup{\gM_1,w_1}$ $\equiv^{\EF}\tup{\gM_2,w_2}$ when
 Duplicator has a winning strategy for $\EF(\gM_1, \gM_2, w_1, w_2)$
 (the exact type of game involved will usually be clear by context,
-and we will write $\equiv^{\EF}_\gL$ when we need to specify the
-bisimulation associated to the logic $\gL$).
+and we will write $\equiv^{\EF}_\gL$ when we need to specifythat the game
+corresponds to the language of the logic $\gL$).
 \end{defn}
 
 %An $n$\textit{-round} \textit{Ehrenfeucht game} (with $n \geq 0$) is
@@ -83,8 +83,7 @@ bisimulation associated to the logic $\gL$).
 %($\model_1, w_1 \bisim_n \model_2, w_2$).
 %\end{defn}
 
-We now give an alternative definition of bisimulation, from a
-structural point of view.
+We now give an alternative definition of model equivalence using bisimulations.
 
 \begin{defn}[Bisimulations]
 Let $\gM_1$ and $\gM_2$ be two models. Let $\sim$ be a binary relation between $\wp(W_1)
@@ -93,7 +92,7 @@ $\diam{\{m_1, m_2, \dots\}, m}$ with $\diam{\{n_1, n_2, \dots\},
 n}$. We write these tuples as $\diam{M, m}$.
 
 For the logics including the operators
-$\{\tup{r},\remember,\known\}$ the \emph{bisimulation} should
+$\{\tup{r},\remember,\known\}$ a \emph{bisimulation} should
 satisfy the following properties:
 \begin{center}
 \begin{tabular}{rl}
@@ -130,18 +129,18 @@ Given two pointed models $\tup{\gM_1,w_1}$ and $\tup{\gM_2,w_2}$ we
 write $\tup{\gM_1,w_1} \bisim \tup{\gM_2,w_2}$ if there is a
 bisimulation linking $\tup{S_1,w_1}$ and $\tup{S_2,w_2}$ (again, the
 exact type of bisimulation involved will usually be clear from the
-context, and we will write $\bisim_\gL$ when we need to specify the
-bisimulation associated to the logic $\gL$).
+context, and we will write $\bisim_\gL$ when we need to specify that the
+bisimulation corresponds to the language of the logic $\gL$).
 \end{defn}
 
-It is not difficult to prove that the notions of
+The notions of
 Ehrenfeucht-Fra\"iss\'e games and bisimulations for $\mathcal{L}_i,
 i \in \{1,2,3,4\}$ coincide, as indicated in the following theorem.
 
 \begin{thm}\label{thm:equiv-g-s}
 Given two pointed models $\tup{\model_1,w_1}$ and
-$\tup{\model_2,w_2}$ then $\tup{\model_1,w_1}$ $\equiv^{EF} \tup{\model_2,w_2}$
-if and only if $\tup{\model_1,w_1} \bisim \tup{\model_2,w_2}$.
+$\tup{\model_2,w_2}$ then $\tup{\model_1,w_1}$ $\equiv^{EF}_\gL \tup{\model_2,w_2}$
+if and only if $\tup{\model_1,w_1} \bisim_\gL \tup{\model_2,w_2}$.
 \end{thm}
 
 % \begin{pf}
@@ -210,26 +209,26 @@ if and only if $\tup{\model_1,w_1} \bisim \tup{\model_2,w_2}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Moreover, the notions of model equivalence we introduced preserve
+Moreover, both notions of model equivalence preserve
 the truth value of formulas. Given two pointed models
 $\tup{\model_1,w_1}$ and $\tup{\model_2,w_2}$, we write
 $\tup{\model_1,w_1} \equiv_\mathcal{L} \tup{\model_2,w_2}$ if for
-any formula $\varphi$ in the language of the logic $\mathcal{L}_i$
+any formula $\varphi$ in the language of the logic $\mathcal{L}$
 we have that $\gM_1,w_1 \models \varphi$ iff and only if $\gM_2,w_2
 \models \varphi$.
 
 
 \begin{thm}\label{bisim}
 Let $\tup{\model_1, w_1}$ and $\tup{\model_2,w_2}$ be two pointed
-models. Then $\tup{\gM_1,w_1}$ $\bisim_\gL \tup{\gM_2,w_2}$ implies
+models. Then $\tup{\gM_1,w_1}$ $\bisim_\gL \tup{\gM_2,w_2}$ ($\tup{\gM_1,w_1}$ $\equiv^\EF_\gL \tup{\gM_2,w_2}$) implies
 $\tup{\gM_1,w_1} \equiv_\gL \tup{\gM_2,w_2}$.
 
 If
 $\model_1$ and $\model_2$ are image finite (i.e., each element of the
 domain has only a finite number of successors by each accessibility
 relation). Then
-$\tup{\gM_1, w_1} \equiv_\gL \tup{\gM_2, w_2}$ implies
-$\tup{\gM_1, w_1} \bisim_\gL \tup{\gM_2, w_2}$.
+$\tup{\gM_1, w_1} \equiv_\gL \tup{\gM_2, w_2}$  implies
+$\tup{\gM_1, w_1} \bisim_\gL \tup{\gM_2, w_2}$ ($\tup{\gM_1, w_1} \equiv^\EF_\gL \tup{\gM_2, w_2}$).
 \end{thm}
 
 
