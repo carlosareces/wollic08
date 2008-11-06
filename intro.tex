@@ -18,9 +18,8 @@ $\down$ operator was introduced to investigate \emph{dynamic naming}
 of elements in a model, we will be concerned with operators that
 let us \emph{store} and \emph{retrieve} information from some kind
 of \emph{information structure} or \emph{memory}.
-But we could actually consider $\HL(\down)$ as the first memory logic.
+We could actually consider $\HL(\down)$ as the first memory logic.
 Let's be a bit more formal and introduce some basic concepts.
-
 The syntax of $\hlogic$ is defined as follows
 $$
 \varphi ::= p \mid i \mid \lnot \varphi \mid \varphi \land
@@ -37,7 +36,7 @@ modal logic $\K$ (see \cite{BRV01} for details) extended with nominals
 and the $\down$ binder.
 
 Semantically, $\hlogic$ is also very close to $\K$.  $\hlogic$
-are also interpreted over Kripke models which are extended with an
+formulas are also interpreted over Kripke models which are extended with an
 assignment function to interpret nominals and $\down$. More formally,
 a model for $\hlogic$ is a pair $(\gM,g)$ where $\gM=\diam{W,\rels,V}$ is a standard Kripke model (i.e., $W$ is a non empty set, each $R_r$ is a binary relation
 over $W$, and $V$ is a valuation), and $g$ is an assignment function
@@ -65,16 +64,16 @@ One way of looking to the semantic condition for $\down i.\varphi$ is
 that it dynamically creates a name for the current state
 (by linking the nominal $i$ to it), so that
 we can later refer to it during the evaluation of $\varphi$.
-An alternative perspective, is to see $\down i$ as an
-instruction to \emph{modifying} the model (by
+An alternative perspective is to see $\down i$ as an
+instruction to \emph{modify} the model (by
 storing the current point of evaluation into $i$), and
 continue the evaluation of $\varphi$ in the modified model.
 
 The difference between the two perspectives is subtle, but
-important for this article.  In this view, we are considering
+important for this article.  In the latter, we are considering
 the assignment $g$ as a kind of \emph{memory}
-in our model, while $\down i.$ and $i$ are the tools we use to access
-our memory for reading and writing.
+in our model, while $\down i$ and $i$ are the tools we use to access
+the memory for reading and writing.
 The question then present itself naturally: are there other
 kinds of interesting memory structures and memory operators?
 
@@ -82,28 +81,28 @@ For example, we could say that the assignment $g$ is a very
 sofisticated memory structure: it has unbounded size, it
 provided direct access to all its memory cells, and each
 stored element can be unequivocally retrieved.
-Let us start with a standard Kripke model $\diam{W,\rels,V}$, and
+Let us start with a standard Kripke model $\gM=\diam{W,\rels,V}$ and
 consider a much simpler memory structure: just a set $S \subseteq W$.
 We can think of $S$ as a set of states that are, for
 some reason, `known' to us. Already in this very simple set-up we
 can define the following operators:
 \begin{center}
 \begin{tabular}{rcl}
-$\diam{W,\rels,V,S},w \models \remember \varphi$ &
- iff & $\diam{W,\rels,V,S\cup\cset{w}},w \models \varphi$ \\
-$\diam{W,\rels,V,S},w \models \known$ &
+$(\gM,S),w \models \remember \varphi$ &
+ iff & $(\gM,S\cup\cset{w}),w \models \varphi$ \\
+$(\gM,S),w \models \known$ &
  iff & $w \in S$.
 \end{tabular}
 \end{center}
 
 As it is clear from the semantic definition, the `remember' operator
 $\remember$ (a unary modality) just marks the current state as being
-`already visited', by storing it in our `memory' $S$. On the other
+`already visited', by storing it in our memory $S$. On the other
 hand, the zero-ary operator $\known$ (for `known') queries $S$ to
 check if the current state has already been visited.
 
-In this simple language we would have that
-$\diam{W,\rels,V,\emptyset},w \models \remember\diam{r} \known$ will
+In this simple language we would have, for example, that
+$(\gM,\emptyset),w \models \remember\diam{r} \known$ will
 be true only if $R_r(w,w)$. Is this new logic equivalent to
 $\HL(\down)$? As we will prove in this article, the answer is
 negative: the new language is less expressive than $\HL(\down)$ but
@@ -111,8 +110,8 @@ negative: the new language is less expressive than $\HL(\down)$ but
 cannot discern between states stored in $S$, while an assignment $g$
 keeps a complete mapping between states and nominals.
 
-Naturally, we can include structures which are richer than a simple
-set, in our models. For example,  $S$ could be an ordered list of
+Naturally, we can consider memory structures which are richer than a simple
+set. For example,  $S$ could be an ordered list of
 elements, and we could then consider operators that add or delete
 particular elements in the list.
 
@@ -120,5 +119,5 @@ In this article we will focus on the $\remember$ and $\known$
 operators defined above.  More generally, the main idea behind memory logics is to take seriously the usual saying
 that `modal logics talk about labeled graphs'
 but giving us the freedom to choose \emph{what} we want to remember about a
-given graph and \emph{how} we are going to store and retrieve it.
+given graph, and \emph{how} we are going to store and retrieve it.
 

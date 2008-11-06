@@ -518,11 +518,11 @@ $\model_1=\diam{\{1,2,3\},\{(i,j) \mid 1 \leq i,j \leq
 3\},V_1,\emptyset}$  and $\model_2=\diam{\{1,2\},\{(i,j) \mid 1 \leq
 i,j \leq 2\},V_2,\emptyset}$ where $V_1(p) = V_2(p) = \emptyset$ for
 all $p \in \prop$ (a clique of size 3 and 2 respectively). It is
-easy to check that $\model_1,1$ and $\model_2,1$ are
-$\bisim_{\hlogicone}$-bisimilar. However, the formula $\varphi =
+easy to check that $\tup{\model_1,1} \bisim_{\hlogicone} \tup{\model_2,1}$. However, the formula $\varphi =
 \remember \diam{r} (\neg \known \land \remember \diam{r} (\neg\known
 \land \remember \diam{r} \neg\known))$ distinguishes the models:
-$\model_1,1 \models \varphi$ but $\model_2,1 \not\models \varphi$.
+$\model_1,1 \models \remember \diam{r} (\neg \known \land \remember \diam{r} (\neg\known
+\land \remember \diam{r} \neg\known))$ but $\model_2,1 \not\models $.
 
  The proof for $\hlogick$ is similar, taking cliques of the appropriate size.
 \end{pf}
@@ -594,7 +594,7 @@ cases. We translate $\down$ and nominals as follows:
 \begin{eqnarray*}
 \Tr_N(\down i.\varphi) & = & \push\Tr_{N\cdot i}(\varphi)\\
 \Tr_N(i) & = & \pop^{\len{N}-n}\tope \quad i \in \nom, N[n]=i,
-\forall m>n:\, N[m]\not=i
+\forall m>n:\, N[m]\not=i,
 \end{eqnarray*}
 where $\len{N}$ represents the length of $N$ and $N[n]$ represents
 the $n$-th element of $N$. It can be shown by induction in $\varphi$
