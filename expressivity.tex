@@ -126,7 +126,7 @@ identical.
 \noindent $[\cMLRKM \leq \cMLRK]$: It is easy to see that there is a
 translation \Tr\ from $\cMLRKM$ to $\cMLRK$-formulas which maps
 $\ttup{r}\varphi$ to $\remember\diam{r}\varphi$ and verifies $\model
-\models_{\cMLRKM} \varphi$ iff $\model \models_{\cMLRK}
+\models \varphi$ iff $\model \models
 \Tr(\varphi)$.
 \smallskip
 
@@ -167,14 +167,12 @@ $R_1=\{(w,v),(v,r),(r,w)\}$, $R_2=\{(w,v),(v,r),(r,v)\}$ and $V_1(p)
 %\label{fig:L3L1}
 %\end{figure}
 
-We prove that $\model_1$ and $\model_2$ are $\cMLRKM$-bisimilar. As
+We claim $\tup{\model_1,w} \equiv^\EF_{\cMLRKM} \tup{\model_2,w}$. As
 every state in both models has a unique successor, Duplicator has
-only one way of playing, and this only way is indeed a winning
-strategy. From this follows that no formula in $\cMLRKM$ can
-distinguish $\model_1$ and $\model_2$. On the other hand, let
-$\varphi = \diam{r}\remember\diam{r}\diam{r}\known$ be a
-$\cMLRK$-formula. It is easy to see that $\model_1,w \not \models
-\varphi$, but $\model_2, w \models \varphi$.
+only one way of playing, which is actually a winning
+strategy. Hence $\tup{\model_1,w} \equiv_{\cMLRKM} \tup{\model_2,w}$. But
+ $\model_1,w \not \models
+\diam{r}\remember\diam{r}\diam{r}\known$, while $\model_2, w \models \diam{r}\remember\diam{r}\diam{r}\known$.
 \end{pf}
 
 
@@ -183,11 +181,7 @@ the basic modal logic $\bml$.
 
 \subsection{Memory Logics and Modal Logics}
 
-Because models of $\K$ are different from models for memory logics
-we should start by defining how are we going to match them.  In this
-case, it seems that we don't have other option but to change the
-signature.  But even over a suitable extended signature, $\bml$ is
-less expressive than $\cMLRKM$. It is not difficult to see
+It is not difficult to see
 intuitively that $\remember$ and $\known$ do bring additional
 expressive power into the language of $\bml$: with their help we can
 detect cycles in a given model, while formulas of $\K$ are invariant
@@ -195,9 +189,8 @@ under unraveling.
 
 \begin{thm}\label{teo:bml_ml} \
 \begin{enumerate}
-\item $\bml$ over the signature $\diam{\prop \cup \{known\}, \rel}$ is
-strictly less expressive than $\cMLRKM$ over the signature
-$\diam{\prop, \rel}$
+\item $\cMLRKM$ over the signature
+$\diam{\prop, \rel}$ is strictly more expressive than $\bml$ over the signature $\diam{\prop \cup \{known\}, \rel}$.
 \item $\bml<\cMLRKME$
 \end{enumerate}
 
@@ -205,10 +198,9 @@ $\diam{\prop, \rel}$
 \end{thm}
 
 \begin{pf}
-We only prove the result for $\bml$ and $\cMLRKM$, the other case is
-identical. Showing that $\bml\leq\cMLRKM$ is straightforward as
-$\bml$ is a sub-language of $\cMLRKM$.  Hence, we can take $\Tr$ to
-be the identity function.
+We prove $\bml < \cMLRKM$, the other case is
+identical. As $\bml$ is a sub-language of $\cMLRKM$, $\bml\leq\cMLRKM$
+taking $\Tr$ to be the identity function.
 
 To see that $\cMLRKM\not\leq\bml$, let
 $\model_1=\diam{\{w\},\{(w,w)\},V_1}$ and
@@ -245,17 +237,12 @@ $\cMLRKM$-formula $\ttup{r}\known$.
 %
 \end{pf}
 
-\tb{C: we won't say anything about $\cMLRKME$ is that ok? \\SS:
-agregamos ese resultado en el teo de arriba, a eso te referias? Del
-lado de K vs memory logics es la flecha que faltaba mencionar}
-
-
 \subsection{Memory Logics and Hybrid Logics}
 
 We will now compare the expressive power of memory logics with
 respect to hybrid logics.  The most natural choice for the
 comparison is the hybrid logic $\hlogic$. We will prove that
-$\hlogic$ is strictly more expressive than $\cMLRKE$. Intuitively,
+$\hlogic$ is strictly more expressive than $\cMLRK$ and $\cMLRKE$. Intuitively,
 $\downarrow$ can easily simulate $\remember$, but $\known$ does not
 distinguish between different memorized states (while nominals bound
 by $\downarrow$ do distinguish them).
@@ -343,12 +330,12 @@ transitive closure of the arrows shown but without reflexive
 loops excepts those explicitly marked.
 
 
-We prove that $\tup{\model_1,0}\equiv^{\EF} \tup{\model_2,0}$
+We prove that $\tup{\model_1,0}\equiv^{\EF}_{\cMLRKE} \tup{\model_2,0}$
 showing a winning strategy for Duplicator. Intuitively, the strategy
 for Duplicator is as follows: whenever one player is in
 $\tup{\model_1,0}$ the other will be in $\tup{\model_2,0}$ or
 $\tup{\model_2,1}$, and conversely whenever a player is in
-$\tup{\model_1,n}$, $n>0$ the other will be in $\tup{\model_2,m}$,
+$\tup{\model_1,n}$, $n>0$, the other will be in $\tup{\model_2,m}$,
 $m>1$. This is maintained until Spoiler (if ever) decides to
 remember a state. Once this is done, then any move leads to a win of
 Duplicator.
@@ -383,62 +370,54 @@ that $\model_1, 0 \not \models \varphi$ but $\model_2, 0 \models
 \varphi$.
 \end{pf}
 
-\tb{D: cambi\'e la demo de abajo. Alguien le quiere dar una mirada para corroborar que no meti la pata?}
 
 We have shown that $\cMLRKE < \hlogic$ but the proof seems to
 intrinsically use infinite models.  Actually, $\cMLRKE < \hlogic$
 even on \emph{finite models}. For this purpose we will first
-introduce a bounded-round version of the Ehrenfeucht-Fra\"iss\'e
-game presented in Definition~\ref{def:EF-game}.
-%
+introduce a version of the Ehrenfeucht-Fra\"iss\'e
+game presented in Definition~\ref{def:EF-game} where the number of
+turns is bounded.
+
 \begin{defn}
 We will define the \emph{$n$-moves Ehrenfeucht-Fra\"iss\'e game} for
 a given logic $\mathcal{L}$, that we note $\EF^n(\model_1, \model_2,
 w_1, w_2)$, as the game in which Spoiler can only do $n$ moving
 steps in the game to beat Duplicator. In the case Duplicator has a
 strategy to remain undefeated for $n$ steps, he wins the game and we
-will write $\tup{\gM_1,w_1}\equiv^{\EF}_n\tup{\gM_2,w_2}$.
+will write $\tup{\gM_1,w_1}\equiv^{\EF^n}\tup{\gM_2,w_2}$.
 \end{defn}
-%
-We will state without a proof the following easy theorem we will
-need, that can actually be extended to any of the logics
-$\mathcal{L}_i$, $i\in\{1,2,3,4\}$.
+
+We will state without a proof the following easy theorem.
+
 \begin{thm}
-For any pair of pointed models, $\tup{\gM_1,w_1}\equiv^{\EF}_n\tup{\gM_2,w_2}$ in $\cMLRKE$ if and only if for every formula $\varphi$ of $\cMLRKE$ with modal depth $n$, $\gM_1,w_1\models\varphi$ iff $\gM_2,w_2\models\varphi$.
+For any pair of pointed models, $\tup{\gM_1,w_1}\equiv^{\EF^n}_{\gL_i}\tup{\gM_2,w_2}$ for $\gL_i, i \in \{1,2,3,4\}$ if and only if for every formula $\varphi$ of $\gL_i$ with modal depth $n$, $\gM_1,w_1\models\varphi$ iff $\gM_2,w_2\models\varphi$.
 \end{thm}
-%
-We can now prove the expected theorem.
+
+We can now prove the following theorem.
+
 \begin{thm}\label{thm:tle_leq_hlogic_fin}
 $\cMLRKE < \hlogic$ over the class of finite models.
 \end{thm}
 \begin{pf}
-We will prove that there is an $\hlogic$-expressible property
-$\varphi$ that cannot be expressed in $\cMLRKE$ over finite models.
+We will prove that there is a property $\varphi$ expressible in $\hlogic$
+that cannot be expressed in $\cMLRKE$ over finite models.
 To do this, for every $n$ we will exhibit two finite models
 $\gM^1_n,\gM^2_n$ such that $\gM^1_n,w_0\models\varphi$,
 $\gM^2_n,w_0\not\models\varphi$ but
-$\tup{\gM^1_n,w_0}\equiv^{\EF}_n\tup{\gM^2_n,w_0}$. This implies
+$\tup{\gM^1_n,w_0}\equiv^{\EF^n}_{\cMLRKE}\tup{\gM^2_n,w_0}$. This implies
 that there is no $\cMLRKE$-formula $\psi$ capable of expressing this
-property. Indeed, if there was such $\psi$ with modal depth $m$,
-then as $\tup{\gM^1_n,w_0}\equiv^{\EF}_m\tup{\gM^2_n,w_0}$,  $\psi$
-would be satisfied in either none or both of these models, which is
-absurd.
+property.
 
-Let
-\[
- \varphi =
+Let $\varphi =
 \down i. \diam{r}(i \land \diam{r}(\lnot i \land \down i.
-\diam{r}i)),
-\]
-and let, for $n\geq 1$, $\model^1_n = \diam{W_n, R_1, \emptyset,
-\emptyset}$ and $\model^2_n = \diam{W_n, R_2, \emptyset, \emptyset}$
+\diam{r}i))$ as in the proof of Theorem~\ref{thm:tle_leq_hlogic},
+and let, for $n\geq 1$, $\model^1_n = \diam{W_n, R_1, V_1,
+\emptyset}$ and $\model^2_n = \diam{W_n, R_2, V_2, \emptyset}$
 where
-\begin{eqnarray*}
-W_n&=&\{w_0, \dots, w_{n+1}\}\\
-R_1&=&\{(n,m)\mid n \neq m\} \cup \{(w_0,w_0)\}\\
-R_2&=&R_1 \cup \{(w_1, w_1)\}.
-\end{eqnarray*}
-%
+$W_n =\{w_0, \dots, w_{n+1}\}$,
+$R_1 =\{(n,m)\mid n \neq m\} \cup \{(w_0,w_0)\}$,
+$R_2 = R_1 \cup \{(w_1, w_1)\}$, and $V_1(p)=V_2(p)=\emptyset$ for all $p \in \prop$
+($\gM^1_2$ and $\gM^2_2$ are shown in Figure~\ref{M1yM2}).
 Clearly, for every $n \geq 1$, $\model^1_n, w_0 \not\models \varphi$ and
 $\model^2_n, w_0 \models \varphi$.
 
@@ -476,18 +455,18 @@ $\model^2_n, w_0 \models \varphi$.
   \node at (0.75,-.7) {$\gM^2_2$};
 \end{tikzpicture}
 \end{center}
-\caption{Spoiler cannot win with only 2 moves.}
+\caption{Spoiler cannot win with only 2 moves.}\label{M1yM2}
 \end{figure}
 
 To prove that $\tup{\gM^1_n,w_0}\equiv^{\EF}_n\tup{\gM^2_n,w_0}$, we
-will describe Duplicator's strategy dividing it again in two stages:
+will describe Duplicator's winning strategy:
 \smallskip
 
 \noindent a) While Spoiler does not remember any reflexive state,
 Duplicator plays with the following strategy: whenever Spoiler is in
 $w_k$, $2\leq k \leq n+1$ in one model, Duplicator is in an agreeing
-state $w_{k'}$, $2\leq k' \leq n+1$ in the other one. On the other
-hand, one player is in $w_0$ in $\model^1_n$ whenever the other is
+state $w_{k'}$, $2\leq k' \leq n+1$ in the other one. If one player
+is in $w_0$ in $\model^1_n$ then the other is
 in $w_0$ or $w_1$ in $\model^2_n$. Finally, if Spoiler plays $w_1$
 in $\model^1_n$, Duplicator plays in an agreeing $w_k$, $2\leq k
 \leq n+1$ in $\model^2_n$. Note that with this strategy, Spoiler
@@ -504,7 +483,7 @@ state.
 %reflexive state iff Duplicator answers with a reflexive one.
 
 \noindent b) If ever Spoiler decides to remember a reflexive state,
-then from that point of the game, for every state $w_i$ chosen by
+then for every state $w_i$ chosen by
 Spoiler, Duplicator will always have an agreeing state $w_j$ on the
 opposite model he can choose from. This happens because the models
 have $n+2$ states, and therefore there is always at least two
@@ -545,21 +524,19 @@ $\bisim_{\hlogicone}$-bisimilar. However, the formula $\varphi =
 \land \remember \diam{r} \neg\known))$ distinguishes the models:
 $\model_1,1 \models \varphi$ but $\model_2,1 \not\models \varphi$.
 
-This result can be extended to $\hlogick$ for any fixed $k$, by taking cliques of the appropriate size.
+ The proof for $\hlogick$ is similar, taking cliques of the appropriate size.
 \end{pf}
 
-The last result we show for logics using a set as the information
-storage that completes our expressivity diagram is the following:
+The last result for logics using a set as information
+storage we will present is the following:
 
 \begin{thm}\label{thm:expr_power}
-$\cMLRK$ over the signature $\diam{\prop, \rel}$ is strictly less
-expressive than $\hlogic$ over the signature $\diam{\prop \cup
-\{\mathit{known}\}, \rel,\nom}$.
+$\hlogic$ over the signature $\diam{\prop \cup
+\{\mathit{known}\}, \rel,\nom}$ is strongly more expressive than $\cMLRK$ over the signature $\diam{\prop, \rel}$.
 \end{thm}
 
  \begin{pf}
-To prove $\cMLRK \le \hlogic$ (over
- the appropriate signatures) we adapt the translation $\Tr$ defined in
+To prove $\cMLRK \le \hlogic$ we adapt the translation $\Tr$ defined in
  the proof of Theorem~\ref{thm:tle_leq_hlogic} with the
  following clause for $\known$:
  $$
@@ -573,8 +550,8 @@ To prove $\cMLRK \le \hlogic$ (over
  $\model_2=\diam{\{u,v\},\{(u,v),(v,u)\},\emptyset,\{u,v\}}$.
  Duplicator always wins on $\EF(\model_1,\model_2,w,u)$ and thus
  $\model_1,w\bisim_{\cMLRK}\model_2,u$. On the other hand,
- $\model_1,w\models_{\hlogic}\down i.\diam{r}i$ but
- $\model_2,u\not\models_{\hlogic}\down i.\diam{r}i$.
+ $\model_1,w\models\down i.\diam{r}i$ but
+ $\model_2,u\not\models\down i.\diam{r}i$.
  \end{pf}
 
 To finish this section, we will compare $\cMLS$ with $\hlogic$ and
@@ -609,7 +586,7 @@ by induction in $\varphi$ that $\model, w \models
 \varphi$ iff $\model, g, w \models \Tr_{[\ ]}(\varphi)$, for any $g$.
 \smallskip
 
-To prove $\hlogic \le \cMLS$ we define a translation transforming an
+To prove $\hlogic \le \cMLS$ we define a translation mapping an
 $\hlogic$-formula and a list of nominals $N$ into an
 $\cMLS$-formula. The translation coincides with the translation
 above for the propositional, negation, conjunction and modality
@@ -625,8 +602,8 @@ that if $\varphi$ is an $\hlogic$-sentence, $\model, g, w \models
 \varphi$ iff $\model, w \models \Tr_{[\ ]}(\varphi)$ for any $g$.
 \end{pf}
 
-To close this section, we mention that the satisfaction preserving
-translations defined in the proof can actually be used to transfer
+To close this section, we mention that the different satisfaction preserving
+translations $\Tr$ we defined can actually be used to transfer
 known results, for example, from  $\hlogic$ to $\cMLRK$ and
 $\cMLRKE$.  For instance, both logics are compact and their formulas
 are preserved by generated sub-models (see~\cite{areces01:_hybrid}).

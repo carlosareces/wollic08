@@ -1,8 +1,8 @@
-\section{Memory Logics: Hybrid Logics with a Twist}\label{twist}
+\section{Memory Logics: Modal Logics with a Twist}\label{twist}
 
 Nowadays, the term \emph{modal logics} is loosely used to cover
 an extremely wide variety of languages, which are in turn used
-in very different applications~\cite{BRV01,handbook}.  Actually,
+in very different applications~\cite{BRV01,blac:hand06}.  Actually,
 we can say that the fact
 that the number of members in this family keeps constantly increasing
 is almost a defining characteristic.  While all modal logics have
@@ -11,134 +11,82 @@ terms of relational structures, they are usually well behaved
 computationally, etc.), one of the general traits of the field is
 to investigate languages specially tailored for a particular task.
 
-\tb{I don't like the actual intro.  I want to tone down the `memory
-logics as a kind of hybrid logic' idea, and introduce more broadly
-modal logics.}
+In this article we present a new family of modal logics that
+we call \emph{memory logics}. They
+are inspired by hybrid logic like $\HL(\down)$~\cite{arec:hybr05b}, but while the
+$\down$ operator was introduced to investigate \emph{dynamic naming}
+of elements in a model, we will be concerned with operators that
+let us \emph{store} and \emph{retrieve} information from some kind
+of \emph{information structure} or \emph{memory}.
+But we could actually consider $\HL(\down)$ as the first memory logics.
+Let's be a bit more formal and introduce some basic concepts.
 
-Hybrid languages have been extensively investigated in the past
-years~\cite{handbookarticle}. $\HL$, the simplest hybrid language, is usually presented as
-the basic modal language $\K$ extended with special symbols (called
-\emph{nominals}) to name individual states in a model. These new
-symbols are simply a new sort of atomic symbols
-$\cset{i,j,k,\ldots}$ disjoint from the set of standard
-propositional variables. While they behave syntactically exactly as
-propositional variables do, their semantic interpretation differ:
-nominals denote elements in the model, instead of sets of elements.
-This simple addition already results in increased expressive power.
-For example the formula $i \wedge \diam{r}i$ is true in a state $w$,
-only if $w$ is a reflexive point named by the nominal $i$. As the
-basic modal language is invariant under unraveling, there is no
-equivalent modal formula~\cite{BRV01}.
-
-But as we said above, $\HL$ is just the simplest hybrid language.
-Once nominals have been added to the language, other natural
-extensions arise.  Having names for states at our disposal we can
-introduce, for each nominal $i$, an operator $@_i$ that allows us to
-jump to the point named by $i$ obtaining the language $\HL(@)$. The
-formula $@_i\varphi$ (read `at $i$, $\varphi$') moves the point of
-evaluation to the state named by $i$ and evaluates $\varphi$ there.
-Intuitively, the $@_i$ operators internalize the satisfaction
-relation `$\models$' into the logical language: $\model, w \models
-\varphi \mbox{ ~iff~ } \model \models @_i\varphi$, where $i$ is a
-nominal naming $w$. For this reason, these operators are usually
-called \emph{satisfaction operators}.
-
-If nominals are names for individual states, why not introduce also
-binders?  We would then be able to write formulas like $\forall
-i.\diam{r} i$, which will be true at a state $w$ if it is related to
-all states in the domain.  The $\forall$ quantifier is very
-expressive: the satisfiability problem of $\HL(\forall)$  ($\HL$
-extended with the universal binder $\forall$) is
-undecidable~\cite{BS95}. Moreover, $\HL(@,\forall)$ is expressively
-equivalent to full first-order logic (over the appropriate
-signature).
-
-From a modal perspective, other binders besides $\forall$ are
-possible.  The $\down$ binder binds nominals to the \emph{current}
-point of evaluation. In essence, it enables us to create a name for
-the here-and-now, and refer to it later in the formula.  For
-example, the formula $\down i.\diam{r} i$ is true at a state $w$ if
-and only if it is related to itself.  The intuitive reading is quite
-straightforward: the formula says ``call the current state $i$ and
-check that $i$ is reachable''.  The logic $\HL(\down)$ is also very
-expressive but weaker than $\HL(\forall)$.  Sadly, its
-satisfiability problem is also undecidable.
-
-Different binders for hybrid logics have been investigated in detail
-(see~\cite{BS95}), but in this article we want to take a look at
-$\down$ from a slightly different perspective: we will consider
-nominals and $\down$ as ways for storing and retrieving information
-in the model.
-
-
-
-\subsection{Models as Information Storage}
-
-Nominals and $\downarrow$ work nicely together.
-Whereas $\down i$ stores the current point of evaluation in the
-nominal $i$, nominals act as checkpoints enabling us to retrieve
-stored information by verifying if the current point is named by a
-given nominal $i$.  To make this point clear, let's define formally
-the semantics of $\HL(\down)$.
-
-\begin{defn} A hybrid signature $\sig$ is a tuple $\diam{\prop,\rel,\nom}$
-where $\prop$, $\rel$, $\nom$ are mutually disjoint infinite
-enumerable sets (the sets of propositional symbols, relational
-symbols and nominals, respectively).
-
-Formulas of $\hlogic$ are defined over a given $\sig$ by the
-following rules
+The syntax of $\hlogic$ is defined as follows
 $$
-\forms ::= p \mid i \mid \lnot \varphi \mid \varphi_1 \land
-\varphi_2 \mid \diam{r} \varphi \mid \down i. \varphi,
+\varphi ::= p \mid i \mid \lnot \varphi \mid \varphi \land
+\varphi \mid \diam{r} \varphi \mid \down i. \varphi,
 $$
 
 \noindent
-where $p \in \prop$, $i \in \nom$,  $r \in \rel$  and $\varphi,
-\varphi_1, \varphi_2 \in \forms$. Formulas in which any nominal $i$
-appears in the scope of a binder $\down i$ are called
-\emph{sentences}.
+where $p$ is a propositional symbol, $i$ is a nominal (a new set of
+atomic symbols) and  $r$ is a relational symbol (formulas in which any nominal $i$
+appears in the scope of a binder $\down i$ are called \emph{sentences}).
 
-A model for $\HL(\down)$ over a signature $\sig$ is a tuple
-$\diam{W,\rels,V,g}$ where $\diam{W,\rels,V}$ is a standard Kripke
-model (i.e., $W$ is a non empty set, each $R_r$ is a binary relation
+We can see that the language of $\hlogic$ is the language of the basic
+modal logic $\K$ (see \cite{BRV01} for details) extended with nominals
+and the $\down$ binder.
+
+Semantically, $\hlogic$ is also very close to $\K$.  $\hlogic$
+are also interpreted over Kripke models which are extended with an
+assignment function to interpret nominals and $\down$. More formally,
+a model for $\hlogic$ is a pair $(\gM,g)$ where $\gM=\diam{W,\rels,V}$ is a standard Kripke model (i.e., $W$ is a non empty set, each $R_r$ is a binary relation
 over $W$, and $V$ is a valuation), and $g$ is an assignment function
-from $\nom$ to $W$.
+such that for any nominal $i$, $g(i) \in W$.
 
-Given a model $\model = \diam{W,\rels,V,g}$ the semantic conditions
-for the propositional and modal operators are defined as usual
-(see~\cite{BRV01}), and in addition:
+Given then a Kripke model $\gM=\diam{W,\rels,V}$ and an assignment $g$,
+the semantic conditions
+for $\hlogic$ are defined as:
 $$
 \begin{array}{rcl}
-\diam{W,\rels,V,g}, w \models  i & \mbox{iff} & g(i) = w\\
-\diam{W,\rels,V,g}, w \models \down i.\varphi & \mbox{iff} &
-  \diam{W,\rels,V,g^i_w}, w \models \varphi\\
-& & \mbox{where $g^i_w$ is the assignment identical to $g$}\\
-& & \mbox{except perhaps in that $g^i_w(i)=w$}.
+(\gM,g), w \models  p & \mbox{iff} & w \in V(p)\\
+(\gM,g), w \models  i & \mbox{iff} & g(i) = w\\
+(\gM,g), w \models \neg \varphi & \mbox{iff} & (\gM,g), w \not \models \varphi \\
+(\gM,g), w \models \varphi \wedge \psi & \mbox{iff} &
+(\gM,g), w \models \varphi \mbox{ and } (\gM,g), w \models \psi\\
+(\gM,g), w \models \tup{r}  & \mbox{iff} &
+\mbox{there is $w'$ s.t.\ $R_r(w,w')$} \mbox{ and } (\gM,g), w' \models \varphi\\
+(\gM,g), w \models \down i.\varphi & \mbox{iff} &
+  (\gM,g'), w \models \varphi \mbox{ where $g'$ is identical to $g$}\\
+& & \mbox{except perhaps in that $g'(i)=w$}.
 \end{array}
 $$
-\end{defn}
 
-We can think that $\down i$ is \emph{modifying} the model (by
-storing the current point of evaluation into $i$), and that $i$ is
-being evaluated in the modified model. We can see the assignment $g$
-as a particular type of `information storage' in our model, and
-consider $\down$ and $i$ as our way to access this information
-storage for reading and writing.
+One way of looking to the semantic condition for $\down i.\varphi$ is
+that it dynamically creates a name for the current state
+(by linking the nominal $i$ to it), so that
+we can later refer to it during the evaluation of $\varphi$.
+An alternative perspective, is to see $\down i$ is an
+instruction to \emph{modifying} the model (by
+storing the current point of evaluation into $i$), and
+continue the evaluation of $\varphi$ in the modified model.
 
-\tb{rewrite paragraph below}
-But let us take a step back and consider the new picture. When we
-introduced the $\down$ binder, our main aim was to define a binder
-which was weaker than the first-order quantifier.  We thought of the
-semantics of $\down$ first, and we suitably adjusted the way we
-updated the assignment later.   But why do we need to restrict
-ourselves to binders and assignments?
+The difference between the two perspectives is subtle, but
+important for this article.  In this view, we are considering
+the assignment $g$ as a kind of \emph{memory}
+in our model, while $\down i.$ and $i$ are the tools we use to access
+our memory for reading and writing.
+The question then present itself naturally: are there other
+kinds of interesting memory structures and memory operators?
 
-Let us start with a standard Kripke models $\diam{W,\rels,V}$, and
-let us consider a very simple addition: just a set $S \subseteq W$.
+For example, we could say that the assignment $g$ is a very
+sofisticated memory structure: it has unbounded size, it
+provided direct access to all its memory cells, and each
+stored element and be unequivocally retrieved.
+Let us start with a standard Kripke model $\diam{W,\rels,V}$, and
+consider a much simpler memory structure: just a set $S \subseteq W$.
 We can think of $S$ as a set of states that are, for
 some reason, `known' to us. Already in this very simple set-up we
-can define the following operators
+can define the following operators:
 \begin{center}
 \begin{tabular}{rcl}
 $\diam{W,\rels,V,S},w \models \remember \varphi$ &
@@ -168,10 +116,9 @@ set, in our models. For example,  $S$ could be an ordered list of
 elements, and we could then consider operators that add or delete
 particular elements in the list.
 
-We will call this new family of logics \emph{Memory Logics}
-and in this article we will focus on the $\remember$ and $\known$
-operators. But, more generally, our proposal is to take seriously the usual saying
-that `modal languages are languages to talk about labeled graphs'
-but give us the freedom to choose what we want to `remember' about a
-given graph and how we are going to store it.
+In this article we will focus on the $\remember$ and $\known$
+operators defined above.  More generally, the main idea behind memory logics is to take seriously the usual saying
+that `modal logics talk about labeled graphs'
+but giving us the freedom to choose \emph{what} we want to remember about a
+given graph and \emph{how} we are going to store and retrieve it.
 
