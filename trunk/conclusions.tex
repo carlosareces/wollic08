@@ -1,10 +1,9 @@
 \section{Conclusions and Further Work}
 
-In this paper we investigate several members of a family of logics
-that we called \emph{memory logics}.  These logics were inspired by
+In this article we investigate several memory logics.  These logics were inspired by
 the hybrid logic $\hlogic$: the $\down$ operator can be thought of
-as a storage command, and our aim is to carry this idea further
-investigating different ways in which information can be stored. We
+as a storage command, and our aim is to carry this idea further,
+investigating different ways in which information can be stored and retrieved. We
 have proved that, in terms of  expressive power, the memory logics
 we presented lay between the basic modal logic $\K$ and the hybrid
 logic $\hlogic$.  In most cases ($\cMLRK$, $\cMLRKE$, $\cMLRKME$ and
@@ -42,10 +41,10 @@ eliminates the current point of evaluation from the memory $S$, and the
 
 \begin{center}
 \begin{tabular}{rcl}
-$\diam{W,\rels,V,S},w \models \forget \varphi$ &
- iff & $\diam{W,\rels,V,S\setminus\cset{w}},w \models \varphi$ \\
-$\diam{W,\rels,V,S},w \models \erase \varphi$ &
- iff & $\diam{W,\rels,V,\emptyset},w \models \varphi$.
+$(\gM,S),w \models \forget \varphi$ &
+ iff & $(\gM,S\setminus\cset{w}),w \models \varphi$ \\
+$(\gM,S),w \models \erase \varphi$ &
+ iff & $(\gM,\emptyset),w \models \varphi$.
 \end{tabular}
 \end{center}
 %
