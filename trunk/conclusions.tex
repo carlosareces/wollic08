@@ -7,35 +7,38 @@ as a storage command, and our aim is to carry this idea further
 investigating different ways in which information can be stored. We
 have proved that, in terms of  expressive power, the memory logics
 we presented lay between the basic modal logic $\K$ and the hybrid
-logic $\hlogic$.  In some cases, the reduced expressive power is not
-sufficient to ensure good computational behavior: both $\cMLRK$,
-$\cMLRKE$ and $\cMLRKME$ fail to have the finite model property, and
-moreover, their satisfiability problems are undecidable. On the
-other hand, $\cMLRKM$ has the bounded tree model property, and its
+logic $\hlogic$.  In most cases ($\cMLRK$, $\cMLRKE$, $\cMLRKME$ and
+$\cMLS$) the language obtained were still very expressive and their
+satisfiability problem undecidable.  $\cMLRKM$, on the other hand,
+has the bounded tree model property, and its
 satisfiability problem is \textsc{pspace}-complete.
 
-The efforts to increase modal logic expressivity by adding some
-notion of state are the result of a natural need, since modal logics
-are used in many different scenarios as tools for modeling behavior.
-In this sense, there is work already done that tries to capture this
-feature. A good example are the epistemic logics with dynamic
+When we are interested in using modal logics as tools for
+modelling behaviour, it is natural to look for extensions
+which are able to capture some notion of state.
+ Good examples of such logics are the different epistemic logics with dynamic
 operators (often called Dynamic Epistemic Logics~\cite{epistemic}),
-which allow to express the evolution of knowledge by accessing and
+which model the evolution of knowledge by accessing and
 changing the model structure through logic
-operators~\cite{plaza,1028135,1225972}. There are many other
-examples in this direction: update
+operators~\cite{plaza,1028135,1225972}. Many other
+examples exist in the literature: update
 logics~\cite{vanbenthem05,gerbrandy99}, XCTL~\cite{113765}, the
 freeze operator~\cite{Alur89areally,Henzinger90half-ordermodal},
-etc. We believe that the memory logics family defines a common and
-more general framework to add explicit state to a model, and to
+etc.
+
+The family of memory logics presented in
+this article seems to captures some common features which are shared by
+logics like the ones we just mentioned.  In this article, we propose
+to take them as a starting point, aiming to define a general framework
+where we can study how to add explicit state to a model, and how to
 access and modify it via logical operators.
 
-Much work rest to be done. There are natural operators that can be
-added when using a set as the information storage. Two particular
-interesting cases are the ``forget'' operator $\forget$, which
-eliminates the current point of evaluation from the set $S$, and the
-``erase'' operator $\erase$, that completely wipes out the memory
-$S$:
+We have investigated only a small number of memory logics.  We can
+define other natural operators that fit nicely within this perspective.
+Two particularly
+interesting cases are, for example, the ``forget'' operator $\forget$, which
+eliminates the current point of evaluation from the memory $S$, and the
+``erase'' operator $\erase$, that completely wipes out the memory:
 
 \begin{center}
 \begin{tabular}{rcl}
@@ -50,13 +53,13 @@ We have proved that the addition of $\forget$ and $\erase$ to
 $\cMLRK$ actually adds expressive power, but we have not completely
 determined the expressivity relationship between these new operators
 and $\HL(\down)$. We are also working on complete axiomatizations,
-and we have found complete systems for $\cMLRKM$, and for $\cMLRK$,
+and we have found complete systems for $\cMLRKM$; and also for $\cMLRK$,
 $\cMLRKE$ and $\cMLRKME$ when nominals are added to the
 language~\cite{comp}. Furthermore, once nominals have been added,
 the internalized hybrid tableau method~\cite{backburn00:_inter} can
 be naturally adapted, leading to complete tableau algorithms.
 
-\tb{SS: Mencionamos algo mas en trabajo futuro relacionado con memory logics sobre estructuras lineales? Tambien se podria mencionar el estudio sobre interpolacion y Beth}
+% \tb{SS: Mencionamos algo mas en trabajo futuro relacionado con memory logics sobre estructuras lineales? Tambien se podria mencionar el estudio sobre interpolacion y Beth}
 
 % characterizations. Extending the language with nominals is a natural
 % step, and then adapting the internalized hybrid tableau

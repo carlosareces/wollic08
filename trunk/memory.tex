@@ -108,7 +108,7 @@
 \ead                 {figueira@lsv.ens-cachan.fr}
 \author[UBA,CONICET] {Santiago Figueira}
 \ead                 {santiago@dc.uba.ar}
-\author[UBA]         {Sergio Mera \footnote{S. Mera is partially supported by a grant of Fundacion YPF.}}
+\author[UBA]         {Sergio Mera\footnote{S. Mera is partially supported by a grant of Fundacion YPF.}}
 \ead                 {smera@dc.uba.ar}
 \address[LORIA]      {INRIA Nancy Grand Est, France}
 \address[CACHAN]     {LSV, ENS Cachan, CNRS, INRIA Saclay, France}
@@ -117,17 +117,21 @@
 
 
 \begin{abstract}
-\tb{needs to be rewritten}
-Taking as inspiration the hybrid logic $\HL(\down)$, we introduce a
-new family of logics that we call \emph{memory logics}.  In this
-article we present in detail two interesting members of this family
+In this article we introduce a
+new family of modal logics that we call \emph{memory logics}.  They
+are inspired by hybrid logic like $\HL(\down)$, but while the
+$\down$ operator was introduced to investigate \emph{dynamic naming}
+of elements in a model, we will be concerned with operators that
+let us \emph{store} and \emph{retrieve} information from some kind
+of \emph{information structure} or \emph{memory}.
+
+We present in detail five different, but related memory logics,
 defining their formal syntax and semantics. We then introduce
 proper notions of bisimulation and investigate their expressive power
 (in comparison with modal and hybrid logics). We will prove that in
 terms of expressive power, the memory logics we discuss in this
-paper are more expressive than orthodox modal logic, but less
-expressive than $\HL(\down)$. We also establish the undecidability
-of their satisfiability problems.
+paper lie between the basic modal logic $\bml$ and $\HL(\down)$. We also
+investigate the complexity of their satisfiability problem.
 \end{abstract}
 
 \begin{keyword}
