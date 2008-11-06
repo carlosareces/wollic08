@@ -18,7 +18,7 @@ $\down$ operator was introduced to investigate \emph{dynamic naming}
 of elements in a model, we will be concerned with operators that
 let us \emph{store} and \emph{retrieve} information from some kind
 of \emph{information structure} or \emph{memory}.
-But we could actually consider $\HL(\down)$ as the first memory logics.
+But we could actually consider $\HL(\down)$ as the first memory logic.
 Let's be a bit more formal and introduce some basic concepts.
 
 The syntax of $\hlogic$ is defined as follows
@@ -65,7 +65,7 @@ One way of looking to the semantic condition for $\down i.\varphi$ is
 that it dynamically creates a name for the current state
 (by linking the nominal $i$ to it), so that
 we can later refer to it during the evaluation of $\varphi$.
-An alternative perspective, is to see $\down i$ is an
+An alternative perspective, is to see $\down i$ as an
 instruction to \emph{modifying} the model (by
 storing the current point of evaluation into $i$), and
 continue the evaluation of $\varphi$ in the modified model.
@@ -81,7 +81,7 @@ kinds of interesting memory structures and memory operators?
 For example, we could say that the assignment $g$ is a very
 sofisticated memory structure: it has unbounded size, it
 provided direct access to all its memory cells, and each
-stored element and be unequivocally retrieved.
+stored element can be unequivocally retrieved.
 Let us start with a standard Kripke model $\diam{W,\rels,V}$, and
 consider a much simpler memory structure: just a set $S \subseteq W$.
 We can think of $S$ as a set of states that are, for
