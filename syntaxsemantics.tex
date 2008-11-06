@@ -97,7 +97,7 @@ Given a model $\model = \diam{W, \rels, V, S}$
 and a list of states $[w_1,\dots,w_n]$, $w_i \in W$, we define $\model[w_1,\dots,w_n]$
 as the model obtained by properly updating $S$ with $[w_1,\dots,w_n]$. For
 $\gL_i, i\in \cset{1,2,3,4}$, $\model[w_1,\dots,w_n] =
-\diam{W, \rels, V, S \cup \{ w_1,\dots,w_n\}}$.  For $\gL_5$, $\model[w_1,\dots,w_n] =
+\diam{W, \rels, V, \\ S \cup \{ w_1,\dots,w_n\}}$.  For $\gL_5$, $\model[w_1,\dots,w_n] =
 \diam{W, \rels, V, S \cdot [w_1,\dots,w_n]}$, where $\cdot$ is the concatenation operation
 on lists.
 
@@ -133,7 +133,7 @@ $$
 $$
 
 The set of propositions that are true at a given state $w$ is defined as
-$\props(w) = \{p \in \prop \mid w \in V(p)\}$. Given two models $\model_1$ and $\model_2$, and
+$\props(w) \linebreak = \{p \in \prop \mid w \in V(p)\}$. Given two models $\model_1$ and $\model_2$, and
 states $w_1 \in W_1$ and $w_2 \in W_2$, we say that they \emph{agree} when $\props(w_1)=\props(w_2)$ and $w_1\in S_1$ iff $w_2
 \in S_2$.
 
