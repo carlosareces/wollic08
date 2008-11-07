@@ -18,7 +18,7 @@ Theorem~\ref{thm:fmp} the trick is to use a `dirty' memory. In
 $\cMLRKME$, we are restricted to the class of models where the
 memory is always initialized to $\emptyset$ and we can't play this
 trick anymore.  Actually $\cMLRKM$ is really standing on the
-decidability line: adding a single nominal to $\cMLRKM$ push the
+decidability line: adding a single nominal to $\cMLRKM$ pushes the
 satisfiability problem over to undecidability.
 
 \subsection{The Decidability of $\cMLRKM$\ldots}
@@ -95,13 +95,13 @@ that $\gM,w \models \varphi \mbox{ iff } \gM',w \models
 
 We proceed by induction on $\varphi$. The propositional and boolean
 cases are trivial. The $\known$ case is also easy given the
-definitions. Let's consider $\varphi = \ttup{\psi}$. Given that $\gM$ is tree-like,
+definitions. Let us consider $\varphi = \ttup{\psi}$. Given that $\gM$ is tree-like,
 the remember operator has no effect beyond modal operators, so
 $\gM, w \models \ttup{r}\psi$ iff exists $v$ such that
 $R(w,v)$ and $\gM,v\models \psi$. By inductive hypothesis,
 $\gM',v\models \psi$ iff $\gM', v \models
 \Tr(\psi)$, and by definition $\gM', w \models \diam{r}
-\Tr(\psi)$. Finally, let's see the case for remember. By
+\Tr(\psi)$. Finally, let us see the case for remember. By
 Claim~\ref{lem:replace}, $\gM, w \models \remember \psi$
 iff $\gM, w \models \psi^\sharp$. By inductive hypothesis,
 $\gM, w \models \Tr(\psi^\sharp)$.
@@ -244,7 +244,7 @@ We first show decidability of the satisfiability problem of
 $\cMLRKM$ proving that any satisfiable formula of $\cMLRKM$ is
 satisfiable in a recursively bounded model.
 
-Let $\varphi$ be a $\cMLRKM$ formula of degree $k$, and suppose
+Let $\varphi$ be a $\cMLRKM$-formula of degree $k$, and suppose
 $\gM_1,w \models \varphi$. By
 Theorem~\ref{prop:tree-model-property}, there is a tree-like model
 $\gM_2$ such that $\gM_2,w \models \varphi$. Using
@@ -401,7 +401,7 @@ We now show that $\cMLRKM + i$ is undecidable by encoding the
 $\omega\times\omega$ tiling problem (see~\cite{BGG97}). Following
 the idea in~\cite{BS95}, we will construct a \emph{spy point} over the relation
 $R_s$; that is, the point of evaluation will have access in one $R_s$-step
-to any reachalbe state in the model. The relations $R_u$ and $R_r$
+to any reachable state in the model. The relations $R_u$ and $R_r$
 represent moving up and to the right, respectively, from one tile to
 the other. We code each type of tile with a fixed propositional
 symbol $t_i$. With this encoding we define for each tiling problem
@@ -451,7 +451,7 @@ another tile moving up (that is, following the $R_u$-relation). The
 same holds for the right direction (following the $R_r$-relation).
 \textit{Func} (together with \textit{Back} and \textit{Spy}) forces $R_u$ and $R_r$ to be functional. \textit{Conf} ensures that
 the tiles are arranged as a grid, once we force $R_u{\circ}R_r$ to be
-irreflexive (\textit{UR-Irr}), and we forbid cycles via the $R_uR_rR_r$ pattern (\textit{URU-no-Cycle}).
+irreflexive (\textit{UR-Irr}), and we forbid cycles via the $R_uR_rR_u$ pattern (\textit{URU-no-Cycle}).
 
 That completes the description of the grid. The last
 three formulas ensure that every tile has a unique type $t_i$, and that the
@@ -474,7 +474,7 @@ $\model,w\models\varphi^T$.
 \end{pf}
 
 We now turn to the case for $\cMLRKME$. The ideas are similar to the case
-of $\cMLRKM + i$ but this time we cannot use the nominal $i$ to makr the
+of $\cMLRKM + i$ but this time we cannot use the nominal $i$ to make the
 spy point.  On the other hand, we know that the memory is empty when we
 start evaluating a formula.
 
@@ -504,7 +504,7 @@ $$
 $$
 
 Let $\textit{Inf}$ be $\textit{Back} \land \textit{Spy} \land
-\textit{Irr} \land \textit{Succ} \land \textit{no-3cyc} \land
+\textit{Irr} \land \textit{Succ} \land \textit{No-3cyc} \land
 \textit{Tran}$, and let $\model=\diam{W, R, V, \emptyset}$.
 The proof that $\model$ is infinite if $\model, w \models \textit{Inf}$ is similar to the proof of Theorem~\ref{thm:tlmi:inf}.
 Instead of using  $i$ to identify the spy point we now use
@@ -513,7 +513,7 @@ from other points where $p$ might hold.
 
 
 Notice that \textit{Back}, \textit{Spy}, \textit{Succ}, and
-\textit{no-3cyc} are very similar to the ones in the proof of
+\textit{No-3cyc} are very similar to the ones in the proof of
 Theorem~\ref{thm:tlmi:inf}, \textit{Irr} forces $R$ to be
 irreflexive and \textit{Tran} says that every pair of successors $u$
 and $v$ are related (either $R(u,v)$ or $R(v,u)$), and this together with
@@ -545,7 +545,7 @@ $\cMLRKME$ is undecidable.
 The satisfiability problem for $\cMLRKME$ is undecidable.
 \end{thm}
 \begin{pf}
-The formula $\varphi_T$ needed for the encoding of a tiling problem
+The formula $\varphi^T$ needed for the encoding of a tiling problem
 $T$ in this case is the conjunction of the following:
 $$
 \begin{array}{rl}
@@ -624,7 +624,7 @@ Theorems~\ref{thm:tlme:inf} and~\ref{thm:tlme:und}.
 To prove failure of the finite model property for the case $\cMLRK$
 we first notice that the following lemma is easy to establish (we only
 state it for the mono-modal case; a similar result is true in the
-multi-modal case).
+multimodal case).
 Failure of the finite model property is then a direct consequence.
 
 \begin{lem}\label{lem:boxes}
