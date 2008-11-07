@@ -13,13 +13,13 @@ to investigate languages specially tailored for a particular task.
 
 In this article we present a new family of modal logics that
 we call \emph{memory logics}. They
-are inspired by hybrid logic like $\HL(\down)$~\cite{arec:hybr05b}, but while the
+are inspired by hybrid logics like $\HL(\down)$~\cite{arec:hybr05b}, but while the
 $\down$ operator was introduced to investigate \emph{dynamic naming}
 of elements in a model, we will be concerned with operators that
 let us \emph{store} and \emph{retrieve} information from some kind
 of \emph{information structure} or \emph{memory}.
 We could actually consider $\HL(\down)$ as the first memory logic.
-Let's be a bit more formal and introduce some basic concepts.
+Let us be a bit more formal and introduce some basic concepts.
 The syntax of $\hlogic$ is defined as follows
 $$
 \varphi ::= p \mid i \mid \lnot \varphi \mid \varphi \land
@@ -35,8 +35,7 @@ We can see that the language of $\hlogic$ is the language of the basic
 modal logic $\K$ (see \cite{BRV01} for details) extended with nominals
 and the $\down$ binder.
 
-Semantically, $\hlogic$ is also very close to $\K$.  $\hlogic$
-formulas are also interpreted over Kripke models which are extended with an
+Semantically, $\hlogic$ is also very close to $\K$.  $\hlogic$-formulas are also interpreted over Kripke models which are extended with an
 assignment function to interpret nominals and $\down$. More formally,
 a model for $\hlogic$ is a pair $(\gM,g)$ where $\gM=\diam{W,\rels,V}$ is a standard Kripke model (i.e., $W$ is a non empty set, each $R_r$ is a binary relation
 over $W$, and $V$ is a valuation), and $g$ is an assignment function
@@ -52,7 +51,7 @@ $$
 (\gM,g), w \models \neg \varphi & \mbox{iff} & (\gM,g), w \not \models \varphi \\
 (\gM,g), w \models \varphi \wedge \psi & \mbox{iff} &
 (\gM,g), w \models \varphi \mbox{ and } (\gM,g), w \models \psi\\
-(\gM,g), w \models \tup{r}  & \mbox{iff} &
+(\gM,g), w \models \tup{r} \varphi  & \mbox{iff} &
 \mbox{there is $w'$ s.t.\ $R_r(w,w')$} \mbox{ and } (\gM,g), w' \models \varphi\\
 (\gM,g), w \models \down i.\varphi & \mbox{iff} &
   (\gM,g'), w \models \varphi \mbox{ where $g'$ is identical to $g$}\\
@@ -74,12 +73,12 @@ important for this article.  In the latter, we are considering
 the assignment $g$ as a kind of \emph{memory}
 in our model, while $\down i$ and $i$ are the tools we use to access
 the memory for reading and writing.
-The question then present itself naturally: are there other
+The question then presents itself naturally: are there other
 kinds of interesting memory structures and memory operators?
 
 For example, we could say that the assignment $g$ is a very
-sofisticated memory structure: it has unbounded size, it
-provided direct access to all its memory cells, and each
+sophisticated memory structure: it has unbounded size, it
+provides direct access to all its memory cells, and each
 stored element can be unequivocally retrieved.
 Let us start with a standard Kripke model $\gM=\diam{W,\rels,V}$ and
 consider a much simpler memory structure: just a set $S \subseteq W$.

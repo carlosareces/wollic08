@@ -88,7 +88,7 @@ $\cMLRKM$ and $\cMLRKME$.
 \end{thm}
 
 \begin{pf}
-The argument for item $2$ is exactly the same as the one for item $1$.  Hence, let's
+The argument for item $2$ is exactly the same as the one for item $1$.  Hence, let us
 prove $\cMLRKE=\cMLRK$ (over the appropriate signatures).
 
 We start by associating every model $\gM=\tup{W,\rels,V,S}$ of $\cMLRK$ over the signature $\diam{\prop, \rel}$ with the model $\gM'=\tup{W,\rels,V',\emptyset}$
@@ -279,8 +279,7 @@ iff $\model, g, w \models \Tr_\emptyset(\varphi)$, for any $g$.
 Now we prove that $\hlogic$ is strictly more expressive than $\cMLRKE$.
 Let $\model_1=\diam{\omega,R_1,\emptyset,\emptyset}$ and
 $\model_2=\diam{\omega,R_2,\emptyset,\emptyset}$, where $R_1=\{(n,m)
-\mid n\not= m\} \cup \{(0,0)\}$ and $R_2=\{(n,m) \mid n\not= m\}
-\cup \{(0,0),(1,1)\}$. Graphically,
+\mid n\not= m\} \cup \{(0,0)\}$ and $R_2= R_1 \cup \{(1,1)\}$. Graphically,
 
 \begin{center}
 \begin{tikzpicture}[>=latex]
@@ -521,8 +520,7 @@ all $p \in \prop$ (a clique of size 3 and 2 respectively). It is
 easy to check that $\tup{\model_1,1} \bisim_{\hlogicone} \tup{\model_2,1}$. However, the formula $\varphi =
 \remember \diam{r} (\neg \known \land \remember \diam{r} (\neg\known
 \land \remember \diam{r} \neg\known))$ distinguishes the models:
-$\model_1,1 \models \remember \diam{r} (\neg \known \land \remember \diam{r} (\neg\known
-\land \remember \diam{r} \neg\known))$ but $\model_2,1 \not\models $.
+$\model_1,1 \models \varphi$ but $\model_2,1 \not\models \varphi$.
 
  The proof for $\hlogick$ is similar, taking cliques of the appropriate size.
 \end{pf}
@@ -532,7 +530,7 @@ storage we will present is the following:
 
 \begin{thm}\label{thm:expr_power}
 $\hlogic$ over the signature $\diam{\prop \cup
-\{\mathit{known}\}, \rel,\nom}$ is strongly more expressive than $\cMLRK$ over the signature $\diam{\prop, \rel}$.
+\{\mathit{known}\}, \rel,\nom}$ is strictly more expressive than $\cMLRK$ over the signature $\diam{\prop, \rel}$.
 \end{thm}
 
  \begin{pf}
@@ -549,7 +547,7 @@ To prove $\cMLRK \le \hlogic$ we adapt the translation $\Tr$ defined in
  $\model_1=\diam{\{w\},$ $\{(w,w)\},\emptyset,\{w\}}$ and
  $\model_2=\diam{\{u,v\},\{(u,v),(v,u)\},\emptyset,\{u,v\}}$.
  Duplicator always wins on $\EF(\model_1,\model_2,w,u)$ and thus
- $\model_1,w\bisim_{\cMLRK}\model_2,u$. On the other hand,
+ $\model_1,w\equiv^{\EF}_{\cMLRK}\model_2,u$. On the other hand,
  $\model_1,w\models\down i.\diam{r}i$ but
  $\model_2,u\not\models\down i.\diam{r}i$.
  \end{pf}
